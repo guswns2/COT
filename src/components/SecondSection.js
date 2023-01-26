@@ -1,4 +1,4 @@
-import "./SecondSection.css";
+import "./css/SecondSection.css";
 
 const SecondSection = () => {
   return (
