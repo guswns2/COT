@@ -1,6 +1,6 @@
-import "./CarbonEmissionCard.css";
+import "./MainSection.css";
 
-const CarbonEmissionCard = () => {
+const MainSection = () => {
   return (
     <div className="main-section">
       <div className="main-container" id="info1-con1">
@@ -74,4 +74,4 @@ const CarbonEmissionCard = () => {
   );
 };
 
-export default CarbonEmissionCard;
+export default MainSection;
