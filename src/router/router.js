@@ -47,23 +47,14 @@ router.post("/Login", function (request, response) {
   conn.query(sql, [id, pw], function (err, rows) {
     if (rows.length > 0) {
       console.log("로그인성공 : " + rows.length);
-
-      response.json({
-        id: id,
-        pw: pw,
-        cafeName: rows[0].CAFE_NAME,
-      });
-
       request.session.user = {
-        adminId: rows[0].ADMIN_ID,
+        id: rows[0].id,
       };
+      idqwe = request.session.user.id;
 
-      adminid = request.session.user.adminId;
-
-      console.log("세션에 저장된 정보", adminid);
+      response.json({ result: "success", id: id });
     } else {
-      console.log("로그인실패 : " + rows.length);
-      throw err;
+      console.log("로그인 실패");
     }
   });
 });
