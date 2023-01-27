@@ -76,7 +76,6 @@ router.post("/Adjoinus", function (request, response) {
   // console.log("사용자가 보낸 cafeTel : " + cafeTel);
   // console.log("사용자가 보낸 cafeAdd : " + cafeAdd);
   console.log("사용자가 보낸 businessNum : " + BusinessNum);
-
   let sql = "insert into ADMINISTRATOR values(?, ?, '' ,?)";
 
   conn.query(sql, [id, pw, BusinessNum], function (err, rows) {

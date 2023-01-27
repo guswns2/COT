@@ -13,13 +13,13 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use(express.json());
 app.use(cors());
 
-// let dbInfo = {
-//   host: "127.0.0.1",
-//   user: "root",
-//   password: "123456",
-//   port: "3306",
-//   database: "nodejs_DB",
-// };
+let dbInfo = {
+  host: "127.0.0.1",
+  user: "root",
+  password: "123456",
+  port: "3306",
+  database: "nodejs_DB",
+};
 
 let SMS = new session_mysql_save(dbInfo);
 
