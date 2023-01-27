@@ -33,17 +33,16 @@ router.get("/Logout", function (request, response) {
   // response.redirect("http://127.0.0.1:3000/");
 });
 
+//로그인 라우터
+router.post("/Login", function (request, response) {
+  console.log("로그인 라우터");
+  const id = request.body.ID;
+  const pw = request.body.PW;
 
-//ADMIN 로그인 라우터 (유현 - Fin)
-router.post("/LoginBus", function (request, response) {
-  console.log("사업자로그인 라우터");
-  let id = request.body.id;
-  let pw = request.body.pw;
+  console.log("사용자가 보낸 id : " + request.body.ID);
+  console.log("사용자가 보낸 PW : " + request.body.PW);
 
-  console.log("사용자가 보낸 id : " + request.body.id);
-  console.log("사용자가 보낸 PW : " + request.body.pw);
-
-  let sql = "select * from ADMINISTRATOR where ADMIN_ID = ? and ADMIN_PW = ?";
+  let sql = "select * from user where user_id = ? and user_pw = ?";
 
   conn.query(sql, [id, pw], function (err, rows) {
     if (rows.length > 0) {
@@ -106,6 +105,5 @@ router.post("/Adjoinus", function (request, response) {
     }
   });
 });
-
 
 module.exports = router;

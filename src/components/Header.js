@@ -1,6 +1,13 @@
 import "./css/Header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const navigateLogin = () => {
+    navigate("/Login");
+  };
+
   return (
     <div className="top-section">
       <div className="top-header">
@@ -10,8 +17,9 @@ const Header = () => {
             <div className="navigation-menu">
               <button className="menu1">Menu1</button>
               <button className="menu1">Menu2</button>
-              <button className="menu1">Menu3</button>
-              <button className="menu1">Menu4</button>
+              <button className="menu1" onClick={navigateLogin}>
+                Login
+              </button>
             </div>
             <div className="account-section">
               <button className="notification-bell">

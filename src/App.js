@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import COT from "./pages/COT";
 import { useEffect } from "react";
+import Login from "./components/Login";
+import Signin from "./components/Signin";
 
 function App() {
   const action = useNavigationType();
@@ -46,6 +48,8 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<COT />} />
+      <Route path="/Login" element={<Login />} />
+      <Route path="/Signin" element={<Signin />} />
     </Routes>
   );
 }
