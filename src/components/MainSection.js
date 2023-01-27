@@ -1,6 +1,14 @@
 import "./css/MainSection.css";
+import Modal from "./Modal";
+import { useState } from "react";
 
 const MainSection = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
   return (
     <div className="main-section">
       <div className="main-container" id="info1-con1">
@@ -52,7 +60,7 @@ const MainSection = () => {
         <div className="main-info3" id="Main Info3">
           <div className="info3-box">
             <b className="b2">연간 전력소비량</b>
-            <button className="info3-button">
+            <button className="info3-button" onClick={showModal}>
               <div className="plus">
                 <img className="plus1-icon" alt="" src="../plus1.svg" />
               </div>
@@ -62,11 +70,12 @@ const MainSection = () => {
         <div className="main-info3" id="Main Info4">
           <div className="info3-box">
             <b className="b2">연간 탄소배출량</b>
-            <button className="info3-button">
+            <button className="info3-button" onClick={showModal}>
               <div className="plus">
                 <img className="plus1-icon" alt="" src="../plus11.svg" />
               </div>
             </button>
+            {modalOpen === true && <Modal setModalOpen={setModalOpen} />}
           </div>
         </div>
       </div>
