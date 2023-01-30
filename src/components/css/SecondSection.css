@@ -146,10 +146,6 @@
   }
 }
 @media screen and (max-width: 1199px) {
-  .second-info1 {
-    flex: unset;
-    align-self: stretch;
-  }
   .second-container1 {
     flex-direction: column;
   }
@@ -170,10 +166,4 @@
     align-items: center;
     justify-content: flex-start;
   }
-}
-@media screen and (max-width: 389px) {
-  /* .info1-box21 {
-    width: auto;
-    height: auto;
-  } */
 }
