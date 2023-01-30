@@ -1,3 +1,9 @@
+@keyframes hovercolor{
+  to{
+    background-color: rgb(190, 187, 187);
+  }
+}
+
 .b4,
 .selectdate {
   position: relative;
@@ -27,6 +33,12 @@
   align-items: flex-start;
   justify-content: center;
 }
+.weekbutton:hover{
+  animation-fill-mode: both;
+  animation-duration: 0.5s;
+  animation-name: hovercolor;
+}
+
 .info1-box11 {
   background-color: var(--color-white);
   width: 620px;

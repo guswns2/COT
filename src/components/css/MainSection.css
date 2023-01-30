@@ -122,7 +122,7 @@
 .main-info1 {
   height: 300px;
   flex-direction: column;
-  padding: var(--padding-3xs) 0 var(--padding-3xs) var(--padding-2xs);
+  padding: var(--padding-3xs) 0 var(--padding-3xs) 0;
   box-sizing: border-box;
   justify-content: center;
   gap: var(--gap-xs);

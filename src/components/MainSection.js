@@ -75,10 +75,10 @@ const MainSection = () => {
                 <img className="plus1-icon" alt="" src="../plus11.svg" />
               </div>
             </button>
-            {modalOpen === true && <Modal setModalOpen={setModalOpen} />}
           </div>
         </div>
       </div>
+      {modalOpen === true && <Modal setModalOpen={setModalOpen} />}
     </div>
   );
 };
