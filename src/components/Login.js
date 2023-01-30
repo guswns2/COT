@@ -81,20 +81,6 @@ const Login = () => {
             <div className="singin">Singin</div>
           </button>
           <TextField
-            className="pw"
-            sx={{ width: 365.3946228027344 }}
-            color="primary"
-            variant="standard"
-            type="text"
-            label="PW"
-            placeholder="PW"
-            size="medium"
-            margin="none"
-            id="PW"
-            name="PW"
-            inputRef={pwRef}
-          />
-          <TextField
             className="id"
             sx={{ width: 365.3948669433594 }}
             color="primary"
@@ -108,6 +94,21 @@ const Login = () => {
             name="ID"
             inputRef={idRef}
           />
+          <TextField
+            className="pw"
+            sx={{ width: 365.3946228027344 }}
+            color="primary"
+            variant="standard"
+            type="text"
+            label="PW"
+            placeholder="PW"
+            size="medium"
+            margin="none"
+            id="PW"
+            name="PW"
+            inputRef={pwRef}
+          />
+
           <div className="ltext">
             <div className="login6">Login</div>
           </div>

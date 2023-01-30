@@ -42,7 +42,8 @@ router.post("/Login", function (request, response) {
   console.log("사용자가 보낸 id : " + request.body.ID);
   console.log("사용자가 보낸 PW : " + request.body.PW);
 
-  let sql = "select * from user where user_id = ? and user_pw = ?";
+  //나중에 다시
+  let sql = "select * from USER where USER_ID = ? and USER_PW = ?";
 
   conn.query(sql, [id, pw], function (err, rows) {
     if (rows.length > 0) {
@@ -55,6 +56,60 @@ router.post("/Login", function (request, response) {
       response.json({ result: "success", id: id });
     } else {
       console.log("로그인 실패");
+    }
+  });
+});
+
+//회원가입
+router.post("/SignIn", function (request, response) {
+  console.log("회원가입 라우터");
+  const userID = request.body.ID;
+  const userPW = request.body.PW;
+  const userName = request.body.name;
+  const company = request.body.company;
+  const comadd = request.body.comadd;
+
+  console.log("사용자가 입력한 ID : " + request.body.ID);
+  console.log("사용자가 입력한 PW : " + request.body.PW);
+  console.log("사용자가 입력한 이름 : " + request.body.name);
+  console.log("사용자가 입력한 회사 : " + request.body.company);
+  console.log("사용자가 입력한 회사주소 : " + request.body.comadd);
+
+  let sql =
+    //sql문 나중에 다시
+    "insert into USER(USER_ID, USER_PW, USER_NAME, COMP_NAME, COMP_ADD) values(?, ?, ?, ?, ?)";
+  conn.query(
+    sql,
+    [userID, userPW, userName, company, comadd],
+    function (err, rows) {
+      if (!err) {
+        console.log("회원가입 완료!");
+        response.json({ result: "success Join" });
+      } else {
+        console.log("회원가입 실패!" + err);
+      }
+    }
+  );
+});
+
+//모달 사용량 입력 라우터
+router.post("/Modal", function (request, response) {
+  console.log("사용량 입력 라우터");
+  const elec = request.body.elec;
+  const co2 = request.body.co2;
+
+  console.log("사용자가 보낸 전력사용량 : " + request.body.elec);
+  console.log("사용자가 보낸 탄소배출량 : " + request.body.co2);
+
+  //나중에 다시
+  let sql = "insert into PRESICT(PRE_POWER, PRE_CARBON) values (?, ?)";
+
+  conn.query(sql, [elec, co2], function (err, rows) {
+    if (!err) {
+      console.log("입력 완료!");
+      response.redirect("http://127.0.0.1:3000");
+    } else {
+      console.log("입력 실패!" + err);
     }
   });
 });
