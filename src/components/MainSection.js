@@ -36,7 +36,7 @@ const MainSection = () => {
                 <img className="icon" alt="" src="../4-1@2x.png" />
               </div>
               <div className="todayco2-text">
-                <b className="b" id="todayCo2Text">
+                <b className="b1" id="todayCo2Text">
                   오늘의 탄소배출량
                 </b>
                 <b className="ttco2" id="todayCo2Text2">
@@ -62,7 +62,7 @@ const MainSection = () => {
       <div className="main-container2">
         <div className="main-info3" id="Main Info3">
           <div className="info3-box">
-            <b className="b2">연간 전력소비량</b>
+            <b className="b">연간 전력소비량</b>
             <button className="info3-button" onClick={showModal}>
               <div className="plus">
                 <img className="plus1-icon" alt="" src="../plus1.svg" />
@@ -70,9 +70,9 @@ const MainSection = () => {
             </button>
           </div>
           <div className="info3-box2">
-            <div className="pie">
+            {/* <div className="pie">
               <PieChart></PieChart>
-            </div>
+            </div> */}
             <div className="bar">
               <BarChart></BarChart>
             </div>
@@ -80,7 +80,7 @@ const MainSection = () => {
         </div>
         <div className="main-info3" id="Main Info4">
           <div className="info3-box">
-            <b className="b2">연간 탄소배출량</b>
+            <b className="b">연간 탄소배출량</b>
             <button className="info3-button" onClick={showModal}>
               <div className="plus">
                 <img className="plus1-icon" alt="" src="../plus11.svg" />

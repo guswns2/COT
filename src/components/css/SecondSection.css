@@ -4,6 +4,14 @@
   }
 }
 
+.b {
+  position: relative;
+  line-height: 220%;
+  color: #939393;
+  font-size: 20px;
+  align-self: stretch;
+}
+
 .b4,
 .selectdate {
   position: relative;
@@ -101,9 +109,7 @@
   align-items: flex-start;
   justify-content: flex-start;
 }
-.b6 {
-  position: relative;
-}
+
 .info2-box1 {
   position: absolute;
   height: 9.39%;
@@ -117,6 +123,21 @@
   align-items: center;
   justify-content: flex-start;
 }
+
+.info2-box2 {
+  position: relative;
+  height: 82%;
+  width: 94.14%;
+  top: 13.5%;
+  right: 3.26%;
+  bottom: 87.47%;
+  left: 3%;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .second-info2 {
   flex: 1;
   position: relative;
@@ -151,6 +172,7 @@
   color: var(--color-gray);
   font-family: var(--font-poppins);
 }
+
 @media screen and (max-width: 428px) {
   .second-section {
     flex-direction: column;

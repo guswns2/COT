@@ -1,11 +1,8 @@
-.b,
+
 .text-field {
   align-self: stretch;
 }
-.b {
-  position: relative;
-  line-height: 150%;
-}
+
 .text-field {
   border: 0;
   background-color: transparent;
