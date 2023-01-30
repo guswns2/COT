@@ -84,7 +84,7 @@
   height: 80px;
   flex-shrink: 0;
   overflow: hidden;
-  padding: var(--padding-sm) var(--padding-sm) var(--padding-3xs);
+  padding: var(--padding-2xs) var(--padding-2xs) 5px var(--padding-3xs);
   box-sizing: border-box;
   align-items: flex-start;
   justify-content: flex-start;
@@ -120,7 +120,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  padding: var(--padding-3xs) var(--padding-sm) var(--padding-sm);
+  padding: var(--padding-4xs) var(--padding-2xs) var(--padding-2xs) var(--padding-2xs);
   align-items: center;
   justify-content: center;
   gap: var(--gap-sm);
@@ -131,7 +131,7 @@
   border-radius: var(--br-sm);
   display: flex;
   flex-direction: column;
-  padding: 0 var(--padding-2xl) var(--padding-md);
+  padding: var(--padding-xs) var(--padding-lg);
   align-items: flex-start;
   justify-content: flex-start;
   text-align: left;
