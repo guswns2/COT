@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { colors, TextField } from "@mui/material";
 import "./css/SecondSection.css";
 
 const SecondSection = () => {
@@ -16,10 +16,27 @@ const SecondSection = () => {
               color="primary"
               fullWidth
             />
-            <button className="weekbutton" id="WeekButton">
+            <button
+              className="weekbutton"
+              id="WeekButton"
+              onClick={() => {
+                document.getElementById("WeekButton").style.backgroundColor =
+                  "rgb(190, 187, 187)";
+                document.getElementById("MonthButton").style.backgroundColor =
+                  "";
+              }}
+            >
               <b className="b4">주간</b>
             </button>
-            <button className="weekbutton" id="MonthButton">
+            <button
+              className="weekbutton"
+              id="MonthButton"
+              onClick={() => {
+                document.getElementById("WeekButton").style.backgroundColor = "";
+                document.getElementById("MonthButton").style.backgroundColor =
+                  "rgb(190, 187, 187)";
+              }}
+            >
               <b className="b4">월간</b>
             </button>
           </div>

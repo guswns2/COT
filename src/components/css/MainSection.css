@@ -163,6 +163,7 @@
   justify-content: center;
 }
 .info3-box,
+.info3-box2,
 .info3-button,
 .plus {
   display: flex;
@@ -186,6 +187,18 @@
   left: 2.61%;
   justify-content: space-between;
 }
+
+.info3-box2 {
+  position: relative;
+  height: 82%;
+  width: 94.14%;
+  top: 13.5%;
+  right: 3.26%;
+  bottom: 87.47%;
+  left: 3%;
+  justify-content: space-between;
+}
+
 .main-info3 {
   flex: 1;
   position: relative;
@@ -222,6 +235,32 @@
   color: var(--color-white);
   font-family: var(--font-poppins);
 }
+
+/* 라인그래프 크기 조절 */
+.Line{
+  position: relative;
+  display: block;
+  width : 95%;
+  height: 85%;
+  left: 3%;
+  top:10%;
+}
+/* 파이그래프 크기 조절 */
+.pie{
+  position: relative;
+  display: inline-block;
+  width : 30%;
+  height: 100%;
+  bottom: -10%;
+}
+/* 막대그래프 크기 조절 부분  */
+.bar{
+  position: relative;
+  display: inline-block;
+  width : 70%;
+  height : 100%;
+}
+
 @media screen and (max-width: 428px) {
   .main-info2 {
     flex-direction: column;

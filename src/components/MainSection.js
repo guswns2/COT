@@ -1,6 +1,9 @@
 import "./css/MainSection.css";
 import Modal from "./Modal";
 import { useState } from "react";
+import PieChart from "./Chart/PieChart";
+import BarChart from "./Chart/BarChart";
+import LineChart from "./Chart/LineChart";
 
 const MainSection = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -66,6 +69,14 @@ const MainSection = () => {
               </div>
             </button>
           </div>
+          <div className="info3-box2">
+            <div className="pie">
+              <PieChart></PieChart>
+            </div>
+            <div className="bar">
+              <BarChart></BarChart>
+            </div>
+          </div>
         </div>
         <div className="main-info3" id="Main Info4">
           <div className="info3-box">
@@ -75,6 +86,9 @@ const MainSection = () => {
                 <img className="plus1-icon" alt="" src="../plus11.svg" />
               </div>
             </button>
+          </div>
+          <div className="Line">
+            <LineChart></LineChart>
           </div>
         </div>
       </div>
