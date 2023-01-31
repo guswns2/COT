@@ -4,13 +4,13 @@ const mysql = require("mysql2");
 
 const path = require("path");
 
-// let conn = mysql.createConnection({
-//   host: "project-db-stu.ddns.net",
-//   user: "campus_h_1024_2",
-//   password: "smhrd2",
-//   port: "3307",
-//   database: "campus_h_1024_2",
-// });
+let conn = mysql.createConnection({
+  host: "project-db-stu.ddns.net",
+  user: "cot",
+  password: "sion1234",
+  port: "3307",
+  database: "cot",
+});
 
 let adminid; // 관리자 session값 저장 부분
 let adminnick; // 관리자닉네임 session값 저장 부분
@@ -147,6 +147,39 @@ router.post("/Adjoinus", function (request, response) {
       });
     } else {
       console.log("입력실패" + err);
+    }
+  });
+});
+
+// Chart에 대한 라우터
+router.post('/Chart',function(request, response){
+  console.log("Chart 라우터 진입")
+  // const arr1 = [-65, -59, -80, -81, -56, -55, -100]; // DB에서 받은 실제값
+  // const arr2 = [50, 30, 20, 50, 70, 60, 90]; // DB에서 받은 예측값
+  // const arr3 = [10,20,30,40,50,60,70,80,90,100,110,120];
+  // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
+  let sql = "select sum(usee) usetest from usetest"
+
+  conn.query(sql, function (err, rows) {
+
+    if (rows.length > 0) {
+      console.log("데이터 받아오기 성공 : " + rows.length);
+      console.log("첫번째 : " + rows[0].sum);
+      // console.log("두번째 : " + rows[1].tmp);
+      // console.log("세번째 : " + rows[2].tmp);
+      // console.log("네번째 : " + rows[3].tmp);
+      // console.log("다섯번째 : " + rows[4].tmp);
+      // console.log("여섯번째 : " + rows[5].tmp);
+      // console.log("일곱번째 : " + rows[6].tmp);
+      // console.log(arr1);
+      response.json({
+        chartdata1 : rows,
+        // chartdata2 : arr2,
+        // chartdata3 : rows[2].tmp,
+        // chartdata4 : arr4
+      });
+    } else {
+      console.log("로그인 실패");
     }
   });
 });

@@ -16,21 +16,21 @@ app.use(cors());
 let dbInfo = {
   host: "127.0.0.1",
   user: "root",
-  password: "123456",
+  password: "123",
   port: "3306",
   database: "nodejs_DB",
 };
 
 let SMS = new session_mysql_save(dbInfo);
 
-app.use(
-  session({
-    secret: "smart",
-    resave: false,
-    saveUninitializedt: true,
-    store: SMS,
-  })
-);
+// app.use(
+//   session({
+//     secret: "smart",
+//     resave: false,
+//     saveUninitializedt: true,
+//     store: SMS,
+//   })
+// );
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
