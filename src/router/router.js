@@ -10,7 +10,7 @@ let conn = mysql.createConnection({
   password: "sion1234",
   port: "3307",
   database: "cot",
-  dateStrings : 'date'
+  // dateStrings : 'date'
 });
 
 let adminid; // 관리자 session값 저장 부분
@@ -161,7 +161,7 @@ router.post('/Chart',function(request, response){
   // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
 
   // 1. 하루치 전력 합 가져오기 
-  let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 23 hour)';
+  let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "?" AND DATE_ADD("?", INTERVAL 23 hour)';
   
   // 2. 일주일치 전력 합 가져오기
   let sql2 =
@@ -179,7 +179,7 @@ router.post('/Chart',function(request, response){
     if (rows.length > 0) {
       console.log("데이터 받아오기 성공 : " + rows.length);
       console.log("치 : ", rows);
-
+      
       // console.log("두번째 : " + rows[1].tmp);
       // console.log("세번째 : " + rows[2].tmp);
       // console.log("네번째 : " + rows[3].tmp);
