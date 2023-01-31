@@ -10,6 +10,7 @@ let conn = mysql.createConnection({
   password: "sion1234",
   port: "3307",
   database: "cot",
+  dateStrings : 'date'
 });
 
 let adminid; // 관리자 session값 저장 부분
@@ -173,7 +174,7 @@ router.post('/Chart',function(request, response){
   let sql4 =
     'select * from usetest';
 
-    conn.query(sql3, function (err, rows) {
+    conn.query(sql4, function (err, rows) {
 
     if (rows.length > 0) {
       console.log("데이터 받아오기 성공 : " + rows.length);
