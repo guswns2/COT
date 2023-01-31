@@ -69,7 +69,7 @@ const Header = () => {
               </button>
             </div>
             <div className="account-section">
-              <button className="notification-bell">
+              {/* <button className="notification-bell">
                 <img className="vector-icon" alt="" src="../vector.svg" />
                 <img className="vector-icon1" alt="" src="../vector1.svg" />
                 <img
@@ -77,7 +77,7 @@ const Header = () => {
                   alt=""
                   src="../ellipse-53.svg"
                 />
-              </button>
+              </button> */}
               <button className="unsplashd1upkifd04a" />
               <img
                 className="hamburger-menu-icon"
