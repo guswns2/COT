@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import Header from "../components/Header";
+import { useEffect, useState } from "react";
 import MainSection from "../components/MainSection";
 import SecondSection from "../components/SecondSection";
 import "./COT.css";
@@ -36,11 +35,12 @@ const COT = () => {
   }, []);
 
   return (
-    <div className="cot" data-animate-on-scroll>
-      <Header />
-      <MainSection />
-      <SecondSection />
-    </div>
+    <>
+      <div className="cot" data-animate-on-scroll>
+        <MainSection />
+        <SecondSection />
+      </div>
+    </>
   );
 };
 

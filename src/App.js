@@ -8,6 +8,8 @@ import COT from "./pages/COT";
 import { useEffect } from "react";
 import Login from "./components/Login";
 import Signin from "./components/Signin";
+import Header from "./components/Header";
+// import Header from "./components/Header";
 
 function App() {
   const action = useNavigationType();
@@ -46,11 +48,15 @@ function App() {
   }, [pathname]);
 
   return (
-    <Routes>
-      <Route path="/" element={<COT />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Signin" element={<Signin />} />
-    </Routes>
+    <>
+      <Header></Header>
+      <Routes>
+        <Route path="/" element={<COT />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Signin" element={<Signin />} />
+      </Routes>
+    </>
   );
 }
+
 export default App;

@@ -1,5 +1,6 @@
 import "./css/Header.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -8,16 +9,62 @@ const Header = () => {
     navigate("/Login");
   };
 
+  //스크롤 이벤트
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const updateScroll = () => {
+    setScrollPosition(window.scrollY || document.documentElement.scrollTop);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", updateScroll);
+  }, []);
+  
   return (
-    <div className="top-section">
-      <div className="top-header">
-        <div className="top-container">
-          <button className="change-of-tomorrow">Change Of Tomorrow</button>
+    <div className={scrollPosition > 74.96 ? "change-section" : "top-section"}>
+      <div className={scrollPosition > 74.96 ? "change-header" : "top-header"}>
+        <div
+          className={
+            scrollPosition > 74.96 ? "change-container" : "top-container"
+          }
+        >
+          <button
+            className={
+              scrollPosition > 74.96
+                ? "change-of-tomorrow2"
+                : "change-of-tomorrow"
+            }
+          >
+            Change Of Tomorrow
+          </button>
           <div className="navigation-right">
             <div className="navigation-menu">
-              <button className="menu1">Menu1</button>
-              <button className="menu1">Menu2</button>
-              <button className="menu1" onClick={navigateLogin}>
+              <button
+                className={scrollPosition > 74.96 ? "change-menu1" : "menu1"}
+                onClick={() => {
+                  window.scrollTo({
+                    top: document.querySelector("head").offsetTop,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                메인
+              </button>
+              <button
+                className={scrollPosition > 74.96 ? "change-menu1" : "menu1"}
+                onClick={() => {
+                  window.scrollTo({
+                    top: document.querySelector(".second-container1").offsetTop,
+                    behavior: "smooth",
+                  });
+                }}
+              >
+                과거데이터
+              </button>
+              <button
+                className={scrollPosition > 74.96 ? "change-menu1" : "menu1"}
+                onClick={navigateLogin}
+              >
                 Login
               </button>
             </div>

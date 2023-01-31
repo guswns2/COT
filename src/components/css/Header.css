@@ -8,8 +8,29 @@
   color: var(--color-white);
   text-align: left;
   display: inline-block;
+  font-weight: 550;
+  font-family: var(--font-malgun-gothic);
+  transition: 0.5s;
 }
 .change-of-tomorrow {
+  font-size: var(--font-size-xl);
+  text-transform: capitalize;
+  font-weight: 700;
+  font-family: var(--font-malgun-gothic);
+  transition: 0.5s;
+}
+
+.change-of-tomorrow2 {  
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+  color: var(--color-gray-300);
+  text-align: left;
+  display: inline-block;
+  font-weight: 550;
+  font-family: var(--font-malgun-gothic);
   font-size: var(--font-size-xl);
   text-transform: capitalize;
   font-weight: 700;
@@ -18,6 +39,21 @@
 .menu1 {
   font-size: var(--font-size-xs);
   font-family: var(--font-roboto);
+}
+.change-menu1 {
+  font-size: var(--font-size-xs);
+  font-family: var(--font-roboto);
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: relative;
+  color: var(--color-gray-300);
+  text-align: left;
+  display: inline-block;
+  font-weight: 550;
+  font-family: var(--font-malgun-gothic);
+  transition: 0.5s;
 }
 .navigation-menu {
   display: flex;
@@ -111,6 +147,17 @@
   background-color: var(--color-gray-300);
   flex-direction: row;
   justify-content: space-between;
+  transition: 2.5s;
+}
+.change-container {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0);
+  flex-direction: row;
+  justify-content: space-between;
+  transition: 0s;
 }
 .top-header,
 .top-section {
@@ -118,17 +165,50 @@
   flex-shrink: 0;
 }
 .top-header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
   background-color: var(--color-gray-300);
   flex-direction: row;
   padding: var(--padding-xs) var(--padding-lg);
   box-sizing: border-box;
   justify-content: center;
+  transition: 0.5s;
+}
+.change-header {
+  position: fixed;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  height: 74.96px;
+  flex-shrink: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: rgba(255, 255, 255, 0.95);
+  flex-direction: row;
+  padding: var(--padding-xs) var(--padding-lg);
+  box-sizing: border-box;
+  justify-content: center;
+  transition: 0.5s;
 }
 .top-section {
   background-color: var(--color-gray-200);
   flex-direction: column;
   justify-content: flex-start;
+  transition: 0.5s;
 }
+.change-section {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  height: 74.96px;
+  flex-shrink: 0;
+  background-color: rgba(255, 255, 255, 0.95);
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: 0.5s;
+}
+
 @media screen and (max-width: 768px) {
   .navigation-menu {
     display: none;
