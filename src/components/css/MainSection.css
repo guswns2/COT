@@ -127,6 +127,7 @@
   box-sizing: border-box;
   justify-content: center;
   gap: var(--gap-xs);
+  background-color: #b7d6b7;
 }
 .main-container,
 .main-info1,
@@ -143,7 +144,7 @@
 .main-container {
   align-self: stretch;
   border-radius: var(--br-sm) var(--br-sm) 0 0;
-  background-color: var(--color-gray-300);
+  background-color: whitesmoke;
   display: flex;
   flex-direction: row;
   padding: var(--padding-2xs) var(--padding-2xs) var(--padding-4xs);
@@ -216,7 +217,7 @@
 }
 .main-container2 {
   border-radius: 0 0 var(--br-sm) var(--br-sm);
-  background-color: var(--color-gray-300);
+  background-color: whitesmoke;
   overflow: hidden;
   flex-direction: row;
   padding: var(--padding-4xs) var(--padding-2xs) var(--padding-2xs);
@@ -238,28 +239,28 @@
 }
 
 /* 라인그래프 크기 조절 */
-.Line{
+.Line {
   position: relative;
   display: block;
-  width : 95%;
+  width: 95%;
   height: 85%;
   left: 3%;
-  top:10%;
+  top: 10%;
 }
 /* 파이그래프 크기 조절 */
-.pie{
+.pie {
   position: relative;
   display: inline-block;
-  width : 30%;
+  width: 30%;
   height: 100%;
   bottom: -10%;
 }
 /* 막대그래프 크기 조절 부분  */
-.bar{
+.bar {
   position: relative;
   display: inline-block;
-  width : 100%;
-  height : 100%;
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (max-width: 428px) {

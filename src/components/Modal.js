@@ -9,6 +9,7 @@ const Modal = (props) => {
 
   const closeModal = () => {
     setModalOpen(false);
+    document.body.style.overflow = "unset";
   };
 
   //모달창 기능
@@ -39,7 +40,7 @@ const Modal = (props) => {
       <div className="Mcontainer">
         <div className="modal">
           <div className="statedefault-iconoff1">
-            <b className="b">전력사용량</b>
+            <b className="b2">전력사용량</b>
             <TextField
               className="text-field"
               color="primary"
@@ -53,7 +54,7 @@ const Modal = (props) => {
             />
           </div>
           <div className="statedefault-iconoff">
-            <b className="b">탄소배출량</b>
+            <b className="b2">탄소배출량</b>
             <TextField
               className="text-field"
               color="primary"

@@ -1,5 +1,5 @@
 import "./css/Header.css";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const Header = () => {
@@ -19,7 +19,7 @@ const Header = () => {
   useEffect(() => {
     window.addEventListener("scroll", updateScroll);
   }, []);
-  
+
   return (
     <div className={scrollPosition > 74.96 ? "change-section" : "top-section"}>
       <div className={scrollPosition > 74.96 ? "change-header" : "top-header"}>
@@ -34,6 +34,12 @@ const Header = () => {
                 ? "change-of-tomorrow2"
                 : "change-of-tomorrow"
             }
+            onClick={() => {
+              window.scrollTo({
+                top: document.querySelector("head").offsetTop,
+                behavior: "smooth",
+              });
+            }}
           >
             Change Of Tomorrow
           </button>

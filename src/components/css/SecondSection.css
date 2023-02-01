@@ -1,5 +1,5 @@
-@keyframes hovercolor{
-  to{
+@keyframes hovercolor {
+  to {
     background-color: rgb(190, 187, 187);
   }
 }
@@ -41,7 +41,7 @@
   align-items: flex-start;
   justify-content: center;
 }
-.weekbutton:hover{
+.weekbutton:hover {
   animation-fill-mode: both;
   animation-duration: 0.5s;
   animation-name: hovercolor;
@@ -55,7 +55,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: var(--gap-sm);
-  margin-left : 10px;
+  margin-left: 10px;
 }
 .pdfbutton {
   cursor: pointer;
@@ -100,7 +100,7 @@
 }
 .second-container1 {
   border-radius: var(--br-sm) var(--br-sm) 0 0;
-  background-color: #939393;
+  background-color: whitesmoke;
   height: 80px;
   flex-shrink: 0;
   overflow: hidden;
@@ -149,11 +149,12 @@
 .second-container2 {
   align-self: stretch;
   border-radius: 0 0 var(--br-sm) var(--br-sm);
-  background-color: #939393;
+  background-color: whitesmoke;
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  padding: var(--padding-4xs) var(--padding-2xs) var(--padding-2xs) var(--padding-2xs);
+  padding: var(--padding-4xs) var(--padding-2xs) var(--padding-2xs)
+    var(--padding-2xs);
   align-items: center;
   justify-content: center;
   gap: var(--gap-sm);

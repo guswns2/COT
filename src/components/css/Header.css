@@ -20,7 +20,7 @@
   transition: 0.5s;
 }
 
-.change-of-tomorrow2 {  
+.change-of-tomorrow2 {
   cursor: pointer;
   border: 0;
   padding: 0;
@@ -134,6 +134,10 @@
 .navigation-right {
   justify-content: flex-end;
   gap: var(--gap-md);
+  /* width: 300px;
+  height: 33px;
+  background-color: #b7d6b7;
+  border-radius: 30px; */
 }
 .top-container,
 .top-header,
@@ -144,7 +148,7 @@
 }
 .top-container {
   flex: 1;
-  background-color: var(--color-gray-300);
+  background-color: #cbe5b7;
   flex-direction: row;
   justify-content: space-between;
   transition: 2.5s;
@@ -168,12 +172,13 @@
   position: fixed;
   width: 100%;
   z-index: 1;
-  background-color: var(--color-gray-300);
+  background-color: #cbe5b7;
   flex-direction: row;
   padding: var(--padding-xs) var(--padding-lg);
   box-sizing: border-box;
   justify-content: center;
   transition: 0.5s;
+  border-radius: 40px;
 }
 .change-header {
   position: fixed;
@@ -196,6 +201,7 @@
   flex-direction: column;
   justify-content: flex-start;
   transition: 0.5s;
+  background-color: whitesmoke;
 }
 .change-section {
   align-self: stretch;
