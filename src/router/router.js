@@ -3,6 +3,7 @@ const router = express.Router();
 const mysql = require("mysql2");
 
 const path = require("path");
+const { arrayBuffer } = require("stream/consumers");
 
 let conn = mysql.createConnection({
   host: "project-db-stu.ddns.net",
@@ -103,7 +104,7 @@ router.post("/Modal", function (request, response) {
   console.log("사용자가 보낸 탄소배출량 : " + request.body.co2);
 
   //나중에 다시
-  let sql = "insert into PRESICT(PRE_POWER, PRE_CARBON) values (?, ?)";
+  let sql = "insert into PREDICT(PRE_POWER, PRE_CARBON) values (?, ?)";
 
   conn.query(sql, [elec, co2], function (err, rows) {
     if (!err) {
@@ -115,6 +116,21 @@ router.post("/Modal", function (request, response) {
   });
 });
 
+//날짜 데이터 값 보내기 라우터
+router.post("/Date", function (request, response) {
+  console.log("날짜 라우터");
+  const date = request.body.datevalue;
+  console.log("날짜: " + request.body.datevalue);
+  //나중에 다시
+  let sql = "";
+  conn.query(sql, [date], function (err, rows) {
+    if (!err) {
+      console.log("입력 완료!");
+    } else {
+      console.log("입력 실패!" + err);
+    }
+  });
+});
 //ADMIN 회원가입 라우터 (유현 - Fin)
 router.post("/Adjoinus", function (request, response) {
   console.log("관리자 가입 라우터");
@@ -159,9 +175,9 @@ router.post('/Chart',function(request, response){
   // const arr2 = [50, 30, 20, 50, 70, 60, 90]; // DB에서 받은 예측값
   // const arr3 = [10,20,30,40,50,60,70,80,90,100,110,120];
   // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
-
+  
   // 1. 하루치 전력 합 가져오기 
-  let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "?" AND DATE_ADD("?", INTERVAL 23 hour)';
+  let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-05-28 01:00:00" AND DATE_ADD("2021-05-28 23:00:00", INTERVAL 23 hour)';
   
   // 2. 일주일치 전력 합 가져오기
   let sql2 =
@@ -174,12 +190,13 @@ router.post('/Chart',function(request, response){
   let sql4 =
     'select * from usetest';
 
-    conn.query(sql4, function (err, rows) {
+    conn.query(sql1, function (err, rows) {
 
     if (rows.length > 0) {
       console.log("데이터 받아오기 성공 : " + rows.length);
-      console.log("치 : ", rows);
-      
+      console.log("치 : ", rows[0]);
+     
+      rows[0]
       // console.log("두번째 : " + rows[1].tmp);
       // console.log("세번째 : " + rows[2].tmp);
       // console.log("네번째 : " + rows[3].tmp);
@@ -187,12 +204,12 @@ router.post('/Chart',function(request, response){
       // console.log("여섯번째 : " + rows[5].tmp);
       // console.log("일곱번째 : " + rows[6].tmp);
       // console.log(arr1);
-      // response.json({
-      //   chartdata1 : rows,
-      //   // chartdata2 : arr2,
-      //   // chartdata3 : rows[2].tmp,
-      //   // chartdata4 : arr4
-      // });
+      response.json({
+        chartdata : rows
+        // chartdata2 : arr2,
+        // chartdata3 : rows[2].tmp,
+        // chartdata4 : arr4
+      });
     } else {
       console.log("로그인 실패");
     }

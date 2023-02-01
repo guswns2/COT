@@ -22,6 +22,7 @@
         "express-session": "^1.17.3",
         "mysql": "^2.18.1",
         "mysql2": "^3.0.1",
+        "nvm": "^0.0.4",
         "react": "^18.2.0",
         "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.2.0",

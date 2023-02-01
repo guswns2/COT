@@ -54,28 +54,29 @@ function BarChart (){
     ],
     borderWidth: 2
     
-  },{
-    data: preData,
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(255, 159, 64, 0.2)',
-      'rgba(255, 205, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(201, 203, 207, 0.2)'
-    ],
-    borderColor: [
-      'rgb(255, 99, 132)',
-      'rgb(255, 159, 64)',
-      'rgb(255, 205, 86)',
-      'rgb(75, 192, 192)',
-      'rgb(54, 162, 235)',
-      'rgb(153, 102, 255)',
-      'rgb(201, 203, 207)'
-    ],
-    borderWidth: 2 
-  }
+  },
+  // {
+  //   data: preData,
+  //   backgroundColor: [
+  //     'rgba(255, 99, 132, 0.2)',
+  //     'rgba(255, 159, 64, 0.2)',
+  //     'rgba(255, 205, 86, 0.2)',
+  //     'rgba(75, 192, 192, 0.2)',
+  //     'rgba(54, 162, 235, 0.2)',
+  //     'rgba(153, 102, 255, 0.2)',
+  //     'rgba(201, 203, 207, 0.2)'
+  //   ],
+  //   borderColor: [
+  //     'rgb(255, 99, 132)',
+  //     'rgb(255, 159, 64)',
+  //     'rgb(255, 205, 86)',
+  //     'rgb(75, 192, 192)',
+  //     'rgb(54, 162, 235)',
+  //     'rgb(153, 102, 255)',
+  //     'rgb(201, 203, 207)'
+  //   ],
+  //   borderWidth: 2 
+  // }
 ]
   
 };
@@ -106,17 +107,16 @@ const config = {
           })
           .then((result) => {
             // 받는 부분
-            console.log("ChartData 받는 부분", result.data.chartdata1);
+            console.log("ChartData 받는 부분", result.chartdata.rows);
 
-            let arr = [];
-            for (let i = 0; i < result.data.chartdata1.length; i++){
-              arr.push(Object.values(result.data.chartdata1[i])[0]);
-              // setRealData((realData[i] = Object.values(realData[i])));
-
+            for (let i = 0; i < result.data.chartdata.length; i++){
+              arr.push(Object.values(result.data.chartdata[i][0]));
+              setRealData((realData= Object.values(realData[i])));
+              // console.log(realData)
               console.log(i+1, "회차");
             }
-            console.log("arr : ", arr);
-            setRealData(arr);
+           
+            setRealData(chartdata);
           }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
           .catch(() => {
             console.log("데이터 보내기 실패!");
