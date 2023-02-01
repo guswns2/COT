@@ -1,3 +1,4 @@
+const { appBarClasses } = require("@mui/material");
 const express = require("express");
 const router = express.Router();
 const mysql = require("mysql2");
@@ -11,7 +12,7 @@ let conn = mysql.createConnection({
   password: "sion1234",
   port: "3307",
   database: "cot",
-  // dateStrings : 'date'
+  dateStrings : 'date'
 });
 
 let adminid; // 관리자 session값 저장 부분
@@ -117,20 +118,21 @@ router.post("/Modal", function (request, response) {
 });
 
 //날짜 데이터 값 보내기 라우터
-router.post("/Date", function (request, response) {
-  console.log("날짜 라우터");
-  const date = request.body.datevalue;
-  console.log("날짜: " + request.body.datevalue);
-  //나중에 다시
-  let sql = "";
-  conn.query(sql, [date], function (err, rows) {
-    if (!err) {
-      console.log("입력 완료!");
-    } else {
-      console.log("입력 실패!" + err);
-    }
-  });
-});
+// router.post("/Date", function (request, response) {
+//   console.log("날짜 라우터");
+//   const date = request.body.datevalue;
+//   console.log("날짜: " + request.body.datevalue);
+//   //나중에 다시
+//   let sql = "";
+//   conn.query(sql, [date], function (err, rows) {
+//     if (!err) {
+//       console.log("입력 완료!");
+//     } else {
+//       console.log("입력 실패!" + err);
+//     }
+//   });
+// });
+
 //ADMIN 회원가입 라우터 (유현 - Fin)
 router.post("/Adjoinus", function (request, response) {
   console.log("관리자 가입 라우터");
@@ -168,52 +170,108 @@ router.post("/Adjoinus", function (request, response) {
   });
 });
 
-// Chart에 대한 라우터
-router.post('/Chart',function(request, response){
-  console.log("Chart 라우터 진입")
-  // const arr1 = [-65, -59, -80, -81, -56, -55, -100]; // DB에서 받은 실제값
-  // const arr2 = [50, 30, 20, 50, 70, 60, 90]; // DB에서 받은 예측값
-  // const arr3 = [10,20,30,40,50,60,70,80,90,100,110,120];
-  // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
+// // Chart에 대한 라우터
+// router.post('/Chart',function(request, response){
+//   console.log("Chart 라우터 진입")
+//   // const arr1 = [-65, -59, -80, -81, -56, -55, -100]; // DB에서 받은 실제값
+//   // const arr2 = [50, 30, 20, 50, 70, 60, 90]; // DB에서 받은 예측값
+//   // const arr3 = [10,20,30,40,50,60,70,80,90,100,110,120];
+//   // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
   
-  // 1. 하루치 전력 합 가져오기 
-  let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-05-28 01:00:00" AND DATE_ADD("2021-05-28 23:00:00", INTERVAL 23 hour)';
+//   // 1. 하루치 전력 합 가져오기 
+//   let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "?" AND DATE_ADD("2021-05-28 00:00:00", INTERVAL 23 hour)';
   
-  // 2. 일주일치 전력 합 가져오기
-  let sql2 =
-    'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 23:00:00", INTERVAL 6 day)';
+//   // 2. 일주일치 전력 합 가져오기
+//   let sql2 =
+//     'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 23:00:00", INTERVAL 6 day)';
   
-  // 3. 한달치 전력 합 가져오기
-  let sql3 =
-    'select * from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 1 month)';
+//   // 3. 한달치 전력 합 가져오기
+//   let sql3 =
+//     'select * from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 1 month)';
 
-  let sql4 =
-    'select * from usetest';
+//   let sql4 =
+//     'select * from usetest';
 
-    conn.query(sql1, function (err, rows) {
+//     conn.query(sql1, function (err, rows) {
 
-    if (rows.length > 0) {
-      console.log("데이터 받아오기 성공 : " + rows.length);
-      console.log("치 : ", rows[0]);
-     
-      rows[0]
-      // console.log("두번째 : " + rows[1].tmp);
-      // console.log("세번째 : " + rows[2].tmp);
-      // console.log("네번째 : " + rows[3].tmp);
-      // console.log("다섯번째 : " + rows[4].tmp);
-      // console.log("여섯번째 : " + rows[5].tmp);
-      // console.log("일곱번째 : " + rows[6].tmp);
-      // console.log(arr1);
-      response.json({
-        chartdata : rows
-        // chartdata2 : arr2,
-        // chartdata3 : rows[2].tmp,
-        // chartdata4 : arr4
-      });
-    } else {
-      console.log("로그인 실패");
-    }
-  });
+//     if (rows.length > 0) {
+//       console.log("데이터 받아오기 성공 : " + rows.length);
+//       console.log("치 : ", rows);
+//       // console.log("두번째 : " + rows[1].tmp);
+//       // console.log("세번째 : " + rows[2].tmp);
+//       // console.log("네번째 : " + rows[3].tmp);
+//       // console.log("다섯번째 : " + rows[4].tmp);
+//       // console.log("여섯번째 : " + rows[5].tmp);
+//       // console.log("일곱번째 : " + rows[6].tmp);
+//       // console.log(arr1);
+//       response.json({
+//         chartdata : rows
+//         // chartdata2 : arr2,
+//         // chartdata3 : rows[2].tmp,
+//         // chartdata4 : arr4
+//       });
+//     } else {
+//       console.log("로그인 실패");
+//     }
+//   });
+// });
+
+// 하루치 데이터를 통해 7일치 차트를 만듬
+router.post('/Chart7',function(request, response){
+  console.log("Chart7 라우터 진입");
+
+  let date1 = request.body.datevalue;
+  let stringDate = String(date1);
+
+  // 날짜를 더할 수 있는 함수 (날 기준)
+  function StringToDate(date, n) {
+    let yyyy = date.substring(0, 4);
+    let mm = date.substring(5, 7);
+    let dd = date.substring(8, 10);
+    mm = Number(mm) - 1;
+
+    let stringNewDate = new Date(yyyy, mm, dd);
+    stringNewDate.setDate(stringNewDate.getDate() + n);
+
+    return (
+      stringNewDate.getFullYear() +
+      "-" +
+      (stringNewDate.getMonth() + 1 > 9
+        ? (stringNewDate.getMonth() + 1).toString()
+        : "0" + (stringNewDate.getMonth() + 1)) +
+      "-" +
+      (stringNewDate.getDate() > 9
+        ? stringNewDate.getDate().toString()
+        : "0" + stringNewDate.getDate().toString())
+    );
+  }
+
+  let arr = [];
+
+  for (let i = 0; i < 7; i++) {
+    // 1. 하루치 전력 합 가져오기
+    let date = String(StringToDate(stringDate, i));
+    console.log("날짜 진입 : ", date);
+    let sql = `select sum(usee) sum from usetest WHERE tm BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
+
+    conn.query(sql, function (err, rows) {
+      if (rows.length > 0) {
+        console.log("데이터 받아오기 성공 : " + rows.length);
+        // console.log("rows : ", Object.values(rows[0])[0]);
+        arr.push(Object.values(rows[0])[0]);
+        console.log("arr : ", arr);
+        if (arr.length == 7){
+           response.json({
+             chart7data: arr,
+           });
+           console.log("데이터 보내기 레츠기릿!");
+        }
+      } else {
+        console.log("로그인 실패");
+      }
+    });
+  }
+  
 });
 
 module.exports = router;

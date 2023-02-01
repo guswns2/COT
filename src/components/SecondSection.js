@@ -8,27 +8,34 @@ import { useRef } from "react";
 import axios from "axios";
 
 const SecondSection = () => {
-  const [date, setDate] = useState();
-
-  console.log(date);
-
-  // const dateRef = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDate(e.target.value);
+    console.log("e.target.value", e.target.value);;
 
-    axios
-      .post("http://127.0.0.1:3001/Date", {
-        datevalue: date,
-      })
-      .then((result) => {
-        console.log("데이터 보내기 성공!", result.data.date);
-      }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
-      .catch(() => {
-        console.log("데이터 보내기 실패!");
-      });
+    // axios
+    //   .post("http://127.0.0.1:3001/Date", {
+    //     datevalue: date,
+    //   })
+    //   .then((result) => {
+    //     console.log("데이터 보내기 성공!", result.data.date);
+    //   }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
+    //   .catch(() => {
+    //     console.log("데이터 보내기 실패!");
+    //   });
+
+      axios
+        .post("http://127.0.0.1:3001/Chart7", {
+          datevalue: e.target.value,
+        })
+        .then((result) => {
+          console.log("데이터 보내기 성공!", result.data.date);
+        }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
+        .catch(() => {
+          console.log("데이터 보내기 실패!");
+        });
   };
+  
 
   return (
     <section className="second-section" id="Second Section">
