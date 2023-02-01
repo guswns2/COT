@@ -1,39 +1,19 @@
 import { colors, TextField } from "@mui/material";
 import "./css/SecondSection.css";
 import PieChart from "./Chart/PieChart";
-import BarChart from "./Chart/BarChart";
+import BarChartPreWeek from "./Chart/BarChartPreWeek";
+import BarChartPreMonth from "./Chart/BarChartPreMonth";
 import LineChart from "./Chart/LineChart";
 import { useState } from "react";
 import { useRef } from "react";
 import axios from "axios";
 
 const SecondSection = () => {
-
+  const [choice , setChoice] =useState("");
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("e.target.value", e.target.value);;
-
-    // axios
-    //   .post("http://127.0.0.1:3001/Date", {
-    //     datevalue: date,
-    //   })
-    //   .then((result) => {
-    //     console.log("데이터 보내기 성공!", result.data.date);
-    //   }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
-    //   .catch(() => {
-    //     console.log("데이터 보내기 실패!");
-    //   });
-
-      axios
-        .post("http://127.0.0.1:3001/Chart7", {
-          datevalue: e.target.value,
-        })
-        .then((result) => {
-          console.log("데이터 보내기 성공!", result.data.date);
-        }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
-        .catch(() => {
-          console.log("데이터 보내기 실패!");
-        });
+    console.log("e.target.value", e.target.value);
+    setChoice(e.target.value);
   };
   
 
@@ -85,7 +65,8 @@ const SecondSection = () => {
               <PieChart></PieChart>
             </div> */}
             <div className="bar">
-              <BarChart></BarChart>
+              {/* {click === true && <BarChartPreWeek></BarChartPreWeek>} */}
+              <BarChartPreWeek val={choice}></BarChartPreWeek>
             </div>
           </div>
         </div>
@@ -108,8 +89,8 @@ const SecondSection = () => {
               <PieChart></PieChart>
             </div> */}
             <div className="bar">
-              <BarChart></BarChart>
-            </div>
+              <BarChartPreMonth val={choice}></BarChartPreMonth>
+              </div>
           </div>
         </div>
         <div className="second-info2" id="Second Info3">

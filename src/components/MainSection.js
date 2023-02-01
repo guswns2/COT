@@ -2,7 +2,7 @@ import "./css/MainSection.css";
 import Modal from "./Modal";
 import { useState } from "react";
 import PieChart from "./Chart/PieChart";
-import BarChart from "./Chart/BarChart";
+import BarChartPreWeek from "./Chart/BarChartPreWeek";
 import LineChart from "./Chart/LineChart";
 
 const MainSection = () => {
@@ -75,7 +75,7 @@ const MainSection = () => {
               <PieChart></PieChart>
             </div> */}
             <div className="bar">
-              <BarChart></BarChart>
+              {/* <BarChartPreWeek></BarChartPreWeek> */}
             </div>
           </div>
         </div>
