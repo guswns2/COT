@@ -31,39 +31,45 @@ const MainSection = () => {
               </span>
             </h3>
           </div>
-          <div className="info1-box2">
-            <div className="todayco2" id="todayCo2Div">
-              <div className="todayco2-image">
-                <img className="icon" alt="" src="../4-1@2x.png" />
+        </div>
+        <div className="main-container1-1">
+          <div className="main-info2" id="info1-c1d2">
+            <div className="info1-box2">
+              <div className="info1-box2-c1">
+                <div className="todayco2-image">
+                  <img className="icon" alt="" src="../4-1@2x.png" />
+                </div>
+                <div className="todayco2-text">
+                  <b className="b1" id="todayCo2Text">
+                    오늘의 탄소배출량
+                  </b>
+                  <b className="ttco2" id="todayCo2Text2">
+                    128,300 t/tco2
+                  </b>
+                </div>
               </div>
-              <div className="todayco2-text">
-                <b className="b1" id="todayCo2Text">
-                  오늘의 탄소배출량
-                </b>
-                <b className="ttco2" id="todayCo2Text2">
-                  128,300 t/tco2
-                </b>
-              </div>
-            </div>
-            <div className="todayelectric">
-              <div className="todayelectric-image">
-                <img className="icon1" alt="" src="../5-1@2x.png" />
-              </div>
-              <div className="todayelectric-text">
-                <b className="b1" id="todayeleText">
-                  오늘의 전력소비량
-                </b>
-                <b className="kw">12300 kw</b>
+              <div className="info1-box2-c1">
+                <div className="todayelectric">
+                  <div className="todayelectric-image">
+                    <img className="icon1" alt="" src="../5-1@2x.png" />
+                  </div>
+                  <div className="todayelectric-text">
+                    <b className="b1" id="todayeleText">
+                      오늘의 전력소비량
+                    </b>
+                    <b className="kw">12300 kw</b>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          <div className="main-info2" id="info1-c1d2" />
         </div>
-        <div className="main-info2" id="info1-c1d2" />
       </div>
       <div className="main-container2">
         <div className="main-info3" id="Main Info3">
           <div className="info3-box">
-            <b className="b">연간 전력소비량</b>
+            <b className="b">주간 전력소비 / 탄소배출량</b>
             <button className="info3-button" onClick={showModal}>
               <div className="plus">
                 <img className="plus1-icon" alt="" src="../plus1.svg" />
@@ -71,17 +77,30 @@ const MainSection = () => {
             </button>
           </div>
           <div className="info3-box2">
-            {/* <div className="pie">
-              <PieChart></PieChart>
-            </div> */}
             <div className="bar">
-              {/* <BarChartPreWeek></BarChartPreWeek> */}
+              <BarChartPreWeek></BarChartPreWeek>
             </div>
           </div>
         </div>
-        <div className="main-info3" id="Main Info4">
+        {/* <div className="main-info3" id="Main Info4">
           <div className="info3-box">
-            <b className="b">연간 탄소배출량</b>
+            <b className="b">7일 탄소배출량</b>
+            <button className="info3-button" onClick={showModal}>
+              <div className="plus">
+                <img className="plus1-icon" alt="" src="../plus11.svg" />
+              </div>
+            </button>
+          </div> */}
+        {/* <div className="Line">
+            <LineChart></LineChart>
+          </div> */}
+        {/* <div className="pie">
+              <PieChart></PieChart>
+            </div> */}
+        {/* </div> */}
+        <div className="main-info4" id="Main Info5">
+          <div className="info3-box">
+            <b className="b">전일 탄소배출량</b>
             <button className="info3-button" onClick={showModal}>
               <div className="plus">
                 <img className="plus1-icon" alt="" src="../plus11.svg" />
