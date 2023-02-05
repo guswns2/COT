@@ -20,14 +20,13 @@ ChartJS.register(
     Legend
 )
 
-function BarChartPreMonth (props){
+function BarChartYear (props){
 
   const [realData, setRealData] = useState([]);
-  const [preData, setPreData] = useState([]);
+  // const [preData, setPreData] = useState([]);
 
   const [labels, setLabels] = useState([]);
-  // const monthLabels = ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
-  // const timelabels = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
+  
   
   const data = {
     labels: labels,
@@ -93,16 +92,24 @@ const config = {
 
     // 월간 전력소비량
     axios
-      .post("http://127.0.0.1:3001/Chart30", {
+      .post("http://127.0.0.1:3001/ChartYear", {
         // SecondSection.js 로부터 props형식으로 받은 날짜값을 전달
         datevalue: props.val,
       })
       .then((result) => {
         // 받는 부분
-        console.log("ChartData 받는 부분", result.data.chart30data);
+        console.log("ChartData 받는 부분", result.data.chartyeardata);
         console.log("라벨 받는 부분", result.data.labels);
-        setRealData(result.data.chart30data);
-        setLabels(result.data.labels);
+        setRealData(result.data.chartyeardata);
+        let labelsArr = [];
+        for (let i = 0; i < 12; i++){
+          if(i+1 < 10){
+            labelsArr.push(result.data.labels +"0"+(i + 1) + "월");  
+          }else{
+            labelsArr.push(result.data.labels + (i + 1) + "월");
+          }
+        }
+        setLabels(labelsArr);
       }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
       .catch(() => {
         console.log("데이터 보내기 실패!");
@@ -129,4 +136,4 @@ const config = {
     )
 }
 
-export default BarChartPreMonth;
+export default BarChartYear;

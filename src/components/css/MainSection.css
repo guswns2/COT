@@ -245,6 +245,17 @@
   left: 3%;
   top: 10%;
 }
+
+/* 도넛그래프 크기 조절 */
+.Doughnut {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 50%;
+  height: 85%;
+  top: 10%;
+}
+
 /* 파이그래프 크기 조절 */
 .pie {
   position: relative;

@@ -1,3 +1,5 @@
+
+
 const { appBarClasses } = require("@mui/material");
 const express = require("express");
 const router = express.Router();
@@ -171,57 +173,139 @@ router.post("/Adjoinus", function (request, response) {
 });
 
 // // Chart에 대한 라우터
-router.post('/Chart',function(request, response){
-  console.log("Chart 라우터 진입")
-  // const arr1 = [-65, -59, -80, -81, -56, -55, -100]; // DB에서 받은 실제값
-  // const arr2 = [50, 30, 20, 50, 70, 60, 90]; // DB에서 받은 예측값
-  // const arr3 = [10,20,30,40,50,60,70,80,90,100,110,120];
-  // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
+// router.post('/Chart',function(request, response){
+//   console.log("Chart 라우터 진입")
+//   // const arr1 = [-65, -59, -80, -81, -56, -55, -100]; // DB에서 받은 실제값
+//   // const arr2 = [50, 30, 20, 50, 70, 60, 90]; // DB에서 받은 예측값
+//   // const arr3 = [10,20,30,40,50,60,70,80,90,100,110,120];
+//   // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
   
-  // 1. 하루치 전력 합 가져오기 
-  let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 23 hour)';
+//   // 1. 하루치 전력 합 가져오기 
+//   let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 23 hour)';
   
-  // 2. 일주일치 전력 합 가져오기
-  let sql2 =
-    'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 23:00:00", INTERVAL 6 day)';
+//   // 2. 일주일치 전력 합 가져오기
+//   let sql2 =
+//     'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 23:00:00", INTERVAL 6 day)';
   
-  // 3. 한달치 전력 합 가져오기
-  let sql3 =
-    'select * from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 1 month)';
+//   // 3. 한달치 전력 합 가져오기
+//   let sql3 =
+//     'select * from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 1 month)';
 
-  let sql4 =
-    'select * from usetest';
+//   let sql4 =
+//     'select * from usetest';
 
-    conn.query(sql1, function (err, rows) {
+//     conn.query(sql1, function (err, rows) {
 
+//     if (rows.length > 0) {
+//       console.log("데이터 받아오기 성공 : " + rows.length);
+//       console.log("치 : ", rows);
+//       // console.log("두번째 : " + rows[1].tmp);
+//       // console.log("세번째 : " + rows[2].tmp);
+//       // console.log("네번째 : " + rows[3].tmp);
+//       // console.log("다섯번째 : " + rows[4].tmp);
+//       // console.log("여섯번째 : " + rows[5].tmp);
+//       // console.log("일곱번째 : " + rows[6].tmp);
+//       // console.log(arr1);
+//       response.json({
+//         chartdata : rows
+//         // chartdata2 : arr2,
+//         // chartdata3 : rows[2].tmp,
+//         // chartdata4 : arr4
+//       });
+//     } else {
+//       console.log("로그인 실패");
+//     }
+//   });
+// });
+
+// 시간별 전력소비량/탄소배출량
+router.post('/ChartNow',function(request, response){
+  console.log("ChartNow 라우터 진입");
+
+  // n만큼의 시간을 더하면 날짜를 반환해줌
+  function StringToHours(n) {
+
+    let stringNewDate = new Date();
+    stringNewDate.setHours(stringNewDate.getHours()+n);
+
+    return (
+      stringNewDate.getFullYear() +
+      "-" +
+      (stringNewDate.getMonth() + 1 > 9
+        ? (stringNewDate.getMonth() + 1).toString()
+        : "0" + (stringNewDate.getMonth() + 1)) +
+      "-" +
+      (stringNewDate.getDate() > 9
+        ? stringNewDate.getDate().toString()
+        : "0" + stringNewDate.getDate().toString()) +
+        " " +
+        (stringNewDate.getHours()) + ":00:00"
+    );
+  }
+
+  console.log("현재시간 : ", StringToHours(0));
+
+  // 시간단위 전력 가져오기
+  let date = '2021-01-04 23:00:00';
+  let sql = `select * from usetest WHERE tm BETWEEN DATE_ADD("${date}", INTERVAL -47 hour) AND "${date}"`;
+
+  conn.query(sql, function (err, rows) {
     if (rows.length > 0) {
       console.log("데이터 받아오기 성공 : " + rows.length);
-      console.log("치 : ", rows);
-      // console.log("두번째 : " + rows[1].tmp);
-      // console.log("세번째 : " + rows[2].tmp);
-      // console.log("네번째 : " + rows[3].tmp);
-      // console.log("다섯번째 : " + rows[4].tmp);
-      // console.log("여섯번째 : " + rows[5].tmp);
-      // console.log("일곱번째 : " + rows[6].tmp);
-      // console.log(arr1);
+      let labelsArr = [];
+      let electArr = [];
+
+      for (let i = 0; i < rows.length; i++){
+        labelsArr.push(rows[i].tm);
+        electArr.push(rows[i].usee);
+      }
+      let todayLabels = labelsArr.slice(24,);
+      let yesterdayLabels = labelsArr.slice(0, 24);
+      for (let i = 0; i< todayLabels.length; i++){
+        if (i==0 || todayLabels[i].substring(11,13) == '00'){
+          todayLabels.splice(i, 1, todayLabels[i].substring(5, 13) + "시");
+        }else if(i == todayLabels.length-1){
+          todayLabels.splice(
+            i,
+            1,
+            "(NOW) " + todayLabels[i].substring(11, 13) + "시"
+          );
+        }else{
+          todayLabels.splice(i, 1, todayLabels[i].substring(11, 13) + "시");
+        }
+        
+        // yesterdayLabels.splice(i,1,yesterdayLabels[i].substring(5,13));
+      }
+      let todayElect = electArr.slice(24,);
+      let yesterdayElect = electArr.slice(0,24);
+      
+      console.log('labelsArr : ',labelsArr);
+      console.log('todayLabels : ',todayLabels);
+      console.log('yesterdayLabels : ',yesterdayLabels);
+      console.log('electArr : ',electArr);
+      console.log('todayElect : ',todayElect);
+      console.log('yesterdayElect : ',yesterdayElect);
+
       response.json({
-        chartdata : rows
-        // chartdata2 : arr2,
-        // chartdata3 : rows[2].tmp,
-        // chartdata4 : arr4
+        todayElect: todayElect,
+        yesterdayElect: yesterdayElect,
+        todayLabels: todayLabels,
+        yesterdayLabels:yesterdayLabels,
+        nowtime:date
       });
     } else {
-      console.log("로그인 실패");
+      console.log("ChartWeek 실패");
     }
   });
 });
 
-// 하루치 데이터를 통해 7일치 차트를 만듬
-router.post('/Chart7',function(request, response){
-  console.log("Chart7 라우터 진입");
+// 7일간 전력소비량/탄소배출량 BarChartWeek
+router.post('/ChartWeek',function(request, response){
+  console.log("ChartWeek 라우터 진입");
 
   if (request.body.datevalue != null){
     let date1 = request.body.datevalue;
+    console.log('date1',date1);
     let stringDate = String(date1);
 
   // 날짜를 더할 수 있는 함수 (날 기준)
@@ -251,11 +335,10 @@ router.post('/Chart7',function(request, response){
   let arr2 = [];
   for (let i = 0; i < 7; i++) {
 
-    // 1. 하루치 전력 합 가져오기
+    // 1. 한시간씩 전력 가져오기
     let date = StringToDate(stringDate, i);
     arr2.push(date.substring(5,7)+"월 "+date.substring(8,10)+'일');
-    console.log('arr2', arr2);
-    console.log("날짜 진입 : ", date);
+
     let sql = `select sum(usee) sum from usetest WHERE tm BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
 
     conn.query(sql, function (err, rows) {
@@ -264,51 +347,29 @@ router.post('/Chart7',function(request, response){
         arr.push(Object.values(rows[0])[0]);
         if (arr.length == 7){
            response.json({
-             chart7data: arr,
+             chartweekdata: arr,
              labels : arr2
            });
            console.log("데이터 보내기 레츠기릿! : ", arr);
         }
       } else {
-        console.log("chart7 실패");
+        console.log("ChartWeek 실패");
       }
     });
   }
 }
 });
 
-// 하루치 데이터를 통해 한 달 차트를 만듬
-router.post('/Chart30',function(request, response){
-  console.log("Chart30 라우터 진입");
+// 한달간 일일 전력소비량/탄소배출량 BarChartMonth
+router.post('/ChartMonth',function(request, response){
+  console.log("ChartMonth 라우터 진입");
 
   if (request.body.datevalue != null){
     let date1 = request.body.datevalue;
+    console.log('date1',date1);
     let stringDate = String(date1);
 
-  // 날짜를 더할 수 있는 함수 (월 기준)
-  function StringToMonth(date, n) {
-    let yyyy = date.substring(0, 4);
-    let mm = date.substring(5, 7);
-    let dd = date.substring(8, 10);
-    mm = Number(mm) - 1;
-
-    let stringNewDate = new Date(yyyy, mm, dd);
-    stringNewDate.setMonth(stringNewDate.getMonth() + n);
-
-    return (
-      stringNewDate.getFullYear() +
-      "-" +
-      (stringNewDate.getMonth() + 1 > 9
-        ? (stringNewDate.getMonth() + 1).toString()
-        : "0" + (stringNewDate.getMonth() + 1)) +
-      "-" +
-      (stringNewDate.getDate() > 9
-        ? stringNewDate.getDate().toString()
-        : "0" + stringNewDate.getDate().toString())
-    );
-  }
-
-  // 날짜를 더할 수 있는 함수 (일 기준)
+  // 날짜를 더할 수 있는 함수 (날 기준)
   function StringToDate(date, n) {
     let yyyy = date.substring(0, 4);
     let mm = date.substring(5, 7);
@@ -333,32 +394,122 @@ router.post('/Chart30',function(request, response){
 
   let arr = [];
   let arr2 = [];
+  for (let i = 0; i < 30; i++) {
+
+    // 1. 한시간씩 전력 가져오기
+    let date = StringToDate(stringDate, i);
+    if (date.substring(8,10)=='01' || i == 0){
+      arr2.push(date.substring(5, 7) + "월 " + date.substring(8, 10) + "일");
+    }else
+    arr2.push(date.substring(8,10)+'일');
+
+    let sql = `select sum(usee) sum from usetest WHERE tm BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
+
+    conn.query(sql, function (err, rows) {
+      if (rows.length > 0) {
+        console.log("데이터 받아오기 성공 : " + rows.length);
+        arr.push(Object.values(rows[0])[0]);
+        if (arr.length == 30){
+           response.json({
+             chartmonthdata: arr,
+             labels : arr2
+           });
+           console.log("데이터 보내기 레츠기릿! : ", arr);
+        }
+      } else {
+        console.log("ChartMonth 실패");
+      }
+    });
+  }
+}
+});
+
+// 월간 전력소비량/탄소배출량 BarChartYear
+router.post('/ChartYear',function(request, response){
+  console.log("ChartYear 라우터 진입");
+
+  if (request.body.datevalue != null){
+    let date = request.body.datevalue;
+    console.log("date", date);
+  // let stringDate = String(date1);
+
+  // // 날짜를 더할 수 있는 함수 (월 기준)
+  function StringToMonth(date, n) {
+    let yyyy = date.substring(0, 4);
+    let mm = date.substring(5, 7);
+    let dd = date.substring(8, 10);
+    mm = Number(mm) - 1;
+
+    let stringNewDate = new Date(yyyy, mm, dd);
+    stringNewDate.setMonth(stringNewDate.getMonth() + n);
+
+    return (
+      stringNewDate.getFullYear() +
+      "-" +
+      (stringNewDate.getMonth() + 1 > 9
+        ? (stringNewDate.getMonth() + 1).toString()
+        : "0" + (stringNewDate.getMonth() + 1)) +
+      "-" +
+      (stringNewDate.getDate() > 9
+        ? stringNewDate.getDate().toString()
+        : "0" + stringNewDate.getDate().toString())
+    );
+  }
+
+  // // 날짜를 더할 수 있는 함수 (일 기준)
+  function StringToDate(date, n) {
+    let yyyy = date.substring(0, 4);
+    let mm = date.substring(5, 7);
+    let dd = date.substring(8, 10);
+    mm = Number(mm) - 1;
+
+    let stringNewDate = new Date(yyyy, mm, dd);
+    stringNewDate.setDate(stringNewDate.getDate() + n);
+
+    return (
+      stringNewDate.getFullYear() +
+      "-" +
+      (stringNewDate.getMonth() + 1 > 9
+        ? (stringNewDate.getMonth() + 1).toString()
+        : "0" + (stringNewDate.getMonth() + 1)) +
+      "-" +
+      (stringNewDate.getDate() > 9
+        ? stringNewDate.getDate().toString()
+        : "0" + stringNewDate.getDate().toString())
+    );
+  }
+
+  let chartyeardata = [];
   for (let i = 0; i < 12; i++) {
-    let date = StringToMonth(stringDate, i);
-    let date2 = StringToDate(StringToMonth(date,1),-1);
-    console.log('date : ', date);
-    console.log("date2 : ", date2);
-    arr2.push(date.substring(2, 4) + "년 " + date.substring(5, 7) + "월");
-    console.log("arr2월", arr2);
+    let dateyear = date.substring(0, 4);
+    let datemonth = 0;
+    if (i+1 < 10){
+      datemonth = StringToDate(StringToMonth(dateyear + "-" + "0"+(i + 1) + "-01", 1),-1);
+    } else{
+      datemonth = StringToDate(StringToMonth(dateyear + "-" + (i + 1) + "-01", 1),-1);
+    }
     
+    console.log('dateyear : ', dateyear);
+    console.log('datemonth : ', datemonth);
+
     // 한달치 전력 합 가져오기
-    let sql =
-      `select sum(usee) sum from usetest WHERE tm BETWEEN "${date} 00:00:00" AND "${date2} 23:00:00"`;
+    let sql = `select sum(usee) sum from usetest WHERE tm BETWEEN 
+    "${dateyear + "-" + (i + 1) + "-01"} 00:00:00" AND "${datemonth} 23:00:00"`;
 
     conn.query(sql, function (err, rows) {
       if (rows.length > 0) {
         console.log("데이터 받아오기 성공 월간 : " + rows.length);
         console.log(rows);
-        arr.push(Object.values(rows[0])[0]);
-        if (arr.length == 12) {
+        chartyeardata.push(Object.values(rows[0])[0]);
+        if (chartyeardata.length == 12) {
           response.json({
-            chart30data: arr,
-            labels: arr2,
+            chartyeardata: chartyeardata,
+            labels: date.substring(0, 4) + "년 ",
           });
-          console.log("데이터 보내기 레츠기릿! : ", arr);
+          console.log("데이터 보내기 레츠기릿연간! : ", chartyeardata);
         }
       } else {
-        console.log("chart30 실패");
+        console.log("chartyear 실패");
       }
     });
   }

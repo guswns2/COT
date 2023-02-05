@@ -19,7 +19,7 @@ ChartJS.register(
     Legend
 )
 
-function BarChartPreWeek (props){
+function BarChartWeek (props){
 
   const [realData, setRealData] = useState([]);
   const [preData, setPreData] = useState([]);
@@ -90,15 +90,15 @@ const config = {
 
     // 주간 전력소비량
     axios
-      .post("http://127.0.0.1:3001/Chart7", {
+      .post("http://127.0.0.1:3001/ChartWeek", {
         // SecondSection.js 로부터 props형식으로 받은 날짜값을 전달
         datevalue: props.val,
       })
       .then((result) => {
         // 받는 부분
-        console.log("ChartData 받는 부분", result.data.chart7data);
+        console.log("ChartData 받는 부분", result.data.chartweekdata);
         console.log("라벨 받는 부분", result.data.labels);
-        setRealData(result.data.chart7data);
+        setRealData(result.data.chartweekdata);
         setLabels(result.data.labels);
       }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
       .catch(() => {
@@ -126,4 +126,4 @@ const config = {
     )
 }
 
-export default BarChartPreWeek;
+export default BarChartWeek;

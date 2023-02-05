@@ -2,10 +2,13 @@ import "./css/MainSection.css";
 import Modal from "./Modal";
 import { useState } from "react";
 import PieChart from "./Chart/PieChart";
-import BarChartPreWeek from "./Chart/BarChartPreWeek";
+import BarChartNow from "./Chart/BarChartNow";
 import LineChart from "./Chart/LineChart";
+import DoughnutChart from "./Chart/doughnutChart";
 
 const MainSection = () => {
+
+  // 모달 페이지
   const [modalOpen, setModalOpen] = useState(false);
 
   const showModal = () => {
@@ -69,7 +72,7 @@ const MainSection = () => {
       <div className="main-container2">
         <div className="main-info3" id="Main Info3">
           <div className="info3-box">
-            <b className="b">주간 전력소비 / 탄소배출량</b>
+            <b className="b">전력소비량 / 탄소배출량</b>
             <button className="info3-button" onClick={showModal}>
               <div className="plus">
                 <img className="plus1-icon" alt="" src="../plus1.svg" />
@@ -78,7 +81,7 @@ const MainSection = () => {
           </div>
           <div className="info3-box2">
             <div className="bar">
-              <BarChartPreWeek></BarChartPreWeek>
+              <BarChartNow></BarChartNow>
             </div>
           </div>
         </div>
@@ -100,15 +103,10 @@ const MainSection = () => {
         {/* </div> */}
         <div className="main-info4" id="Main Info5">
           <div className="info3-box">
-            <b className="b">전일 탄소배출량</b>
-            <button className="info3-button" onClick={showModal}>
-              <div className="plus">
-                <img className="plus1-icon" alt="" src="../plus11.svg" />
-              </div>
-            </button>
+            <b className="b">탄소배출권</b>
           </div>
-          <div className="Line">
-            <LineChart></LineChart>
+          <div className="Doughnut">
+            <DoughnutChart></DoughnutChart>
           </div>
         </div>
       </div>
