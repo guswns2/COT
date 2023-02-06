@@ -22,7 +22,8 @@ ChartJS.register(
 
 function BarChartYear (props){
 
-  const [realData, setRealData] = useState([]);
+  const [yearPower, setYearPower] = useState([]);
+  const [yearCarborn, setYearCarborn] = useState([]);
   // const [preData, setPreData] = useState([]);
 
   const [labels, setLabels] = useState([]);
@@ -33,7 +34,7 @@ function BarChartYear (props){
     datasets: [
       {
         label: "전력사용량",
-        data: realData,
+        data: yearPower,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
           "rgba(255, 159, 64, 0.2)",
@@ -57,8 +58,8 @@ function BarChartYear (props){
 
       // 이중 그래프에 써먹을 것.
       {
-        label: "전력사용량 최대값",
-        data: realData,
+        label: "탄소배출량",
+        data: yearCarborn,
         backgroundColor: "#A5FB7E",
         borderColor: "#A5FB7E",
         tension: 0,
@@ -69,24 +70,36 @@ function BarChartYear (props){
     ],
   };
 
-const config = {
-    data: data,
-    options: {
-          scales: {
-          y: {
-            beginAtZero: true,
-          },
-      plugins:{
-        legend:{
-            labels:{
-              boxWidth: 0
-            },
-        },
-       },
-        },
+const options = {
+  reponsive: true,
+  maintainAspectRatio: false,
+  type: "bar",
+  data: data,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    y: {
+      ticks: {
+        color: "white",
       },
-      
-}
+      beginAtZero: true,
+      grid: {
+        color: "#3F3F3F",
+      },
+    },
+    x: {
+      ticks: {
+        color: "white",
+      },
+      grid: {
+        color: "#3F3F3F",
+      },
+    },
+  },
+};
 
   useEffect(() => {
 
@@ -98,9 +111,11 @@ const config = {
       })
       .then((result) => {
         // 받는 부분
-        console.log("ChartData 받는 부분", result.data.chartyeardata);
+        console.log("result.data.chartyearpower", result.data.chartyearpower);
+        console.log("result.data.chartyearcarborn",result.data.chartyearcarborn);
         console.log("라벨 받는 부분", result.data.labels);
-        setRealData(result.data.chartyeardata);
+        setYearPower(result.data.chartyearpower);
+        setYearCarborn(result.data.chartyearcarborn);
         let labelsArr = [];
         for (let i = 0; i < 12; i++){
           if(i+1 < 10){
@@ -118,19 +133,9 @@ const config = {
   
     return(
         <>
-        {console.log("만약? 여기서 : ", realData)}
             <Bar
             data={data}
-            config={config}
-            options= {{
-                  reponsive:true,
-                  maintainAspectRatio: false,
-                  plugins : {
-                    legend :{
-                    display:false
-                      }
-                  }  
-                    }} 
+            options={options}
             ></Bar>
         </>
     )

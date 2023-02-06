@@ -172,51 +172,6 @@ router.post("/Adjoinus", function (request, response) {
   });
 });
 
-// // Chart에 대한 라우터
-// router.post('/Chart',function(request, response){
-//   console.log("Chart 라우터 진입")
-//   // const arr1 = [-65, -59, -80, -81, -56, -55, -100]; // DB에서 받은 실제값
-//   // const arr2 = [50, 30, 20, 50, 70, 60, 90]; // DB에서 받은 예측값
-//   // const arr3 = [10,20,30,40,50,60,70,80,90,100,110,120];
-//   // const arr4 = [10,20,30,40,50,60,70,80,90,100,110,120];
-  
-//   // 1. 하루치 전력 합 가져오기 
-//   let sql1 = 'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 23 hour)';
-  
-//   // 2. 일주일치 전력 합 가져오기
-//   let sql2 =
-//     'select sum(usee) sum from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 23:00:00", INTERVAL 6 day)';
-  
-//   // 3. 한달치 전력 합 가져오기
-//   let sql3 =
-//     'select * from usetest WHERE tm BETWEEN "2021-01-01 00:00:00" AND DATE_ADD("2021-01-01 00:00:00", INTERVAL 1 month)';
-
-//   let sql4 =
-//     'select * from usetest';
-
-//     conn.query(sql1, function (err, rows) {
-
-//     if (rows.length > 0) {
-//       console.log("데이터 받아오기 성공 : " + rows.length);
-//       console.log("치 : ", rows);
-//       // console.log("두번째 : " + rows[1].tmp);
-//       // console.log("세번째 : " + rows[2].tmp);
-//       // console.log("네번째 : " + rows[3].tmp);
-//       // console.log("다섯번째 : " + rows[4].tmp);
-//       // console.log("여섯번째 : " + rows[5].tmp);
-//       // console.log("일곱번째 : " + rows[6].tmp);
-//       // console.log(arr1);
-//       response.json({
-//         chartdata : rows
-//         // chartdata2 : arr2,
-//         // chartdata3 : rows[2].tmp,
-//         // chartdata4 : arr4
-//       });
-//     } else {
-//       console.log("로그인 실패");
-//     }
-//   });
-// });
 
 // 시간별 전력소비량/탄소배출량
 router.post('/ChartNow',function(request, response){
@@ -246,56 +201,85 @@ router.post('/ChartNow',function(request, response){
   console.log("현재시간 : ", StringToHours(0));
 
   // 시간단위 전력 가져오기
-  let date = '2021-01-04 23:00:00';
-  let sql = `select * from usetest WHERE tm BETWEEN DATE_ADD("${date}", INTERVAL -47 hour) AND "${date}"`;
-
+  let date = '2020-10-15 23:00:00';
+  let sql = `select * from dayuse WHERE use_day BETWEEN DATE_ADD("${date}", INTERVAL -23 hour) AND "${date}"`;
+  let sql2 = `select * from predict WHERE pre_time BETWEEN DATE_ADD("${date}", INTERVAL -23 hour) AND "${date}"`;
   conn.query(sql, function (err, rows) {
-    if (rows.length > 0) {
-      console.log("데이터 받아오기 성공 : " + rows.length);
-      let labelsArr = [];
-      let electArr = [];
+    let preArr = [];
 
-      for (let i = 0; i < rows.length; i++){
-        labelsArr.push(rows[i].tm);
-        electArr.push(rows[i].usee);
-      }
-      let todayLabels = labelsArr.slice(24,);
-      let yesterdayLabels = labelsArr.slice(0, 24);
-      for (let i = 0; i< todayLabels.length; i++){
-        if (i==0 || todayLabels[i].substring(11,13) == '00'){
-          todayLabels.splice(i, 1, todayLabels[i].substring(5, 13) + "시");
-        }else if(i == todayLabels.length-1){
-          todayLabels.splice(
-            i,
-            1,
-            "(NOW) " + todayLabels[i].substring(11, 13) + "시"
-          );
-        }else{
-          todayLabels.splice(i, 1, todayLabels[i].substring(11, 13) + "시");
+    // 예측 전력량 반복문
+    conn.query(sql2, (err2, rows2) => {
+      if (rows2.length > 0) {
+        console.log("데이터 받아오기 성공 pre : " + rows2.length);
+        for (let i = 0; i < rows2.length; i++) {
+          preArr.push(rows2[i].pre_power);
+          console.log(`row2[${i}]`, rows2[i]);
         }
-        
-        // yesterdayLabels.splice(i,1,yesterdayLabels[i].substring(5,13));
       }
-      let todayElect = electArr.slice(24,);
-      let yesterdayElect = electArr.slice(0,24);
-      
-      console.log('labelsArr : ',labelsArr);
-      console.log('todayLabels : ',todayLabels);
-      console.log('yesterdayLabels : ',yesterdayLabels);
-      console.log('electArr : ',electArr);
-      console.log('todayElect : ',todayElect);
-      console.log('yesterdayElect : ',yesterdayElect);
+      if (rows.length > 0) {
+        console.log("preArr : ", preArr);
+        console.log("데이터 받아오기 성공 time : " + rows.length);
+        let labelsArr = [];
+        let electArr = [];
+        let carbonArr = [];
 
-      response.json({
-        todayElect: todayElect,
-        yesterdayElect: yesterdayElect,
-        todayLabels: todayLabels,
-        yesterdayLabels:yesterdayLabels,
-        nowtime:date
-      });
-    } else {
-      console.log("ChartWeek 실패");
-    }
+        // 라벨, 전력, 탄소 배열
+        for (let i = 0; i < rows.length; i++) {
+          labelsArr.push(rows[i].use_day);
+          electArr.push(rows[i].use_power);
+          carbonArr.push(rows[i].use_carborn);
+
+          console.log(`row[${i}]`, rows[i]);
+        }
+
+        // 라벨 날짜 맞추는 부분
+        let todayLabels = labelsArr.slice(0);
+        // let yesterdayLabels = labelsArr.slice(0, 24);
+        for (let i = 0; i < todayLabels.length; i++) {
+          if (i == 0 || todayLabels[i].substring(11, 13) == "00") {
+            todayLabels.splice(i, 1, todayLabels[i].substring(5, 13) + "시");
+          } else if (i == todayLabels.length - 1) {
+            todayLabels.splice(
+              i,
+              1,
+              "(NOW) " + todayLabels[i].substring(11, 13) + "시"
+            );
+          } else {
+            todayLabels.splice(i, 1, todayLabels[i].substring(11, 13) + "시");
+          }
+
+          // yesterdayLabels.splice(i,1,yesterdayLabels[i].substring(5,13));
+        }
+
+        // 전력사용량/탄소배출량 배열 적용
+        let todayElect = electArr;
+        let todayCarbon = carbonArr;
+        // 전력 예측량 배열 적용
+        let todayPre = preArr;
+        // let yesterdayElect = electArr.slice(0,24);
+
+        console.log("labelsArr : ", labelsArr);
+        console.log("todayLabels : ", todayLabels);
+        // console.log('yesterdayLabels : ',yesterdayLabels);
+        console.log("electArr : ", electArr);
+        console.log("todayElect : ", todayElect);
+        console.log("todayCarbon", todayCarbon);
+        console.log("todayPre : ", todayPre);
+        // console.log('yesterdayElect : ',yesterdayElect);
+
+        response.json({
+          todayElect: todayElect,
+          todayCarbon: todayCarbon,
+          // yesterdayElect: yesterdayElect,
+          todayLabels: todayLabels,
+          todayPre: todayPre,
+          // yesterdayLabels:yesterdayLabels,
+          nowtime: date,
+        });
+      } else {
+        console.log("ChartWeek 실패");
+      }
+    });
   });
 });
 
@@ -331,26 +315,30 @@ router.post('/ChartWeek',function(request, response){
     );
   }
 
-  let arr = [];
-  let arr2 = [];
+  let chartweekpower = [];
+  let chartweekcarborn = [];
+  let labels = [];
   for (let i = 0; i < 7; i++) {
 
     // 1. 한시간씩 전력 가져오기
     let date = StringToDate(stringDate, i);
-    arr2.push(date.substring(5,7)+"월 "+date.substring(8,10)+'일');
+    labels.push(date.substring(5,7)+"월 "+date.substring(8,10)+'일');
 
-    let sql = `select sum(usee) sum from usetest WHERE tm BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
+    let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
 
     conn.query(sql, function (err, rows) {
       if (rows.length > 0) {
         console.log("데이터 받아오기 성공 : " + rows.length);
-        arr.push(Object.values(rows[0])[0]);
-        if (arr.length == 7){
+        console.log("power : ", rows);
+        chartweekpower.push(rows[0].power);
+        chartweekcarborn.push(rows[0].carborn);
+        if (chartweekpower.length == 7){
            response.json({
-             chartweekdata: arr,
-             labels : arr2
+             chartweekpower: chartweekpower,
+             chartweekcarborn: chartweekcarborn,
+             labels : labels
            });
-           console.log("데이터 보내기 레츠기릿! : ", arr);
+           console.log("데이터 보내기 성공 - ChartWeek");
         }
       } else {
         console.log("ChartWeek 실패");
@@ -392,29 +380,32 @@ router.post('/ChartMonth',function(request, response){
     );
   }
 
-  let arr = [];
-  let arr2 = [];
+  let chartmonthpower = [];
+  let chartmonthcarborn = [];
+  let labels = [];
   for (let i = 0; i < 30; i++) {
 
     // 1. 한시간씩 전력 가져오기
     let date = StringToDate(stringDate, i);
     if (date.substring(8,10)=='01' || i == 0){
-      arr2.push(date.substring(5, 7) + "월 " + date.substring(8, 10) + "일");
+      labels.push(date.substring(5, 7) + "월 " + date.substring(8, 10) + "일");
     }else
-    arr2.push(date.substring(8,10)+'일');
+    labels.push(date.substring(8,10)+'일');
 
-    let sql = `select sum(usee) sum from usetest WHERE tm BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
+    let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
 
     conn.query(sql, function (err, rows) {
       if (rows.length > 0) {
         console.log("데이터 받아오기 성공 : " + rows.length);
-        arr.push(Object.values(rows[0])[0]);
-        if (arr.length == 30){
+        chartmonthpower.push(rows[0].power);
+        chartmonthcarborn.push(rows[0].carborn);
+        if (chartmonthpower.length == 30){
            response.json({
-             chartmonthdata: arr,
-             labels : arr2
+             chartmonthpower: chartmonthpower,
+             chartmonthcarborn: chartmonthcarborn,
+             labels : labels
            });
-           console.log("데이터 보내기 레츠기릿! : ", arr);
+           console.log("데이터 보내기 레츠기릿! - chartmonth");
         }
       } else {
         console.log("ChartMonth 실패");
@@ -479,7 +470,8 @@ router.post('/ChartYear',function(request, response){
     );
   }
 
-  let chartyeardata = [];
+  let chartyearpower = [];
+  let chartyearcarborn = [];
   for (let i = 0; i < 12; i++) {
     let dateyear = date.substring(0, 4);
     let datemonth = 0;
@@ -493,20 +485,22 @@ router.post('/ChartYear',function(request, response){
     console.log('datemonth : ', datemonth);
 
     // 한달치 전력 합 가져오기
-    let sql = `select sum(usee) sum from usetest WHERE tm BETWEEN 
+    let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN 
     "${dateyear + "-" + (i + 1) + "-01"} 00:00:00" AND "${datemonth} 23:00:00"`;
 
     conn.query(sql, function (err, rows) {
       if (rows.length > 0) {
         console.log("데이터 받아오기 성공 월간 : " + rows.length);
         console.log(rows);
-        chartyeardata.push(Object.values(rows[0])[0]);
-        if (chartyeardata.length == 12) {
+        chartyearpower.push(rows[0].power);
+        chartyearcarborn.push(rows[0].carborn);
+        if (chartyearpower.length == 12) {
           response.json({
-            chartyeardata: chartyeardata,
+            chartyearpower: chartyearpower,
+            chartyearcarborn: chartyearcarborn,
             labels: date.substring(0, 4) + "년 ",
           });
-          console.log("데이터 보내기 레츠기릿연간! : ", chartyeardata);
+          console.log("데이터 보내기 레츠기릿연간! : ", chartyearpower);
         }
       } else {
         console.log("chartyear 실패");
@@ -516,4 +510,49 @@ router.post('/ChartYear',function(request, response){
 }
 });
 
+// 탄소배출권 라우터
+router.post('/Emission',function(request, response){
+  console.log("Emission 라우터 진입");
+
+  // n만큼의 시간을 더하면 날짜를 반환해줌
+  function StringToHours(n) {
+
+    let stringNewDate = new Date();
+    stringNewDate.setHours(stringNewDate.getHours()+n);
+
+    return (
+      stringNewDate.getFullYear() +
+      "-" +
+      (stringNewDate.getMonth() + 1 > 9
+        ? (stringNewDate.getMonth() + 1).toString()
+        : "0" + (stringNewDate.getMonth() + 1)) +
+      "-" +
+      (stringNewDate.getDate() > 9
+        ? stringNewDate.getDate().toString()
+        : "0" + stringNewDate.getDate().toString()) +
+        " " +
+        (stringNewDate.getHours()) + ":00:00"
+    );
+  }
+
+  console.log("현재시간 : ", StringToHours(0));
+
+  // 시간단위 전력 가져오기
+  let date = '2020-05-01 00:00:00';
+  let sql = `select sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN DATE_ADD("${date.slice(0,4)}-01-01 00:00:00", INTERVAL -23 hour) AND "${date}"`;
+
+  conn.query(sql, function (err, rows) {
+    if (rows.length > 0) {
+      console.log("데이터 받아오기 성공 accEmssion : " + rows.length);
+      console.log("rows : ", rows)
+      console.log("accEmission : ", rows[0].carborn);
+      let accemission = rows[0].carborn;
+      response.json({
+        accemission : accemission,
+      });
+    } else {
+      console.log("Emission 실패");
+    }
+  });
+});
 module.exports = router;

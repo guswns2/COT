@@ -41,7 +41,7 @@ const SecondSection = () => {
       <div className="second-container2" id="Second Container2">
         <div className="second-info2-1" id="Second Info2">
           <div className="info2-box1" id="info2 Box1">
-            <b className="b">7일간 전력소비량/탄소배출량</b>
+            <b className="b">7일간 전력소비량 / 탄소배출량</b>
           </div>
           <div className="info2-box2" id="info2 Box2">
             <div className="bar">
@@ -60,7 +60,7 @@ const SecondSection = () => {
       <div className="second-container2" id="Second Container2">
         <div className="second-info2-1" id="Second Info2">
           <div className="info2-box1" id="info2 Box1">
-            <b className="b">30일간 전력소비량/탄소배출량</b>
+            <b className="b">30일간 전력소비량 / 탄소배출량</b>
           </div>
           <div className="info2-box2" id="info2 Box2">
             <div className="bar">
@@ -79,7 +79,7 @@ const SecondSection = () => {
       <div className="second-container2" id="Second Container2">
         <div className="second-info2-1" id="Second Info2">
           <div className="info2-box1" id="info2 Box1">
-            <b className="b">월간 전력소비량/탄소배출량</b>
+            <b className="b">월간 전력소비량 / 탄소배출량</b>
           </div>
           <div className="info2-box2" id="info2 Box2">
             <div className="bar">

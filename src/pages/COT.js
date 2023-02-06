@@ -38,7 +38,6 @@ const COT = () => {
     <>
       <div className="cot" data-animate-on-scroll>
         <MainSection />
-        <SecondSection />
       </div>
     </>
   );

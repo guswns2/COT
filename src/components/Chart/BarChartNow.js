@@ -16,7 +16,7 @@ ChartJS.register(
     CategoryScale,
     LinearScale,
     Tooltip,
-    Legend
+    Legend,
 )
 
 function BarChartNow (){
@@ -60,12 +60,12 @@ function BarChartNow (){
       {
         label: "금일 전력사용량",
         data: todayElect,
-        backgroundColor: ["rgba(255, 205, 86, 0.2)"],
+        backgroundColor: ["rgba(234,234,71,0.3)"],
         borderColor: ["rgb(255, 205, 86)"],
         borderWidth: 2,
       },
 
-      // 이중 그래프에 써먹을 것. Line 그래프
+      // 이중 그래프에 써먹을 것. Line 그래프 - 보류
       // {
       //   label: "전일 전력사용량",
       //   data: yesterdayElect,
@@ -79,12 +79,13 @@ function BarChartNow (){
       {
         label: "금일 탄소배출량",
         data: todayCarbon,
-        backgroundColor: "darkgray",
-        borderColor: "darkgray",
+        backgroundColor: "white",
+        borderColor: "white",
         tension: 0,
         type: "line",
         order: 0,
         borderWidth: 3,
+        
       },
       {
         label: "금일 예상 전력사용량",
@@ -96,28 +97,43 @@ function BarChartNow (){
         order: 0,
         borderWidth: 3,
       },
+      
     ],
   };
 
-const config = {
-    type:"bar",
-    data: data,
-    options: {
-          scales: {
-          y: {
-            beginAtZero: true,
-          },
-      plugins:{
-        legend:{
-            labels:{
-              boxWidth: 0
-            },
-        },
-       },
-        },
+const options = {
+  reponsive: true,
+  maintainAspectRatio: false,
+  type: "bar",
+  data: data,
+  plugins: {
+    legend: {
+      labels: {
+        color: "white",
       },
-      
-}
+      display: true,
+    },
+  },
+  scales: {
+    y: {
+      ticks: {
+        color: "white",
+      },
+      beginAtZero: true,
+      grid: {
+        color: "#3F3F3F",
+      },
+    },
+    x: {
+      ticks: {
+        color: "white",
+      },
+      grid: {
+        color: "#3F3F3F",
+      },
+    },
+  },
+};
 
   useEffect(() => {
 
@@ -130,21 +146,14 @@ const config = {
         console.log("todayElect : ", result.data.todayElect);
         console.log("yesterdayElect : ", result.data.yesterdayElect);
         console.log("todayLabels : ", result.data.todayLabels);
-        console.log("yesterdayLabels : ", result.data.yesterdayLabels);
+        // console.log("yesterdayLabels : ", result.data.yesterdayLabels);
+        console.log("todayCarbon : ", result.data.todayCarbon);
+        console.log("todayPre : ", result.data.todayPre);
         setTodayElect(result.data.todayElect);
-        setYesterdayElect(result.data.yesterdayElect);
+        // setYesterdayElect(result.data.yesterdayElect);
         setTodayLabels(result.data.todayLabels);
-
-        let todayCarbonArr = [];
-        let predictElectArr = [];
-        for (let i = 0; i < result.data.todayElect.length; i++){
-          let value = result.data.todayElect[i];
-          todayCarbonArr.push(value*0.6);
-          predictElectArr.push(value*1.12);
-        }
-
-        setTodayCarbon(todayCarbonArr);
-        setPredictElect(predictElectArr);
+        setTodayCarbon(result.data.todayCarbon);
+        setPredictElect(result.data.todayPre);
       }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
       .catch(() => {
         console.log("chartnow 데이터 보내기 실패!");
@@ -156,16 +165,7 @@ const config = {
         {console.log("now 전달 체크 : ", todayElect)}
             <Bar
             data={data}
-            config={config}
-            options= {{
-                  reponsive:true,
-                  maintainAspectRatio: false,
-                  plugins : {
-                    legend :{
-                    display:true
-                      }
-                  }  
-                    }} 
+            options={options} 
             ></Bar>
         </>
     )

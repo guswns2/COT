@@ -4,7 +4,7 @@ import { useState } from "react";
 import PieChart from "./Chart/PieChart";
 import BarChartNow from "./Chart/BarChartNow";
 import LineChart from "./Chart/LineChart";
-import DoughnutChart from "./Chart/doughnutChart";
+import DoughnutChart from "./Chart/DoughnutChart";
 
 const MainSection = () => {
 
@@ -46,13 +46,13 @@ const MainSection = () => {
                   <b className="b1" id="todayCo2Text">
                     오늘의 탄소배출량
                   </b>
+                  <br></br>
                   <b className="ttco2" id="todayCo2Text2">
                     128,300 t/tco2
                   </b>
                 </div>
               </div>
-              <div className="info1-box2-c1">
-                <div className="todayelectric">
+              <div className="info1-box2-c2">
                   <div className="todayelectric-image">
                     <img className="icon1" alt="" src="../5-1@2x.png" />
                   </div>
@@ -60,9 +60,9 @@ const MainSection = () => {
                     <b className="b1" id="todayeleText">
                       오늘의 전력소비량
                     </b>
+                    <br></br>
                     <b className="kw">12300 kw</b>
                   </div>
-                </div>
               </div>
             </div>
           </div>
