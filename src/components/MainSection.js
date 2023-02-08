@@ -13,6 +13,7 @@ const MainSection = () => {
   const [todayPower, setTodayPower] = useState(0);
   const [todayCarbon, setTodayCarbon] = useState(0);
   const [randomNum, setRandomNum] = useState(0);
+  const [a,setA] = useState();
   const wise = [
     ["측정할 수 없으면 관리할 수 없다.", "- 피터 드러커 -"],
     [
@@ -39,7 +40,35 @@ const MainSection = () => {
   //   setModalOpen(true);
   //   document.body.style.overflow = "hidden";
   // };
+
+  function getData() {
+    try{
+    axios({
+      method: "GET",
+      url:"/today_weather",
+      
+    })
+    .then((response) => {
+      const res =response['data']
+      console.log(res)
+      setA(res)
+    }).catch((error) => {
+      if (error.response) {
+        console.log
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+        }
+    })}
+  catch(error){
+    console.log("dd")
+  }
+  }
+
   useEffect(() => {
+    // 
+    getData()
+
     // 주간 전력소비량
     axios
       .post("http://127.0.0.1:3001/MainSection", {
@@ -66,6 +95,9 @@ const MainSection = () => {
 
       document.getElementById("main").style.borderBottom = "1px solid white";
       document.getElementById("dashboard").style.borderBottom ="";
+
+      
+
   }, []);
 
   return (
@@ -140,7 +172,9 @@ const MainSection = () => {
               </div>
             </div>
           </div>
-          <div className="main-info2" id="info1-c1d2" />
+          <div className="main-info2" id="info1-c1d2">
+            <p>{a}</p>
+            </div>
         </div>
       </div>
       <div className="main-container2">
