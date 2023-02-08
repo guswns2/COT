@@ -4,12 +4,11 @@ import { useState, useEffect } from "react";
 import PieChart from "./Chart/PieChart";
 import BarChartNow from "./Chart/BarChartNow";
 import LineChart from "./Chart/LineChart";
-import DoughnutChart from "./Chart/DoughnutChart";
+import DoughnutChart from "./Chart/doughnutChart";
 import Clock from "./Clock";
 import axios from "axios";
 
 const MainSection = () => {
-
   const [todayPower, setTodayPower] = useState(0);
   const [todayCarbon, setTodayCarbon] = useState(0);
   const [randomNum, setRandomNum] = useState(0);
@@ -17,20 +16,21 @@ const MainSection = () => {
     ["측정할 수 없으면 관리할 수 없다.", "- 피터 드러커 -"],
     [
       "앞으로 나아가는 유일한 방법은 환경의 질을 향상시키려면 모든 사람을 참여시키는 것입니다.",
-      "- 리처드 로저스 -"
+      "- 리처드 로저스 -",
     ],
     [
       "행복의 첫 번째 조건 중 하나는 인간과 자연의 연결고리가 끊어지지 않는 것이다.",
-      "- 레오 톨스토이 -"
+      "- 레오 톨스토이 -",
     ],
     ["지구는 우리 모두의 공통점이야.", "- 웬델 베리 - "],
     [
       "환경은 우리 모두가 만나는 곳이고, 우리 모두가 서로 관심을 갖는 곳이며, 그것이 우리 모두가 공유하는 유일한 것이다.",
-      "- 레이디 버드 존슨 -"
+      "- 레이디 버드 존슨 -",
     ],
     [
-      "과학의 올바른 용도는 자연을 정복하는 것이 아니라 그 속에서 살아가는 것이다.", "- Barry Popular -"
-    ]
+      "과학의 올바른 용도는 자연을 정복하는 것이 아니라 그 속에서 살아가는 것이다.",
+      "- Barry Popular -",
+    ],
   ];
   // // 모달 페이지
   // const [modalOpen, setModalOpen] = useState(false);
@@ -58,14 +58,14 @@ const MainSection = () => {
         );
         setTodayPower(power);
         setTodayCarbon(carborn);
-        setRandomNum(Math.floor(Math.random()*5+1));
+        setRandomNum(Math.floor(Math.random() * 5 + 1));
       }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
       .catch(() => {
         console.log("데이터 보내기 실패!");
       });
 
-      document.getElementById("main").style.borderBottom = "1px solid white";
-      document.getElementById("dashboard").style.borderBottom ="";
+    document.getElementById("main").style.borderBottom = "1px solid white";
+    document.getElementById("dashboard").style.borderBottom = "";
   }, []);
 
   return (

@@ -5,12 +5,12 @@ import BarChartWeek from "./Chart/BarChartWeek";
 import BarChartYear from "./Chart/BarChartYear";
 import BarChartMonth from "./Chart/BarChartMonth";
 import LineChart from "./Chart/LineChart";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRef } from "react";
 import axios from "axios";
 
 const SecondSection = () => {
-  const [choice , setChoice] =useState("");
+  const [choice, setChoice] = useState("");
   const [a, setA] = useState("");
   const [b, setB] = useState("");
   const [c, setC] = useState("");
@@ -25,18 +25,18 @@ const SecondSection = () => {
   const [minpy, setminpy] = useState("");
   const [maxcy, setmaxcy] = useState("");
   const [mincy, setmincy] = useState("");
-  let i = String(localStorage.getItem('date'));
+  let i = String(localStorage.getItem("date"));
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("e.target.value", e.target.value);
-    localStorage.setItem('date',e.target.value);
-      setChoice(e.target.value);
+    localStorage.setItem("date", e.target.value);
+    setChoice(e.target.value);
   };
   useEffect(() => {
-    document.getElementById("main").style.borderBottom ="";
+    document.getElementById("main").style.borderBottom = "";
     document.getElementById("dashboard").style.borderBottom = "1px solid white";
   }, []);
-  
+
   return (
     <section className="second-section" id="Second Section">
       <div className="second-container1" id="Second Container1">
@@ -84,18 +84,20 @@ const SecondSection = () => {
             <b className="b">요약</b>
           </div>
           <div className="monthcard">
-            <b className="powertext">주간 전력 소비량 </b>
-            <br></br>
-            <b className="ctext">최대 {a}</b>
-            <br></br>
-            <b className="ctext">최소 {b}</b>
-            <br></br>
-            <br></br>
-            <b className="carborntext">주간 탄소 배출량 </b>
-            <br></br>
-            <b className="ctext">최대 {c}</b>
-            <br></br>
-            <b className="ctext">최소 {d}</b>
+            <div className="powercard">
+              <b className="powertext">주간 전력 소비량 </b>
+              <br></br>
+              <b className="ctext">최대 {a}</b>
+              <br></br>
+              <b className="ctext">최소 {b}</b>
+            </div>
+            <div className="carborncard">
+              <b className="carborntext">주간 탄소 배출량 </b>
+              <br></br>
+              <b className="ctext">최대 {c}</b>
+              <br></br>
+              <b className="ctext">최소 {d}</b>
+            </div>
           </div>
         </div>
       </div>
@@ -121,18 +123,20 @@ const SecondSection = () => {
             <b className="b">요약</b>
           </div>
           <div className="monthcard">
-            <b className="powertext">월간 전력 소비량 </b>
-            <br></br>
-            <b className="ctext"> 최대 {maxpm}</b>
-            <br></br>
-            <b className="ctext"> 최소 {minpm}</b>
-            <br></br>
-            <br></br>
-            <b className="carborntext">월간 탄소 배출량 </b>
-            <br></br>
-            <b className="ctext">최대 {maxcm}</b>
-            <br></br>
-            <b className="ctext">최소 {mincm}</b>
+            <div className="powercard">
+              <b className="powertext">월간 전력 소비량 </b>
+              <br></br>
+              <b className="ctext"> 최대 {maxpm}</b>
+              <br></br>
+              <b className="ctext"> 최소 {minpm}</b>
+            </div>
+            <div className="carborncard">
+              <b className="carborntext">월간 탄소 배출량 </b>
+              <br></br>
+              <b className="ctext">최대 {maxcm}</b>
+              <br></br>
+              <b className="ctext">최소 {mincm}</b>
+            </div>
           </div>
         </div>
       </div>
@@ -159,18 +163,20 @@ const SecondSection = () => {
             <b className="b">요약</b>
           </div>
           <div className="monthcard">
-            <b className="powertext">연간 전력 소비량 </b>
-            <br></br>
-            <b className="ctext">최대 {maxpy}</b>
-            <br></br>
-            <b className="ctext">최소 {minpy}</b>
-            <br></br>
-            <br></br>
-            <b className="carborntext">연간 탄소 배출량 </b>
-            <br></br>
-            <b className="ctext">최대 {maxcy}</b>
-            <br></br>
-            <b className="ctext">최소 {mincy}</b>
+            <div className="powercard">
+              <b className="powertext">연간 전력 소비량 </b>
+              <br></br>
+              <b className="ctext">최대 {maxpy}</b>
+              <br></br>
+              <b className="ctext">최소 {minpy}</b>
+            </div>
+            <div className="carborncard">
+              <b className="carborntext">연간 탄소 배출량 </b>
+              <br></br>
+              <b className="ctext">최대 {maxcy}</b>
+              <br></br>
+              <b className="ctext">최소 {mincy}</b>
+            </div>
           </div>
         </div>
       </div>
