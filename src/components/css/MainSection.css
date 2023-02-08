@@ -132,7 +132,7 @@
 }
 .main-info1 {
   flex: 1;
-  height: 410px;
+  height: 390px;
   flex-direction: column;
   padding: var(--padding-3xs) 0 var(--padding-3xs) 0;
   box-sizing: border-box;
@@ -182,7 +182,7 @@
   border-radius: 5px;
   display: flex;
   align-items: center;
-  height: 410px;
+  height: 390px;
   flex-direction: row;
   /* padding: var(--padding-3xs) 0 var(--padding-3xs) 0; */
   /* box-sizing: border-box; */
@@ -235,7 +235,7 @@
   position: relative;
   border-radius: 5px;
   background-color: #292929;
-  height: 410px;
+  height: 390px;
   mix-blend-mode: normal;
   box-shadow: rgba(211, 211, 211, 0.664) 0px 1px 2px 0px,
     rgba(182, 182, 182, 0.788) 0px 2px 6px 2px;
@@ -246,7 +246,7 @@
   position: relative;
   border-radius: 5px;
   background-color: #292929;
-  height: 410px;
+  height: 390px;
   mix-blend-mode: normal;
   text-align: center;
   box-shadow: rgba(212, 212, 212, 0.664) 0px 1px 2px 0px,
@@ -262,7 +262,7 @@
 .main-container2 {
   border-radius: 0 0 var(--br-sm) var(--br-sm);
   background-color: #535353;
-  overflow: hidden;
+
   flex-direction: row;
   padding: var(--padding-2xs) var(--padding-2xs) var(--padding-2xs);
   justify-content: center;
@@ -272,14 +272,17 @@
   color: var(--color-gray-300);
 }
 .main-section {
+  position: inherit;
   flex-direction: column;
-  padding: 25.5px;
+  padding: 25.5px 25.5px 2.5% 25.5px;
   justify-content: flex-start;
   text-align: left;
   font-size: var(--font-size-7xl);
   color: var(--color-white);
   font-family: var(--font-poppins);
   background-color: #535353;
+  width: 100vw;
+  /* height: max-content; */
 }
 
 /* 라인그래프 크기 조절 */

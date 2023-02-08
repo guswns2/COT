@@ -202,7 +202,7 @@
   font-size: var(--font-size-base);
   color: var(--color-gray);
   font-family: var(--font-poppins);
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
   background-color: #535353;
 }
 
