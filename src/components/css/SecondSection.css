@@ -4,20 +4,44 @@
   }
 }
 
+.powercard {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 40%;
+  flex-direction: column;
+  width: 70%;
+  line-height: 0.8;
+  left: 10%;
+}
+.carborncard {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 40%;
+  flex-direction: column;
+  width: 70%;
+  line-height: 0.8;
+  top: 8%;
+  left: 10%;
+}
 .monthcard {
-  position: absolute;
+  display: flex;
+  position: relative;
   align-items: center;
   height: 90%;
+  flex-direction: column;
   width: 100%;
-  top: 8%;
-  left: 30%;
-  /* line-height: 130%; */
+  line-height: 0.8;
+  /* left: 25%; */
+  top: 15%;
 }
 .ctext {
   color: rgba(218, 218, 218, 0.945);
   position: relative;
   align-self: stretch;
   font-size: 20px;
+  display: flex;
 }
 .powertext {
   color: rgba(252, 255, 84, 0.897);
@@ -143,7 +167,6 @@
   right: 3.26%;
   bottom: 87.47%;
   left: 2.61%;
- 
 }
 
 .info2-box2 {
@@ -160,10 +183,10 @@
   align-items: center;
 }
 .second-info2-1 {
-  flex:2.02655;
+  flex: 2.02655;
 }
 .second-info2-2 {
-  flex:1;
+  flex: 1;
 }
 .second-info2-1,
 .second-info2-2 {
@@ -214,10 +237,10 @@
 }
 
 @media screen and (max-width: 766px) {
- .second-container2 {
+  .second-container2 {
     flex-direction: column;
   }
-  .second-info2-1{
+  .second-info2-1 {
     align-self: stretch;
     flex: none;
     height: 300px;
@@ -226,5 +249,15 @@
     align-self: stretch;
     flex: none;
     height: 200px;
+  }
+  .monthcard {
+    flex-direction: row;
+  }
+  .powercard {
+    left: 18%;
+    bottom: 20%;
+  }
+  .carborncard {
+    height: 95%;
   }
 }
