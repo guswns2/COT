@@ -5,9 +5,23 @@
 
 .p1 {
   margin: 0;
+  font-size: 20px;
 }
 .txt {
   line-break: anywhere;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  position: relative;
+  /* margin: 0 0 0 30px; */
+  flex-direction: column;
+}
+.h1{
+  display: inline-block;
+  position: relative;
+  bottom: 5px;
+  font-size: 45px;
 }
 .h3,
 .info1-box1 {
@@ -16,13 +30,18 @@
   align-items: center;
 }
 .h3 {
+  width: 95%;
   margin: 0;
+  top: 20px;
+  left: 0;
   position: relative;
-  font-size: inherit;
+  font-size: 18px;
   font-weight: 700;
   font-family: inherit;
   height: 115.02px;
   flex-shrink: 0;
+  align-self: center;
+  justify-content: center;
 }
 .info1-box1 {
   border-radius: 5px;
@@ -30,14 +49,11 @@
   padding: var(--padding-3xs);
   justify-content: center;
   mix-blend-mode: normal;
+  
 }
 .icon {
-  position: relative;
-  width: 137.85px;
-  height: 108px;
-  flex-shrink: 0;
-  object-fit: cover;
-  left:25px;
+  width: 110.5px;
+  height: 95px;
 }
 
 .b,
@@ -48,15 +64,9 @@
   font-size: var(--font-size-base);
 }
 
-
 .icon1 {
-  position: relative;
   width: 110.5px;
   height: 113px;
-  flex-shrink: 0;
-  object-fit: cover;
-  left:30px;
-  bottom:20px;
 }
 
 .b1,
@@ -69,57 +79,56 @@
 
 .todayelectric-image {
   position: relative;
-  left: 25px;
+  height: fit-content;
+  width: fit-content;
 }
 .todayelectric-text {
-  display: list-item;
   position: relative;
-  right: 40px;
+  height: fit-content;
+  width: fit-content;
 }
 
 .info1-box2 {
   display: flex;
-  border-radius: 5px;
-  align-self: stretch; 
-  flex-direction: column;
+  align-self: center; 
+  align-items: center;
+  flex-direction: column-reverse;
   justify-content: space-between;
   mix-blend-mode: normal;
-  height: 100%;
-  box-shadow: rgba(107, 107, 107, 0.664) 0px 1px 2px 0px,
-    rgba(165, 165, 165, 0.301) 0px 2px 6px 2px;
+  height: 70%;
+  width: 100%;
 }
 .info1-box2-c1 {
   display: flex;
-  align-items: flex-start;
+  align-self: center;
+  align-items: center;
   flex-direction: row;
   justify-content: space-between;
   mix-blend-mode: normal;
-  border-radius: 5px;
-  margin-top: 70px;
-  height: 100px;
+  height: fit-content;
+  width: 60%;
 }
 
 .info1-box2-c2 {
   display: flex;
-  align-items: flex-start;
+  align-self: center;
+  align-items: center;
   flex-direction: row;
   justify-content: space-between;
   mix-blend-mode: normal;
-  border-radius: 5px;
-  margin-bottom: 60px;
-  height: 100px;
+  height: fit-content;
+  width: 60%;
 }
 
 .todayco2-image{
   position: relative;
-  left:25px;
-  /* overflow: hidden; */
+  height: fit-content;
+  width: fit-content;
 }
 .todayco2-text{
-  display: list-item;
   position: relative;
-  right:40px;
-  /* overflow: hidden; */
+  height: fit-content;
+  width: fit-content;
 }
 .main-info1 {
   flex: 1;
@@ -129,27 +138,34 @@
   box-sizing: border-box;
   justify-content: center;
   gap: var(--gap-xs);
-  background-color: #252525;
+  background-color: #292929;
   border-radius: 5px;
   box-shadow: rgba(160, 160, 160, 0.664) 0px 1px 2px 0px,
-    rgba(165, 165, 165, 0.301) 0px 2px 6px 2px;
+    rgba(165, 165, 165, 0.514) 0px 2px 6px 2px;
 }
 .main-container,
 .main-info1,
 .main-info2 {
-  overflow: hidden;
   mix-blend-mode: normal;
 }
 .main-info2 {
+  display: flex;
   flex: 1;
   border-radius: 5px;
-  background-color: #252525;
-  height: 410px;
+  position: relative;
+  background-color: #292929;
+  height: 100%;
+  width: 100%;
   align-items: center;
+  justify-content: center;
   text-align: center;
   box-shadow: rgba(180, 180, 180, 0.527) 0px 1px 2px 0px,
     rgba(165, 165, 165, 0.514) 0px 2px 6px 2px;
+  box-sizing: border-box;
+  gap: var(--gap-xs);
+  /* padding: var(--padding-3xs) 0 var(--padding-3xs) 0; */
 }
+
 .main-container {
   align-self: stretch;
   border-radius: var(--br-sm) var(--br-sm) 0 0;
@@ -168,30 +184,16 @@
   align-items: center;
   height: 410px;
   flex-direction: row;
-  padding: var(--padding-3xs) 0 var(--padding-3xs) 0;
-  box-sizing: border-box;
+  /* padding: var(--padding-3xs) 0 var(--padding-3xs) 0; */
+  /* box-sizing: border-box; */
   justify-content: center;
   gap: 15px;
   /* background-color: #b7d6b7; */
-  overflow: hidden;
   mix-blend-mode: normal;
   flex: 2.02655;
 }
-.plus1-icon {
-  position: relative;
-}
-.plus1-icon {
-  width: 25px;
-  height: 25px;
-  flex-shrink: 0;
-}
-.plus {
-  justify-content: center;
-}
-.info3-box,
 .info3-box2,
-.info3-button,
-.plus {
+.info3-button{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -204,7 +206,10 @@
   justify-content: flex-end;
 }
 .info3-box {
-  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   position: absolute;
   height: 9.39%;
   width: 94.14%;
@@ -212,7 +217,6 @@
   right: 3.26%;
   bottom: 87.47%;
   left: 2.61%;
-  justify-content: space-between;
 }
 
 .info3-box2 {
@@ -224,26 +228,24 @@
   bottom: 87.47%;
   left: 3%;
   justify-content: space-between;
-  color:white;
 }
 
 .main-info3 {
   flex: 2.02655;
   position: relative;
   border-radius: 5px;
-  background-color: #252525;
+  background-color: #292929;
   height: 410px;
   mix-blend-mode: normal;
   box-shadow: rgba(211, 211, 211, 0.664) 0px 1px 2px 0px,
-    rgba(182, 182, 182, 0.808) 0px 2px 6px 2px;
-  color: white;
+    rgba(182, 182, 182, 0.788) 0px 2px 6px 2px;
 }
 
 .main-info4 {
   flex: 1;
   position: relative;
   border-radius: 5px;
-  background-color: #252525;
+  background-color: #292929;
   height: 410px;
   mix-blend-mode: normal;
   text-align: center;
@@ -270,7 +272,6 @@
   color: var(--color-gray-300);
 }
 .main-section {
-  border-radius: var(--br-sm);
   flex-direction: column;
   padding: 25.5px;
   justify-content: flex-start;
@@ -293,13 +294,12 @@
 
 /* 도넛그래프 크기 조절 */
 .Doughnut {
-  position: relative;
+  position: block;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 85%;
-  top: 10%;
+  height: 100%;
 }
 
 /* 파이그래프 크기 조절 */
@@ -327,9 +327,6 @@
   }
 }
 @media screen and (max-width: 1199px) {
-  .h3 {
-    font-size: var(--font-size-7xl);
-  }
   .b1 {
     font-size: var(--font-size-6xl);
   }
@@ -364,6 +361,24 @@
   .main-container2 {
     flex-direction: column;
   }
+  .info1-box2{
+    display: flex;
+    align-self: center; 
+    align-items: center;
+    flex-direction: column-reverse;
+    justify-content: center;
+    mix-blend-mode: normal;
+    height: 100%;
+    width: 100%;
+  }
+  .icon{
+    width: 90px;
+    height: 75px;
+  }
+  .icon1{
+    width: 90px;
+    height: 90px;
+  }
 }
 @media screen and (max-width: 1577px) {
   .b1 {
@@ -386,19 +401,20 @@
   }
 }
 @media screen and (max-width: 428px) {
-  .h3 {
-    font-size: var(--font-size-5xs);
-  }
   .icon {
-    width: 20px;
-    height: 15px;
+    width: 70px;
+    height: 60px;
   }
   .ttco2 {
     font-size: var(--font-size-4xs);
   }
   .icon1 {
-    width: 20px;
-    height: 20px;
+    width: 70px;
+    height: 70px;
+  }
+  .info1-box2-c1,
+  .info1-box2-c2{
+    width: 70%;
   }
   .b1 {
     font-size: var(--font-size-2xs);
@@ -413,27 +429,5 @@
   }
   .main-container {
     flex-direction: column;
-  }
-}
-@media screen and (max-width: 390px) {
-  .h3 {
-    font-size: var(--font-size-2xs);
-  }
-}
-@media screen and (max-width: 375px) {
-  .h3 {
-    font-size: var(--font-size-3xs);
-  }
-}
-
-@media screen and (max-width: 1772px) {
-  .h3 {
-    font-size: var(--font-size-6xl);
-  }
-}
-
-@media screen and (max-width: 1705px) {
-  .h3 {
-    font-size: var(--font-size-5xl);
   }
 }

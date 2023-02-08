@@ -77,7 +77,10 @@ const options = {
   data: data,
   plugins: {
     legend: {
-      display: false,
+      display: true,
+      labels: {
+        color: "white",
+      },
     },
   },
   scales: {
@@ -107,7 +110,7 @@ const options = {
     axios
       .post("http://127.0.0.1:3001/ChartYear", {
         // SecondSection.js 로부터 props형식으로 받은 날짜값을 전달
-        datevalue: props.val,
+        datevalue: localStorage.getItem('date'),
       })
       .then((result) => {
         // 받는 부분
@@ -130,6 +133,17 @@ const options = {
         console.log("데이터 보내기 실패!");
       });
   }, [props.val]);
+
+    useEffect(() => {
+      let val10 = String(Math.max.apply(null, yearPower)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val11 = String(Math.min.apply(null, yearPower)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val12 = String(Math.max.apply(null, yearCarborn)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val13 = String(Math.min.apply(null, yearCarborn)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      props.val10(val10);
+      props.val11(val11);
+      props.val12(val12);
+      props.val13(val13);
+    }, [labels]);
   
     return(
         <>

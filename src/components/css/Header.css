@@ -50,6 +50,11 @@
   font-size: 22px;
 }
 .main-parent {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  justify-content: space-between;
+  align-self: center;
   position: absolute;
   height: 47.27%;
   width: 15.28%;

@@ -74,7 +74,10 @@ const options = {
   data: data,
   plugins: {
     legend: {
-      display: false,
+      display: true,
+      labels:{
+        color:'white'
+      }
     },
   },
   scales: {
@@ -104,7 +107,7 @@ const options = {
     axios
       .post("http://127.0.0.1:3001/ChartMonth", {
         // SecondSection.js 로부터 props형식으로 받은 날짜값을 전달
-        datevalue: props.val,
+        datevalue: localStorage.getItem('date'),
       })
       .then((result) => {
         // 받는 부분
@@ -120,6 +123,17 @@ const options = {
       });
   }, [props.val]);
   
+    useEffect(() => {
+      let val6 = String(Math.max.apply(null, monthPower)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val7 = String(Math.min.apply(null, monthPower)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val8 = String(Math.max.apply(null, monthCarborn)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val9 = String(Math.min.apply(null, monthCarborn)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      props.val6(val6);
+      props.val7(val7);
+      props.val8(val8);
+      props.val9(val9);
+    }, [labels]);
+    
     return(
         <>
             <Bar

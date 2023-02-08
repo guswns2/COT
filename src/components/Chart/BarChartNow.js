@@ -60,7 +60,7 @@ function BarChartNow (){
       {
         label: "금일 전력사용량",
         data: todayElect,
-        backgroundColor: ["rgba(234,234,71,0.3)"],
+        backgroundColor: ["rgba(252,252,42,0.3)"],
         borderColor: ["rgb(255, 205, 86)"],
         borderWidth: 2,
       },

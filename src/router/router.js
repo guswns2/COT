@@ -17,9 +17,6 @@ let conn = mysql.createConnection({
   dateStrings : 'date'
 });
 
-let adminid; // 관리자 session값 저장 부분
-let adminnick; // 관리자닉네임 session값 저장 부분
-
 router.get("*", function (request, response) {
   console.log("Happy Hacking!");
   response.sendFile(path.join(__dirname, "..", "..", "build", "index.html"));
@@ -201,7 +198,7 @@ router.post('/ChartNow',function(request, response){
   console.log("현재시간 : ", StringToHours(0));
 
   // 시간단위 전력 가져오기
-  let date = '2020-10-15 23:00:00';
+  let date = '2020-10-15 20:00:00';
   let sql = `select * from dayuse WHERE use_day BETWEEN DATE_ADD("${date}", INTERVAL -23 hour) AND "${date}"`;
   let sql2 = `select * from predict WHERE pre_time BETWEEN DATE_ADD("${date}", INTERVAL -23 hour) AND "${date}"`;
   conn.query(sql, function (err, rows) {
@@ -538,7 +535,7 @@ router.post('/Emission',function(request, response){
   console.log("현재시간 : ", StringToHours(0));
 
   // 시간단위 전력 가져오기
-  let date = '2020-05-01 00:00:00';
+  let date = '2020-10-15 00:00:00';
   let sql = `select sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN DATE_ADD("${date.slice(0,4)}-01-01 00:00:00", INTERVAL -23 hour) AND "${date}"`;
 
   conn.query(sql, function (err, rows) {
@@ -552,6 +549,49 @@ router.post('/Emission',function(request, response){
       });
     } else {
       console.log("Emission 실패");
+    }
+  });
+});
+
+//MainSection
+router.post("/MainSection", function (request, response) {
+  console.log("MainSection 라우터 진입");
+
+  // n만큼의 시간을 더하면 날짜를 반환해줌
+  function StringToHours(n) {
+    let stringNewDate = new Date();
+    stringNewDate.setHours(stringNewDate.getHours() + n);
+
+    return (
+      stringNewDate.getFullYear() +
+      "-" +
+      (stringNewDate.getMonth() + 1 > 9
+        ? (stringNewDate.getMonth() + 1).toString()
+        : "0" + (stringNewDate.getMonth() + 1)) +
+      "-" +
+      (stringNewDate.getDate() > 9
+        ? stringNewDate.getDate().toString()
+        : "0" + stringNewDate.getDate().toString()) +
+      " " +
+      stringNewDate.getHours() +
+      ":00:00"
+    );
+  }
+
+  console.log("현재시간 : ", StringToHours(0));
+
+  // 시간단위 전력 가져오기
+  let date = "2020-10-17 11:00:00";
+  let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date}"`;
+
+  conn.query(sql, function (err, rows) {
+    if (rows.length > 0) {
+      console.log('MainSection : ', rows);
+      response.json({
+        mainsection : rows,
+      });
+    } else {
+      console.log("MainSection 실패");
     }
   });
 });

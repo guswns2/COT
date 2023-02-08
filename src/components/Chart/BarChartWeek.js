@@ -74,7 +74,10 @@ const options = {
   data: data,
   plugins: {
     legend: {
-      display: false,
+      display: true,
+      labels:{
+        color:'white'
+      }
     },
   },
   scales: {
@@ -99,12 +102,12 @@ const options = {
 };
 
   useEffect(() => {
-
+    
     // 주간 전력소비량
     axios
       .post("http://127.0.0.1:3001/ChartWeek", {
         // SecondSection.js 로부터 props형식으로 받은 날짜값을 전달
-        datevalue: props.val,
+        datevalue: localStorage.getItem('date'),
       })
       .then((result) => {
         // 받는 부분
@@ -118,8 +121,20 @@ const options = {
       .catch(() => {
         console.log("데이터 보내기 실패!");
       });
+    
   }, [props.val]);
   
+    useEffect(() => {
+      let val2 = String(Math.max.apply(null, weekPower)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val3 = String(Math.min.apply(null, weekPower)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val4 = String(Math.max.apply(null, weekCarborn)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      let val5 = String(Math.min.apply(null, weekCarborn)).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      props.val2(val2);
+      props.val3(val3);
+      props.val4(val4);
+      props.val5(val5);
+    }, [labels]);
+    
     return(
         <>
             <Bar

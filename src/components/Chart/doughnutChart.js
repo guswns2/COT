@@ -23,12 +23,13 @@ const DoughnutChart= () =>{
           // hoverBackgroundColor:["green","red"], // 호버링 색 정하기
           cutout: "80%", //도넛 내부 직경 크기 변경
           datalabels: {
-            color: "black",
-            font: { size: 17 },
+            color: ["gray", "#d18592"],
+            backgroundColor: ["rgb(255, 192, 203)", "rgb(211, 211, 211)"],
+            borderRadius: 13,
+            font: { size: 17, weight: "bold", border: "1px" },
           },
         },
       ],
-      
     };
     
     let options = {
@@ -36,6 +37,9 @@ const DoughnutChart= () =>{
       plugins: {
         legend: {
           position: "bottom",
+          labels:{
+            color:'white'
+          }
         },
         title: {
           display: false,
@@ -43,11 +47,11 @@ const DoughnutChart= () =>{
         },
         datalabels: {
           display:true,
-          formatter:((context, args) => {
+          formatter:(context, args) => {
             const index = args.dataIndex;
             console.log(args.chart.data.labels);
             return (parseFloat((context/totalEmission)*100)+"").slice(0,4)+"%";
-          })
+          },
         },
         },
       };
@@ -65,55 +69,46 @@ const DoughnutChart= () =>{
         console.log("num1", num1);
         console.log("accEmission", Object.values(data)[1][0].data[0]);
 
-        // 아래 구문을 넣으면 숫자를 3칸씩 ,로 구분해줌
-        let num2 = num1[0].split('');
-        for (let i = 0; i < num2.length; i++){
-          
-          // if (i%3 == 1 && i != num2.length-1 && num2.length%2 == 0){
-          //   num2[i] = num2[i] + ",";
-          // } else if (num2.length%2 == 1 && i != num2.length-1 && (i+1)%3 == 1){
-          //   num2[i] = num2[i] + ",";
-          // }
-        }
-        num2 = num2.join('');
-        console.log('num2 : ',num2)
+        // 아래 구문을 넣으면 숫자를 3칸씩 ,로 구분해줌        
+        let num2 = num1[0].replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+        console.log('num3 : ',num2)
 
         ctx.save();
 
         //누적 사용 배출권
         ctx.font = 'bolder 13px sans-serif';
-        ctx.fillStyle = "#D78C98";
+        ctx.fillStyle = "#eba1ad";
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText("누적 배출량", xCoor-40, yCoor - 55);
 
         ctx.font = "bolder 25px sans-serif";
-        ctx.fillStyle = "#D78C98";
+        ctx.fillStyle = "#eba1ad";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText(num2, xCoor, yCoor - 30);
 
         ctx.font = "bolder 10px sans-serif";
-        ctx.fillStyle = "#D78C98";
+        ctx.fillStyle = "#eba1ad";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("(t/tco2)", xCoor+46, yCoor - 10);
         
         //총 배출 가능
         ctx.font = "bolder 13px sans-serif";
-        ctx.fillStyle = "gray";
+        ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("배출권 총량", xCoor - 40, yCoor + 15);
 
         ctx.font = "bolder 25px sans-serif";
-        ctx.fillStyle = "gray";
+        ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText('15,000,000', xCoor, yCoor + 40);
 
         ctx.font = "bolder 10px sans-serif";
-        ctx.fillStyle = "gray";
+        ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.fillText("(t/tco2)", xCoor + 46, yCoor + 60);

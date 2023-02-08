@@ -9,7 +9,6 @@ import {
   createTheme,
   StyledEngineProvider,
 } from "@mui/material";
-
 import "./global.css";
 
 const muiTheme = createTheme();
@@ -18,14 +17,14 @@ const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
-  <BrowserRouter>
-    <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={muiTheme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
-    </StyledEngineProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={muiTheme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

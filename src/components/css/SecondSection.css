@@ -4,6 +4,33 @@
   }
 }
 
+.monthcard {
+  position: absolute;
+  align-items: center;
+  height: 90%;
+  width: 100%;
+  top: 8%;
+  left: 30%;
+  /* line-height: 130%; */
+}
+.ctext {
+  color: rgba(218, 218, 218, 0.945);
+  position: relative;
+  align-self: stretch;
+  font-size: 20px;
+}
+.powertext {
+  color: rgba(252, 255, 84, 0.897);
+  position: relative;
+  align-self: stretch;
+  font-size: 22px;
+}
+.carborntext {
+  color: #37db4dbb;
+  position: relative;
+  align-self: stretch;
+  font-size: 22px;
+}
 .b {
   position: relative;
   line-height: 220%;
@@ -26,31 +53,25 @@
   color: var(--color-gray);
   text-align: center;
 }
-.info1-box11,
-.weekbutton {
-  border-radius: 3px;
-  display: flex;
-  flex-direction: row;
-  mix-blend-mode: normal;
-}
-.weekbutton {
-  cursor: pointer;
-  border: 3px solid #939393;
-  padding: 10 10 10 10;
-  background-color: transparent;
-  align-items: flex-start;
-  justify-content: center;
-}
-.weekbutton:hover {
-  animation-fill-mode: both;
-  animation-duration: 0.5s;
-  animation-name: hovercolor;
+
+.selectedDay {
+  display: inline-block;
+  position: relative;
+  background-color: #292929;
+  text-align: center;
+  color: #ffffff;
+  margin-left: 10px;
 }
 
 .info1-box11 {
+  border-radius: 3px;
+  display: inline-block;
+  flex-direction: row;
+  mix-blend-mode: normal;
   background-color: #e2e1e1;
-  width: 620px;
-  height: 38px;
+  width: 218px;
+  align-self: center;
+  height: 30px;
   flex-shrink: 0;
   align-items: center;
   justify-content: flex-start;
@@ -111,6 +132,10 @@
 }
 
 .info2-box1 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
   position: absolute;
   height: 9.39%;
   width: 94.14%;
@@ -118,10 +143,7 @@
   right: 3.26%;
   bottom: 87.47%;
   left: 2.61%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
+ 
 }
 
 .info2-box2 {
@@ -190,28 +212,19 @@
     border-radius: 0;
   }
 }
-@media screen and (max-width: 1199px) {
-  .second-container1 {
-    flex-direction: column;
-  }
-  .second-info2-1,
-  .second-info2-2 {
-    align-self: stretch;
-  }
 
-}
-@media screen and (max-width: 766px) {
-  .info1-box11 {
-    flex: 1;
-  }
-  .second-info1 {
-    flex: 1;
-    align-items: center;
-    justify-content: flex-start;
-  }
-}
 @media screen and (max-width: 766px) {
  .second-container2 {
     flex-direction: column;
+  }
+  .second-info2-1{
+    align-self: stretch;
+    flex: none;
+    height: 300px;
+  }
+  .second-info2-2 {
+    align-self: stretch;
+    flex: none;
+    height: 200px;
   }
 }
