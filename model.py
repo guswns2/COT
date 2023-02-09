@@ -9,13 +9,12 @@ import pandas as pd
 import datetime
 import pandas as pd
 from xgboost import XGBRegressor
-import sys # 한글 출력 안되서 
 
 
 
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
+#app.config['JSON_AS_ASCII'] = False
 
 @app.route('/today_weather', methods = ['GET', 'POST'])
 def crawling2() :
@@ -24,13 +23,22 @@ def crawling2() :
     soup=bs(res.text,'lxml')
 
     to = soup.select("#main_pack > section.sc_new.cs_weather_new._cs_weather > div._tab_flicking > div.content_wrap > div.open > div:nth-child(1) > div > div.weather_info > div")
-    to_wt = to[0].text
-
+    img = soup.select("#main_pack > section.sc_new.cs_weather_new._cs_weather > div._tab_flicking > div.content_wrap > div.open > div:nth-child(1) > div > div.weather_info > div > div._today > div.weather_graphic > div.weather_main > i")
+    to_weather = to[0].text[0]
+  
     response_body = {
-        'data' : to_wt
+        'data' : to_weather,
+        # 'data1' : to_temp,
+        # 'data2' : to_humi,
+        # 'data3' : to_wind
     }
-    print(to_wt)
-    return  response_body['data']
+    
+    
+    
+    print(to_weather)
+    return  (response_body)
+    
+
 
 
 @app.route('/input', methods = ['GET', 'POST'])

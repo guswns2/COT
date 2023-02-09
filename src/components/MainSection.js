@@ -13,6 +13,9 @@ const MainSection = () => {
   const [todayCarbon, setTodayCarbon] = useState(0);
   const [randomNum, setRandomNum] = useState(0);
   const [a,setA] = useState();
+  // const [b,setB] = useState();
+  // const [c,setC] = useState();
+  // const [d,setD] = useState();
   const wise = [
     ["측정할 수 없으면 관리할 수 없다.", "- 피터 드러커 -"],
     [
@@ -49,9 +52,10 @@ const MainSection = () => {
       
     })
     .then((response) => {
-      const res =response['data']
-      console.log(res)
-      setA(res)
+      setA(response.data.data)
+      // setB(response.data.data1)
+      // setC(response.data.data2)
+      // setD(response.data.data3)
     }).catch((error) => {
       if (error.response) {
         console.log
@@ -170,7 +174,10 @@ const MainSection = () => {
             </div>
           </div>
           <div className="main-info2" id="info1-c1d2">
-            <p>{a}</p>
+            <p>{a}</p><br/>
+            {/* <p>{a}</p><br/>
+            <p>{c}</p><br/>
+            <p>{d}</p> */}
             </div>
         </div>
       </div>
