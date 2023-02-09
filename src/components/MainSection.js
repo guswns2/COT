@@ -12,10 +12,22 @@ const MainSection = () => {
   const [todayPower, setTodayPower] = useState(0);
   const [todayCarbon, setTodayCarbon] = useState(0);
   const [randomNum, setRandomNum] = useState(0);
-  const [a,setA] = useState();
-  // const [b,setB] = useState();
-  // const [c,setC] = useState();
-  // const [d,setD] = useState();
+  const [weatherIcon, setWeatherIcon] = useState();
+  const [temp1,setTemp1] = useState();
+  const [temp2,setTemp2] = useState();
+  const [temp3,setTemp3] = useState();
+  const [weather1,setWeather1] = useState();
+  const [weather2,setWeather2] = useState();
+  const [weather3,setWeather3] = useState();
+  const [humi1, setHumi1] = useState();
+  const [humi2, setHumi2] = useState();
+  const [wind1, setWind1] = useState();
+  const [wind2, setWind2] = useState();
+  const [yes1, setYes1] = useState();
+  const [yes2, setYes2] = useState();
+  const [yes3, setYes3] = useState();
+  
+
   const wise = [
     ["측정할 수 없으면 관리할 수 없다.", "- 피터 드러커 -"],
     [
@@ -49,13 +61,88 @@ const MainSection = () => {
     axios({
       method: "GET",
       url:"/today_weather",
-      
+
     })
     .then((response) => {
-      setA(response.data.data)
-      // setB(response.data.data1)
-      // setC(response.data.data2)
-      // setD(response.data.data3)
+      let aA = "";
+      let arr1 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(0,8);
+      let arr2 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(11,15);
+      let arr3 = arr1.concat(arr2);
+      console.log('arr3',arr3)
+      // 현재 온도 ~~
+      let temp = arr3.slice(3,5);
+      temp[1] = temp[1].substring(0,2);
+      temp[2] = arr3.slice(3,5)[1].substring(2,);
+      console.log('temp',temp)
+
+      // 오늘의 날씨 맑음 등등
+      let weather = arr3.slice(0,3);
+      for (let i = 0; i < weather.length; i++){
+        if (i != weather.length-1)
+        weather[i] = weather[i] + " ";
+      }
+
+      // 습도
+      let humi = arr3.slice(8,10);
+      for (let i = 0; i < humi.length; i++){
+        if (i != humi.length-1)
+        humi[i] = humi[i] + " ";
+      }
+
+      // 바람
+      let wind = arr3.slice(10,);
+      for (let i = 0; i < wind.length; i++){
+        if (i != wind.length-1)
+        wind[i] = wind[i] + " ";
+      }
+
+      // 어제보다 오늘 더
+      let yes = arr3.slice(5,8);
+      for (let i = 0; i < yes.length; i++){
+        if (i != yes.length-1)
+        yes[i] = yes[i] + " ";
+      }
+
+      //Temp
+      setTemp1(temp[0]);
+      setTemp2(temp[1]);
+      setTemp3(temp[2]);
+      
+      //Weather
+      setWeather1(weather[0]);
+      setWeather2(weather[1]);
+      setWeather3(weather[2]);
+      
+      //humi
+      setHumi1(humi[0]);
+      setHumi2(humi[1]);
+      
+      //wind
+      setWind1(wind[0]);
+      setWind2(wind[1]);
+      
+      //Yes
+      setYes1(yes[0]);
+      setYes2(yes[1]);
+      setYes3(yes[2]);
+      
+
+      
+
+      let weatherArr = ["sun.png","rainy.png","cloud.png","cloudy.png","snow.png"];
+      if (arr1[2] == "맑음"){
+        setWeatherIcon(weatherArr[0]);  
+      } else if(arr1[2] == "구름많음"){
+        setWeatherIcon(weatherArr[3]);  
+      } else if(arr1[2] == "흐림"){
+        setWeatherIcon(weatherArr[2]);  
+      } else if(arr1[2] == "비"){
+        setWeatherIcon(weatherArr[1]);  
+      } else if(arr1[2] == "눈"){
+        setWeatherIcon(weatherArr[4]);
+      }
+      
+
     }).catch((error) => {
       if (error.response) {
         console.log
@@ -173,11 +260,32 @@ const MainSection = () => {
               </div>
             </div>
           </div>
-          <div className="main-info2" id="info1-c1d2">
-            <p>{a}</p><br/>
-            {/* <p>{a}</p><br/>
-            <p>{c}</p><br/>
-            <p>{d}</p> */}
+          <div className="main-info2-weather" id="info1-c1d2">
+              <div className="info2-weather1">
+                <h5 style={{width:'100px'}}>
+                  <span style={{fontSize:'20px'}}>{temp1} {temp2}</span>
+                  <span style={{fontSize:'30px', color:'lightgreen'}}>{temp3}</span>
+                </h5>
+                <h5 style={{width:'120px', marginLeft:'10px', marginRight:'10px'}}>
+                  <span style={{fontSize:'20px'}}>{weather1} {weather2}</span>
+                  <span style={{fontSize:'29.7spx', color:'lightgreen'}}>{weather3}</span>
+                </h5>
+                <img className="weatherIcon" src={weatherIcon}></img>
+              </div>
+              <div className="info2-weather2">
+                <h5 style={{width:'90px'}}>
+                  <span style={{fontSize:'20px'}}>{humi1}</span>
+                  <span style={{fontSize:'29.8px', color:'lightgreen'}}>{humi2}</span>
+                </h5>
+                <h5 style={{width:'120px'}}>
+                  <span style={{fontSize:'18px'}}>{wind1}</span>
+                  <span style={{fontSize:'27px', color:'lightgreen'}}>{wind2}</span>
+                </h5>
+                <h5 style={{width:'130px'}}>
+                  <span style={{fontSize:'20px'}}>{yes1}</span>
+                  <span style={{fontSize:'28px', color:'lightgreen'}}>{yes2}</span>{yes3}
+                </h5>
+              </div>
             </div>
         </div>
       </div>

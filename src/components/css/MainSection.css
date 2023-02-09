@@ -145,7 +145,8 @@
 }
 .main-container,
 .main-info1,
-.main-info2 {
+.main-info2,
+.main-info2-weather {
   mix-blend-mode: normal;
 }
 .main-info2 {
@@ -154,6 +155,25 @@
   border-radius: 5px;
   position: relative;
   background-color: #292929;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: rgba(180, 180, 180, 0.527) 0px 1px 2px 0px,
+    rgba(165, 165, 165, 0.514) 0px 2px 6px 2px;
+  box-sizing: border-box;
+  gap: var(--gap-xs);
+  /* padding: var(--padding-3xs) 0 var(--padding-3xs) 0; */
+}
+
+.main-info2-weather {
+  display: flex;
+  flex: 1;
+  border-radius: 5px;
+  position: relative;
+  background-color: #292929;
+  flex-direction: column;
   height: 100%;
   width: 100%;
   align-items: center;
@@ -319,6 +339,34 @@
   display: inline-block;
   width: 100%;
   height: 100%;
+}
+
+/* 날씨 */
+.info2-weather1{
+  display: flex;
+  align-self: center; 
+  align-items: center;
+  flex-direction: row;
+  /* justify-content: ; */
+  mix-blend-mode: normal;
+  height: fit-content;
+  width: fit-content;
+}
+.info2-weather2{
+  display: flex;
+  align-self: center; 
+  align-items: center;
+  flex-direction: row;
+  /* justify-content: ; */
+  mix-blend-mode: normal;
+  height: fit-content;
+  width: fit-content;
+}
+
+.weatherIcon{
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
 }
 
 @media screen and (max-width: 428px) {

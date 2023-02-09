@@ -23,9 +23,10 @@ def crawling2() :
     soup=bs(res.text,'lxml')
 
     to = soup.select("#main_pack > section.sc_new.cs_weather_new._cs_weather > div._tab_flicking > div.content_wrap > div.open > div:nth-child(1) > div > div.weather_info > div")
-    img = soup.select("#main_pack > section.sc_new.cs_weather_new._cs_weather > div._tab_flicking > div.content_wrap > div.open > div:nth-child(1) > div > div.weather_info > div > div._today > div.weather_graphic > div.weather_main > i")
-    to_weather = to[0].text[0]
-  
+    to_weather = to[0].text.strip()
+    # to_temp = to[0].text[14:27].strip()
+    # to_humi = to[0].text[57:63].strip()
+    # to_wind = to[0].text[64:80].strip()
     response_body = {
         'data' : to_weather,
         # 'data1' : to_temp,
