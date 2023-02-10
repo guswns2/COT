@@ -1,11 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useState,useEffect, useRef } from "react";
 import { TextField, Input, Icon } from "@mui/material";
 import "./css/Login.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
+
 const Login = () => {
-  useEffect(() => {
+  const [idf,setIdv] = useState();
+    useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
     );
@@ -53,17 +55,23 @@ const Login = () => {
 
     axios
       .post("http://127.0.0.1:3001/Login", {
-        ID: idRef.current.value,
-        PW: pwRef.current.value,
+        id: idRef.current.value,
+        pw: pwRef.current.value,
       })
+      // axios로 보낼 위치에 데이터 보내기를 성공하면 then
       .then((result) => {
-        console.log("데이터 보내기 성공!", result.data.id);
-        nav("/");
-      }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
-      .catch(() => {
+        console.log("데이터 보내기 성공!", result.data.result);
+        console.log("id", result.data.id);
+        localStorage.setItem("id",result.data.id)
+        nav("/Main");
+      }) // axios로 보낼 위치에 데이터 보내기를 실패하면 catch
+      .catch((err) => {
         console.log("데이터 보내기 실패!");
+        console.log("Test",err)
       });
   };
+  
+  
 
   return (
     <form onSubmit={handleLogin} method="post">

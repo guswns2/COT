@@ -26,7 +26,7 @@ const MainSection = () => {
   const [yes1, setYes1] = useState();
   const [yes2, setYes2] = useState();
   const [yes3, setYes3] = useState();
-  
+  const [id,setId] = useState();  
 
   const wise = [
     ["측정할 수 없으면 관리할 수 없다.", "- 피터 드러커 -"],
@@ -102,7 +102,7 @@ const MainSection = () => {
         if (i != yes.length-1)
         yes[i] = yes[i] + " ";
       }
-
+      
       //Temp
       setTemp1(temp[0]);
       setTemp2(temp[1]);
@@ -187,6 +187,14 @@ const MainSection = () => {
       document.getElementById("main").style.borderBottom = "1px solid white";
       document.getElementById("dashboard").style.borderBottom ="";
   }, []);
+  // 로컬스토리지에 저장
+  let I = String(localStorage.getItem("id"));
+  const handleId = (e) => {
+    e.preventDefault();
+    console.log('e.target.value',e.target.value);
+    localStorage.setItem('id',e.target.id);
+    setId(e.target.id);
+  };
 
   return (
     <div className="main-section">
@@ -303,7 +311,7 @@ const MainSection = () => {
             <div className="bar">
               <BarChartNow></BarChartNow>
             </div>
-          </div>
+          </div>Button
         </div>
         {/* <div className="main-info3" id="Main Info4">
           <div className="info3-box">

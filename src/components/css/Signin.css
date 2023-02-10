@@ -8,6 +8,13 @@
     opacity: 1;
   }
 }
+
+.co2{
+  border: 0;
+  background-color: transparent;
+  width: 25.73%;
+  top: 73.39%;
+}
 .rec-item,
 .rec1,
 .signbtn-item {
@@ -77,7 +84,7 @@
   padding: 0;
   height: 6.34%;
   width: 17.61%;
-  top: 78.66%;
+  top: 82.66%;
   right: 41.27%;
   bottom: 14.99%;
   left: 41.13%;

@@ -1,5 +1,3 @@
-
-
 const { appBarClasses } = require("@mui/material");
 const express = require("express");
 const router = express.Router();
@@ -18,48 +16,42 @@ let conn = mysql.createConnection({
 });
 
 router.get("*", function (request, response) {
-  console.log("Happy Hacking!");
+  // console.log("Happy Hacking!");
   response.sendFile(path.join(__dirname, "..", "..", "build", "index.html"));
 });
 
-//CUST,ADMIN 로그아웃 라우터 (유현 - Fin)
+// 로그아웃 기능 구현(대현)
 router.get("/Logout", function (request, response) {
   console.log("로그아웃 라우터");
 
-  window.localStorage.clear();
-  console.log("스토리지 삭제 완료");
-
-  delete request.session.user;
-  console.log("로그아웃완료");
-
-  // response.redirect("http://127.0.0.1:3000/");
+  delete request.session.userID;
+  id = "";
+  pw = "";
+  response.json({res : "success"})
 });
 
 //로그인 라우터
 router.post("/Login", function (request, response) {
   console.log("로그인 라우터");
-  const id = request.body.ID;
-  const pw = request.body.PW;
+  const id = request.body.id;
+  const pw = request.body.pw;
 
-  console.log("사용자가 보낸 id : " + request.body.ID);
-  console.log("사용자가 보낸 PW : " + request.body.PW);
+  console.log("사용자가 보낸 id : " + request.body.id);
+  console.log("사용자가 보낸 PW : " + request.body.pw);
 
-  //나중에 다시
-  let sql = "select * from USER where USER_ID = ? and USER_PW = ?";
+
+  let sql = "select * from userinfo where USER_ID = ? and USER_PW = ?";
 
   conn.query(sql, [id, pw], function (err, rows) {
     if (rows.length > 0) {
       console.log("로그인성공 : " + rows.length);
-      request.session.user = {
-        id: rows[0].id,
-      };
-      idqwe = request.session.user.id;
 
       response.json({ result: "success", id: id });
     } else {
-      console.log("로그인 실패");
+      console.log("로그인 실패",err);
     }
   });
+  // response.redirect("http://127.0.0.1:3000/Main")
 });
 
 //회원가입
@@ -70,19 +62,20 @@ router.post("/SignIn", function (request, response) {
   const userName = request.body.name;
   const company = request.body.company;
   const comadd = request.body.comadd;
-
+  const co2 = request.body.co2;
   console.log("사용자가 입력한 ID : " + request.body.ID);
   console.log("사용자가 입력한 PW : " + request.body.PW);
   console.log("사용자가 입력한 이름 : " + request.body.name);
   console.log("사용자가 입력한 회사 : " + request.body.company);
   console.log("사용자가 입력한 회사주소 : " + request.body.comadd);
+  console.log("사용자가 입력한 탄소 배출권 : " + request.body.co2); 
 
   let sql =
     //sql문 나중에 다시
-    "insert into USER(USER_ID, USER_PW, USER_NAME, COMP_NAME, COMP_ADD) values(?, ?, ?, ?, ?)";
+    "insert into userinfo(user_id, user_pw, user_name, user_joindate, comp_name, comp_add, comp_allow) values(?, ?, ?, now() , ?, ?, ?)";
   conn.query(
     sql,
-    [userID, userPW, userName, company, comadd],
+    [userID, userPW, userName, company, comadd,co2],
     function (err, rows) {
       if (!err) {
         console.log("회원가입 완료!");
@@ -92,6 +85,7 @@ router.post("/SignIn", function (request, response) {
       }
     }
   );
+  // response.redirect("/Login")
 });
 
 //모달 사용량 입력 라우터

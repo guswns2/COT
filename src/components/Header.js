@@ -27,6 +27,7 @@ const Header = () => {
               <div className="main-parent">
                 <button
                   className="main"
+                  
                   id="main"
                   onClick={() => {
                     document.getElementById("main").style.borderBottom =
@@ -49,6 +50,17 @@ const Header = () => {
                   }}
                 >
                   DASHBOARD
+                </button>
+                <button
+                  className="logout"
+                  id="logout"
+                  onClick={() => {
+                    document.getElementById("logout").style.borderBottom = 
+                    "1px solid white";
+                    nav("/login")
+                  }}
+                >
+                  LOGOUT
                 </button>
               </div>
             </div>

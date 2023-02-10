@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useState,useEffect, useRef } from "react";
 import { TextField, Input, Icon } from "@mui/material";
 import "./css/Signin.css";
 import { useNavigate } from "react-router";
 import axios from "axios";
 
 const Signin = () => {
+  
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -23,7 +24,7 @@ const Signin = () => {
         threshold: 0.15,
       }
     );
-
+   
     for (let i = 0; i < scrollAnimElements.length; i++) {
       observer.observe(scrollAnimElements[i]);
     }
@@ -42,6 +43,7 @@ const Signin = () => {
   const nameRef = useRef();
   const companyRef = useRef();
   const comaddRef = useRef();
+  const co2Ref = useRef();
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -52,6 +54,7 @@ const Signin = () => {
     console.log(nameRef.current.value);
     console.log(companyRef.current.value);
     console.log(comaddRef.current.value);
+    console.log(co2Ref.current.value);
 
     axios
       .post("http://127.0.0.1:3001/Signin", {
@@ -60,10 +63,12 @@ const Signin = () => {
         name: nameRef.current.value,
         company: companyRef.current.value,
         comadd: comaddRef.current.value,
+        co2: co2Ref.current.value
       })
       .then((result) => {
         console.log("데이터 보내기 성공!", result.data.result);
-        nav("/");
+        
+        nav("/Login");
       }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
       .catch(() => {
         console.log("데이터 보내기 실패!");
@@ -150,6 +155,20 @@ const Signin = () => {
             id="comadd"
             name="comadd"
             inputRef={comaddRef}
+          />
+          <TextField
+            className="co2"
+            sx={{ width: 365.3946228027344 }}
+            color="primary"
+            variant="standard"
+            type="text"
+            label="탄소배출권"
+            placeholder="탄소배출권(t/tco2)"
+            size="medium"
+            margin="none"
+            id="co2"
+            name="co2"
+            inputRef={co2Ref}
           />
           <div className="sign-in">Sign in</div>
           <img className="signinicon" alt="" src="../icon.svg" />
