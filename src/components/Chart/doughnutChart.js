@@ -12,7 +12,7 @@ const DoughnutChart= () =>{
   const [totalEmission, setTotalEmission] = useState(0);
   const [accEmission, setAccEmission] = useState(0);
   const [spareEmission, setSpareEmission] = useState(0);
-
+  let co2 = String(localStorage.getItem("co2")).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     let data = {
       labels: ["누적 배출량", "여유 배출량"],
       datasets: [
@@ -92,7 +92,7 @@ const DoughnutChart= () =>{
         ctx.fillStyle = "#eba1ad";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText("(t/tco2)", xCoor+46, yCoor - 10);
+        ctx.fillText("(tco2)", xCoor+46, yCoor - 10);
         
         //총 배출 가능
         ctx.font = "bolder 13px sans-serif";
@@ -105,13 +105,13 @@ const DoughnutChart= () =>{
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText('15,000,000', xCoor, yCoor + 40);
+        ctx.fillText(co2, xCoor, yCoor + 40)
 
         ctx.font = "bolder 10px sans-serif";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText("(t/tco2)", xCoor + 46, yCoor + 60);
+        ctx.fillText("(tco2)", xCoor + 46, yCoor + 60);
       }
     }
 
@@ -124,6 +124,7 @@ const DoughnutChart= () =>{
             setAccEmission(result.data.accemission);
             setTotalEmission(15000000);
             setSpareEmission(15000000 - result.data.accemission);
+            
           }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
           .catch(() => {
             console.log("데이터 보내기 실패!");

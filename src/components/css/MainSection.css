@@ -146,7 +146,8 @@
 .main-container,
 .main-info1,
 .main-info2,
-.main-info2-weather {
+.main-info2-weather,
+.location {
   mix-blend-mode: normal;
 }
 .main-info2 {
@@ -167,7 +168,8 @@
   /* padding: var(--padding-3xs) 0 var(--padding-3xs) 0; */
 }
 
-.main-info2-weather {
+.main-info2-weather
+ {
   display: flex;
   flex: 1;
   border-radius: 5px;
@@ -340,7 +342,27 @@
   width: 100%;
   height: 100%;
 }
-
+/* 위치*/
+.location{
+  display: flex;
+  align-self: center; 
+  align-items: center;
+  flex-direction: row;
+  /* justify-content: ; */
+  mix-blend-mode: normal;
+  height: fit-content;
+  width: fit-content;
+  font-weight: 700;
+}
+.location{
+  align-self: center; 
+  align-items: center;
+  flex-direction: row;
+  /* justify-content: ; */
+  mix-blend-mode: normal;
+  height: fit-content;
+  width: fit-content;
+}
 /* 날씨 */
 .info2-weather1{
   display: flex;

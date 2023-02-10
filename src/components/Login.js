@@ -62,7 +62,9 @@ const Login = () => {
       .then((result) => {
         console.log("데이터 보내기 성공!", result.data.result);
         console.log("id", result.data.id);
+        console.log("co2",result.data.co2);
         localStorage.setItem("id",result.data.id)
+        localStorage.setItem("co2",result.data.co2)
         nav("/Main");
       }) // axios로 보낼 위치에 데이터 보내기를 실패하면 catch
       .catch((err) => {

@@ -45,8 +45,9 @@ router.post("/Login", function (request, response) {
   conn.query(sql, [id, pw], function (err, rows) {
     if (rows.length > 0) {
       console.log("로그인성공 : " + rows.length);
+      console.log("김대현",rows[0]);
 
-      response.json({ result: "success", id: id });
+      response.json({ result: "success", id: id, co2 : rows[0].comp_allow });
     } else {
       console.log("로그인 실패",err);
     }
@@ -85,29 +86,7 @@ router.post("/SignIn", function (request, response) {
       }
     }
   );
-  // response.redirect("/Login")
-});
-
-//모달 사용량 입력 라우터
-router.post("/Modal", function (request, response) {
-  console.log("사용량 입력 라우터");
-  const elec = request.body.elec;
-  const co2 = request.body.co2;
-
-  console.log("사용자가 보낸 전력사용량 : " + request.body.elec);
-  console.log("사용자가 보낸 탄소배출량 : " + request.body.co2);
-
-  //나중에 다시
-  let sql = "insert into PREDICT(PRE_POWER, PRE_CARBON) values (?, ?)";
-
-  conn.query(sql, [elec, co2], function (err, rows) {
-    if (!err) {
-      console.log("입력 완료!");
-      response.redirect("http://127.0.0.1:3000");
-    } else {
-      console.log("입력 실패!" + err);
-    }
-  });
+  
 });
 
 //날짜 데이터 값 보내기 라우터
@@ -125,44 +104,6 @@ router.post("/Modal", function (request, response) {
 //     }
 //   });
 // });
-
-//ADMIN 회원가입 라우터 (유현 - Fin)
-router.post("/Adjoinus", function (request, response) {
-  console.log("관리자 가입 라우터");
-
-  let id = request.body.id;
-  let pw = request.body.pw;
-  // let cafeName = request.body.cafeName;
-  // let cafeTel = request.body.cafeTel;
-  // let cafeAdd = request.body.cafeAdd;
-  let BusinessNum = request.body.BusinessNum;
-
-  console.log("사용자가 보낸 id : " + id);
-  console.log("사용자가 보낸 PW : " + pw);
-  // console.log("사용자가 보낸 cafeName : " + cafeName);
-  // console.log("사용자가 보낸 cafeTel : " + cafeTel);
-  // console.log("사용자가 보낸 cafeAdd : " + cafeAdd);
-  console.log("사용자가 보낸 businessNum : " + BusinessNum);
-  let sql = "insert into ADMINISTRATOR values(?, ?, '' ,?)";
-
-  conn.query(sql, [id, pw, BusinessNum], function (err, rows) {
-    if (!err) {
-      console.log("입력성공");
-
-      response.json({
-        id: id,
-        pw: pw,
-        // cafeName: cafeName,
-        // cafeTel: cafeTel,
-        // cafeAdd: cafeAdd,
-        BusinessNum: BusinessNum,
-      });
-    } else {
-      console.log("입력실패" + err);
-    }
-  });
-});
-
 
 // 시간별 전력소비량/탄소배출량
 router.post('/ChartNow',function(request, response){

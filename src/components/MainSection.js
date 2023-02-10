@@ -27,7 +27,7 @@ const MainSection = () => {
   const [yes2, setYes2] = useState();
   const [yes3, setYes3] = useState();
   const [id,setId] = useState();  
-
+  const [loc1,setLoc1] = useState();
   const wise = [
     ["측정할 수 없으면 관리할 수 없다.", "- 피터 드러커 -"],
     [
@@ -64,18 +64,23 @@ const MainSection = () => {
 
     })
     .then((response) => {
-      let aA = "";
+      
       let arr1 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(0,8);
       let arr2 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(11,15);
       let arr3 = arr1.concat(arr2);
-      console.log('arr3',arr3)
+      
+      // console.log('arr3',arr3)
+      // 위치
+      let loc = response.data.data1
+      
+      
+      console.log("위치",loc)
       // 현재 온도 ~~
       let temp = arr3.slice(3,5);
       temp[1] = temp[1].substring(0,2);
       temp[2] = arr3.slice(3,5)[1].substring(2,);
       console.log('temp',temp)
-
-      // 오늘의 날씨 맑음 등등
+      console.log('temp2',temp[2])
       let weather = arr3.slice(0,3);
       for (let i = 0; i < weather.length; i++){
         if (i != weather.length-1)
@@ -103,6 +108,9 @@ const MainSection = () => {
         yes[i] = yes[i] + " ";
       }
       
+      location
+      setLoc1(loc)
+
       //Temp
       setTemp1(temp[0]);
       setTemp2(temp[1]);
@@ -269,6 +277,9 @@ const MainSection = () => {
             </div>
           </div>
           <div className="main-info2-weather" id="info1-c1d2">
+            <div className="location">
+            <span style={{fontSize:'20px'}}>{loc1}</span>
+            </div>
               <div className="info2-weather1">
                 <h5 style={{width:'100px'}}>
                   <span style={{fontSize:'20px'}}>{temp1} {temp2}</span>
@@ -311,7 +322,7 @@ const MainSection = () => {
             <div className="bar">
               <BarChartNow></BarChartNow>
             </div>
-          </div>Button
+          </div>
         </div>
         {/* <div className="main-info3" id="Main Info4">
           <div className="info3-box">
