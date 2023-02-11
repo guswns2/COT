@@ -20,15 +20,7 @@ router.get("*", function (request, response) {
   response.sendFile(path.join(__dirname, "..", "..", "build", "index.html"));
 });
 
-// 로그아웃 기능 구현(대현)
-router.get("/Logout", function (request, response) {
-  console.log("로그아웃 라우터");
 
-  delete request.session.userID;
-  id = "";
-  pw = "";
-  response.json({res : "success"})
-});
 
 //로그인 라우터
 router.post("/Login", function (request, response) {
@@ -54,6 +46,16 @@ router.post("/Login", function (request, response) {
   });
   // response.redirect("http://127.0.0.1:3000/Main")
 });
+
+// 로그아웃 기능 구현(대현)
+// router.post("/Logout",function(request,response){
+//   console.log("로그아웃 성공")
+
+//   delete request.session.user;
+//   request.data.id="";
+//   request.data.pw="";
+//   response.json({res:"success"});
+// })
 
 //회원가입
 router.post("/SignIn", function (request, response) {

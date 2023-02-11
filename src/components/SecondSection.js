@@ -8,6 +8,7 @@ import LineChart from "./Chart/LineChart";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import axios from "axios";
+import Header from "./Header";
 
 const SecondSection = () => {
   const [choice, setChoice] = useState("");
@@ -38,6 +39,8 @@ const SecondSection = () => {
   }, []);
 
   return (
+    <>
+    <Header></Header>
     <section className="second-section" id="Second Section">
       <div className="second-container1" id="Second Container1">
         <div className="second-info1" id="Second Info1">
@@ -181,6 +184,7 @@ const SecondSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

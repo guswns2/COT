@@ -73,8 +73,6 @@ const Login = () => {
       });
   };
   
-  
-
   return (
     <form onSubmit={handleLogin} method="post">
       <div className="login4" data-animate-on-scroll>

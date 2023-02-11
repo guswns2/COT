@@ -7,6 +7,7 @@ import LineChart from "./Chart/LineChart";
 import DoughnutChart from "./Chart/DoughnutChart";
 import Clock from "./Clock";
 import axios from "axios";
+import Header from "./Header";
 
 const MainSection = () => {
   const [todayPower, setTodayPower] = useState(0);
@@ -205,6 +206,8 @@ const MainSection = () => {
   };
 
   return (
+    <>
+    <Header></Header>
     <div className="main-section">
       <div className="main-container" id="info1-con1">
         <div className="main-info1">
@@ -351,6 +354,7 @@ const MainSection = () => {
       </div>
       {/* {modalOpen === true && <Modal setModalOpen={setModalOpen} />} */}
     </div>
+    </>
   );
 };
 

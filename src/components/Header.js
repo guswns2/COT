@@ -4,6 +4,7 @@ import Clock from "./Clock";
 const Header = () => {
   const nav = useNavigate();
 
+  
   return (
     <div className="header">
       <div className="top-header1">
@@ -37,7 +38,7 @@ const Header = () => {
                     nav("/Main");
                   }}
                 >
-                  Main
+                  MAIN
                 </button>
                 <button
                   className="dashboard"
@@ -49,13 +50,14 @@ const Header = () => {
                     nav("/dashboard");
                   }}
                 >
-                  DASHBOARD
+                  HISTORY
                 </button>
                 <button
                   className="logout"
                   id="logout"
                   onClick={() => {
                     document.getElementById("logout").style.borderBottom = 
+                    localStorage.clear();
                     "1px solid white";
                     nav("/login")
                   }}
