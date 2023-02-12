@@ -132,6 +132,10 @@ const options = {
       props.val7(val7);
       props.val8(val8);
       props.val9(val9);
+
+      localStorage.setItem("monthPower", monthPower);
+      localStorage.setItem("monthCarborn", monthCarborn);
+      localStorage.setItem("monthlabels", labels);
     }, [labels]);
     
     return(

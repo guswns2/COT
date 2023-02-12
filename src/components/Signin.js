@@ -163,7 +163,7 @@ const Signin = () => {
             variant="standard"
             type="text"
             label="탄소배출권"
-            placeholder="탄소배출권(t/tco2)"
+            placeholder="탄소배출권(tco2)"
             size="medium"
             margin="none"
             id="co2"

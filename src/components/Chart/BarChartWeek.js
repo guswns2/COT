@@ -133,6 +133,10 @@ const options = {
       props.val3(val3);
       props.val4(val4);
       props.val5(val5);
+
+      localStorage.setItem("weekPower", weekPower);
+      localStorage.setItem("weekCarborn", weekCarborn);
+      localStorage.setItem("weeklabels",labels);
     }, [labels]);
     
     return(
