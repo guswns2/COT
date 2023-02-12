@@ -143,6 +143,10 @@ const options = {
       props.val11(val11);
       props.val12(val12);
       props.val13(val13);
+
+      localStorage.setItem("yearPower", yearPower);
+      localStorage.setItem("yearCarborn", yearCarborn);
+      localStorage.setItem("yearlabels",labels);
     }, [labels]);
   
     return(

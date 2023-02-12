@@ -8,6 +8,7 @@ import LineChart from "./Chart/LineChart";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import axios from "axios";
+import $ from "jquery";
 
 const SecondSection = () => {
   const [choice, setChoice] = useState("");
@@ -37,6 +38,58 @@ const SecondSection = () => {
     document.getElementById("dashboard").style.borderBottom = "1px solid white";
   }, []);
 
+  const reportImg = () => {
+    axios
+      .post("http://127.0.0.1:3001/ReportData", {
+        weekPower: localStorage.getItem("weekPower").split(","),
+        weekCarborn: localStorage.getItem("weekCarborn").split(","),
+        weeklabels: localStorage.getItem("weeklabels").split(","),
+        monthPower: localStorage.getItem("monthPower").split(","),
+        monthCarborn: localStorage.getItem("monthCarborn").split(","),
+        monthlabels: localStorage.getItem("monthlabels").split(","),
+        yearPower: localStorage.getItem("yearPower").split(","),
+        yearCarborn: localStorage.getItem("yearCarborn").split(","),
+        yearlabels: localStorage.getItem("yearlabels").split(","),
+        selectdate: i
+      })
+      .then((result) => {
+        console.log(result.data.result);
+        // if (result.data.resuit == 11){
+          window.open(
+            "http://localhost:8075/webroot/decision/view/form?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EC%259D%25B4%25EB%25AF%25B8%25EC%25A7%2580.frm&op=form_adaptive"
+          );
+        // }
+
+      }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
+      .catch(() => {
+        console.log("데이터 보내기 실패!");
+      });
+  }
+
+    const reportPdf = () => {
+      axios
+        .post("http://127.0.0.1:3001/ReportData", {
+          weekPower: localStorage.getItem("weekPower").split(","),
+          weekCarborn: localStorage.getItem("weekCarborn").split(","),
+          weeklabels: localStorage.getItem("weeklabels").split(","),
+          monthPower: localStorage.getItem("monthPower").split(","),
+          monthCarborn: localStorage.getItem("monthCarborn").split(","),
+          monthlabels: localStorage.getItem("monthlabels").split(","),
+          yearPower: localStorage.getItem("yearPower").split(","),
+          yearCarborn: localStorage.getItem("yearCarborn").split(","),
+          yearlabels: localStorage.getItem("yearlabels").split(","),
+          selectdate: i
+        })
+        .then((result) => {
+          console.log(result.data.result);
+          window.open(
+            "http://localhost:8075/webroot/decision/view/report?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0.cpt"          );
+        }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
+        .catch(() => {
+          console.log("데이터 보내기 실패!");
+        });
+    };
+
   return (
     <section className="second-section" id="Second Section">
       <div className="second-container1" id="Second Container1">
@@ -57,7 +110,8 @@ const SecondSection = () => {
             <b className="selectedDay">선택 날짜 : {i}</b>
           </div>
           <div className="info1-box21" id="Info1 Box">
-            <button className="pdfbutton" />
+              <button className="pdfbutton" onClick={()=>{reportPdf();}}><img style={{width:'100%', height:'100%'}} src="download-pdf.png"></img></button>
+              <button className="imgbutton" onClick={()=>{reportImg();}}><img style={{width:'100%', height:'100%'}} src="download-img.png"></img></button>
           </div>
         </div>
       </div>

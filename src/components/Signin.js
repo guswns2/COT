@@ -42,6 +42,7 @@ const Signin = () => {
   const nameRef = useRef();
   const companyRef = useRef();
   const comaddRef = useRef();
+  const co2Ref = useRef();
 
   const handleSignin = (e) => {
     e.preventDefault();
@@ -52,6 +53,7 @@ const Signin = () => {
     console.log(nameRef.current.value);
     console.log(companyRef.current.value);
     console.log(comaddRef.current.value);
+    console.log(co2Ref.current.value);
 
     axios
       .post("http://127.0.0.1:3001/Signin", {
@@ -60,6 +62,7 @@ const Signin = () => {
         name: nameRef.current.value,
         company: companyRef.current.value,
         comadd: comaddRef.current.value,
+        co2
       })
       .then((result) => {
         console.log("데이터 보내기 성공!", result.data.result);
@@ -150,6 +153,20 @@ const Signin = () => {
             id="comadd"
             name="comadd"
             inputRef={comaddRef}
+          />
+          <TextField
+            className="co2"
+            sx={{ width: 365.3946228027344 }}
+            color="primary"
+            variant="standard"
+            type="text"
+            label="탄소배출권"
+            placeholder="탄소배출권(t/tco2)"
+            size="medium"
+            margin="none"
+            id="co2"
+            name="co2"
+            inputRef={co2Ref}
           />
           <div className="sign-in">Sign in</div>
           <img className="signinicon" alt="" src="../icon.svg" />

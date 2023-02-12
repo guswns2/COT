@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import PieChart from "./Chart/PieChart";
 import BarChartNow from "./Chart/BarChartNow";
 import LineChart from "./Chart/LineChart";
-import DoughnutChart from "./Chart/DoughnutChart";
+import DoughnutChart from "./Chart/doughnutChart";
 import Clock from "./Clock";
 import axios from "axios";
 
@@ -61,10 +61,10 @@ const MainSection = () => {
     axios({
       method: "GET",
       url:"/today_weather",
+      data:'test'
 
     })
     .then((response) => {
-      let aA = "";
       let arr1 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(0,8);
       let arr2 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(11,15);
       let arr3 = arr1.concat(arr2);
@@ -156,7 +156,28 @@ const MainSection = () => {
   }
   }
 
+  var currentDay = new Date();
+  var theYear = currentDay.getFullYear();
+  var theMonth = currentDay.getMonth();
+  var theDate = currentDay.getDate();
+  var theDayOfWeek = currentDay.getDay(); // 컴퓨터날짜
+
+  var thisWeek = [];
+
+  for(var i=0; i<7; i++) {
+  var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek) +1);
+  var yyyy = resultDay.getFullYear();
+  var mm = Number(resultDay.getMonth()) + 1;
+  var dd = resultDay.getDate();
+  mm = String(mm).length === 1 ? '0' + mm : mm;
+  dd = String(dd).length === 1 ? '0' + dd : dd;
+ 
+  thisWeek[i] = yyyy + '-' + mm + '-' + dd;
+  }
+
   useEffect(() => {
+    console.log("week:",thisWeek);
+
     // 
     getData()
 
@@ -239,8 +260,8 @@ const MainSection = () => {
                   </b>
                   <br></br>
                   <b className="ttco2" id="todayCo2Text2">
-                    {todayPower}{" "}
-                    <span style={{ fontSize: "14px" }}>t/tco2</span>
+                    {todayCarbon}{" "}
+                    <span style={{ fontSize: "14px" }}>tco2</span>
                   </b>
                 </div>
               </div>
@@ -254,7 +275,7 @@ const MainSection = () => {
                   </b>
                   <br></br>
                   <b className="kw">
-                    {todayCarbon} <span style={{ fontSize: "14px" }}>kw</span>
+                    {todayPower} <span style={{ fontSize: "14px" }}>kw</span>
                   </b>
                 </div>
               </div>

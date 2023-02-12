@@ -198,9 +198,10 @@ router.post('/ChartNow',function(request, response){
   console.log("현재시간 : ", StringToHours(0));
 
   // 시간단위 전력 가져오기
-  let date = '2020-10-15 20:00:00';
-  let sql = `select * from dayuse WHERE use_day BETWEEN DATE_ADD("${date}", INTERVAL -23 hour) AND "${date}"`;
-  let sql2 = `select * from predict WHERE pre_time BETWEEN DATE_ADD("${date}", INTERVAL -23 hour) AND "${date}"`;
+  let date = StringToHours(0);
+  console.log("여기있따!",date);
+  let sql = `select * from dayuse WHERE use_day BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date} 23:00:00"`;
+  let sql2 = `select * from predict WHERE pre_time BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date.slice(0,10)} 23:00:00" AND pre_id = "7" LIMIT 24;`;
   conn.query(sql, function (err, rows) {
     let preArr = [];
 
@@ -210,7 +211,7 @@ router.post('/ChartNow',function(request, response){
         console.log("데이터 받아오기 성공 pre : " + rows2.length);
         for (let i = 0; i < rows2.length; i++) {
           preArr.push(rows2[i].pre_power);
-          console.log(`row2[${i}]`, rows2[i]);
+          // console.log(`row2[${i}]`, rows2[i]);
         }
       }
       if (rows.length > 0) {
@@ -222,31 +223,33 @@ router.post('/ChartNow',function(request, response){
 
         // 라벨, 전력, 탄소 배열
         for (let i = 0; i < rows.length; i++) {
-          labelsArr.push(rows[i].use_day);
           electArr.push(rows[i].use_power);
           carbonArr.push(rows[i].use_carborn);
-
           console.log(`row[${i}]`, rows[i]);
         }
+        for (let i = 0; i < 24; i++) {
+          if (i == 0){
+            labelsArr.push(date.slice(5, 10) + " 0" + i + "시");
+          } else if(i < 10){
+            labelsArr.push("0" + i + "시");
+          } else {
+            labelsArr.push(i + "시");
+          }
+        }
+
 
         // 라벨 날짜 맞추는 부분
-        let todayLabels = labelsArr.slice(0);
+        let todayLabels = labelsArr;
         // let yesterdayLabels = labelsArr.slice(0, 24);
-        for (let i = 0; i < todayLabels.length; i++) {
-          if (i == 0 || todayLabels[i].substring(11, 13) == "00") {
-            todayLabels.splice(i, 1, todayLabels[i].substring(5, 13) + "시");
-          } else if (i == todayLabels.length - 1) {
-            todayLabels.splice(
-              i,
-              1,
-              "(NOW) " + todayLabels[i].substring(11, 13) + "시"
-            );
-          } else {
-            todayLabels.splice(i, 1, todayLabels[i].substring(11, 13) + "시");
-          }
+        // for (let i = 0; i < todayLabels.length; i++) {
+        //   if (i == 0 || todayLabels[i].substring(11, 13) == "00") {
+        //     todayLabels.splice(i, 1, todayLabels[i].substring(5, 13) + "시");
+        //   } else {
+        //     todayLabels.splice(i, 1, todayLabels[i].substring(11, 13) + "시");
+        //   }
 
-          // yesterdayLabels.splice(i,1,yesterdayLabels[i].substring(5,13));
-        }
+        //   // yesterdayLabels.splice(i,1,yesterdayLabels[i].substring(5,13));
+        // }
 
         // 전력사용량/탄소배출량 배열 적용
         let todayElect = electArr;
@@ -581,7 +584,7 @@ router.post("/MainSection", function (request, response) {
   console.log("현재시간 : ", StringToHours(0));
 
   // 시간단위 전력 가져오기
-  let date = "2020-10-17 11:00:00";
+  let date = StringToHours(0);
   let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date}"`;
 
   conn.query(sql, function (err, rows) {
@@ -595,4 +598,165 @@ router.post("/MainSection", function (request, response) {
     }
   });
 });
+
+router.post("/ReportData", function (request, response) {
+  console.log("ReportData 라우터 진입");
+
+  let weekPower = request.body.weekPower;
+  let weekCarborn = request.body.weekCarborn;
+  let weeklabels = request.body.weeklabels;
+  let monthPower = request.body.monthPower;
+  let monthCarborn = request.body.monthCarborn;
+  let monthlabels = request.body.monthlabels;
+  let yearPower = request.body.yearPower;
+  let yearCarborn = request.body.yearCarborn;
+  let yearlabels = request.body.yearlabels;
+  let selectdate = request.body.selectdate;
+
+  // 선택날짜 삭제
+  let deletesqlselected = "delete from selectedDate";
+  conn.query(deletesqlselected, function (err, rows) {
+    if (!err) {
+      console.log("deletesqlselected 삭제 성공");
+    } else {
+      console.log("deletesqlselected 삭제 실패");
+    }
+  });
+
+  // 리포트 주간 삭제
+  let deletesqlweek = "delete from reportdataWeek";
+  conn.query(deletesqlweek, function (err, rows) {
+    if (!err) {
+      console.log("reportdataWeek 삭제 성공");
+    } else {
+      console.log("reportdataWeek 삭제 실패");
+    }
+  });
+
+  // 리포트 월간 삭제
+  let deletesqlmonth = "delete from reportdataMonth";
+  conn.query(deletesqlmonth, function (err, rows) {
+    if (!err) {
+      console.log("reportdataMonth 삭제 성공");
+    } else {
+      console.log("reportdataMonth 삭제 실패");
+    }
+  });
+
+  //리포트 연간 삭제
+  let deletesqlyear = "delete from reportdataYear";
+  conn.query(deletesqlyear, function (err, rows) {
+    if (!err) {
+      console.log("reportdataYear 삭제 성공");
+    } else {
+      console.log("reportdataYear 삭제 실패");
+    }
+  });
+
+  // 선택날짜 데이터 입력
+  // selectedDate 테이블에 넣기
+  let sql = "insert selectedDate values(?)";
+
+  conn.query(sql, [selectdate], function (err, rows) {
+    if (!err) {
+      console.log("reportdataWeek 성공");
+    } else {
+      console.log("reportdataWeek 실패");
+    }
+  });
+  
+
+  // 주간 리포트 데이터 입력
+  for (let i = 0; i < weekPower.length; i++) {
+    // reportdataWeek 테이블에 넣기
+    let sql = "insert reportdataWeek values(?,?,?)";
+    if (monthPower[i] == "") {
+      conn.query(sql, [null, null, weeklabels[i]], function (err, rows) {
+        if (!err) {
+          console.log("reportdataWeek 성공");
+        } else {
+          console.log("reportdataWeek 실패");
+        }
+      });
+    } else {
+      conn.query(
+        sql,
+        [weekPower[i], weekCarborn[i], weeklabels[i]],
+        function (err, rows) {
+          if (!err) {
+            console.log("reportdataWeek 성공");
+          } else {
+            console.log("reportdataWeek 실패");
+          }
+        }
+      );
+    }
+  }
+
+  // 월간 리포트 데이터 입력
+  for (let i = 0; i < monthPower.length; i++) {
+    // reportdataMonth 테이블에 넣기
+    let sql = "insert reportdataMonth values(?,?,?)";
+    if (monthPower[i] == "") {
+      conn.query(sql, [null, null, monthlabels[i]], function (err, rows) {
+        if (!err) {
+          console.log("reportdataMonth 성공");
+        } else {
+          console.log("reportdataMonth 실패");
+        }
+      });
+    } else {
+      conn.query(
+        sql,
+        [monthPower[i], monthCarborn[i], monthlabels[i]],
+        function (err, rows) {
+          if (!err) {
+            console.log("reportdataMonth 성공");
+          } else {
+            console.log("reportdataMonth 실패");
+          }
+        }
+      );
+    }
+  }
+
+  // 연간 리포트 데이터 입력
+  for (let i = 0; i < yearPower.length; i++) {
+    // reportdataYear 테이블에 넣기
+    let sql = "insert reportdataYear values(?,?,?)";
+    if (yearPower[i] == "") {
+      conn.query(sql, [null, null, yearlabels[i]], function (err, rows) {
+        if (!err) {
+          console.log("reportdataYear 성공");
+          if (i == yearPower.length - 1) {
+            response.json({
+              result: i,
+            });
+          }
+        } else {
+          console.log("reportdataYear 실패");
+        }
+      });
+    } else {
+      conn.query(
+        sql,
+        [yearPower[i], yearCarborn[i], yearlabels[i]],
+        function (err, rows) {
+          if (!err) {
+            console.log("reportdataYear 성공");
+            if (i == yearPower.length - 1) {
+              response.json({
+                result: i,
+              });
+            }
+          } else {
+            console.log("reportdataYear 실패");
+          }
+        }
+      );
+    }
+  }
+});
+
 module.exports = router;
+ 
