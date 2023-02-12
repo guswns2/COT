@@ -211,7 +211,7 @@ router.post("/ChartNow", function (request, response) {
           nowtime: date,
         });
       } else {
-        console.log("ChartWeek 실패");
+        console.log("ChartNow 실패");
       }
     });
   });
@@ -648,135 +648,132 @@ router.post("/ReportData", function (request, response) {
   let yearlabels = request.body.yearlabels;
   let selectdate = request.body.selectdate;
 
-  // 선택날짜 삭제
-  let deletesqlselected = "delete from selectedDate";
-  conn.query(deletesqlselected, function (err, rows) {
-    if (!err) {
-      console.log("deletesqlselected 삭제 성공");
-    } else {
-      console.log("deletesqlselected 삭제 실패");
-    }
-  });
+  let checksql = 'select * from selectedDate';
+  let check = 0;
+  conn.query(checksql, function (err, rows) {
+    if (rows.length >= 0) {
+      console.log("checksql 성공", rows[0].selectedDate);
+      if (rows[0].selectedDate === selectdate) {
+        console.log("같네요");
+        check = 0;
+      } else {
+        check = 1;
+        console.log("다르네요");
+      }
+        console.log('check',check)
+  if (check == 1) {
+    // 선택날짜 삭제
+    let deletesqlselected = "delete from selectedDate";
+    conn.query(deletesqlselected, function (err, rows) {
+      if (!err) {
+        console.log("deletesqlselected 삭제 성공");
+      } else {
+        console.log("deletesqlselected 삭제 실패");
+      }
+    });
 
-  // 리포트 주간 삭제
-  let deletesqlweek = "delete from reportdataWeek";
-  conn.query(deletesqlweek, function (err, rows) {
-    if (!err) {
-      console.log("reportdataWeek 삭제 성공");
-    } else {
-      console.log("reportdataWeek 삭제 실패");
-    }
-  });
+    // 리포트 주간 삭제
+    let deletesqlweek = "delete from reportdataWeek";
+    conn.query(deletesqlweek, function (err, rows) {
+      if (!err) {
+        console.log("reportdataWeek 삭제 성공");
+      } else {
+        console.log("reportdataWeek 삭제 실패");
+      }
+    });
 
-  // 리포트 월간 삭제
-  let deletesqlmonth = "delete from reportdataMonth";
-  conn.query(deletesqlmonth, function (err, rows) {
-    if (!err) {
-      console.log("reportdataMonth 삭제 성공");
-    } else {
-      console.log("reportdataMonth 삭제 실패");
-    }
-  });
+    // 리포트 월간 삭제
+    let deletesqlmonth = "delete from reportdataMonth";
+    conn.query(deletesqlmonth, function (err, rows) {
+      if (!err) {
+        console.log("reportdataMonth 삭제 성공");
+      } else {
+        console.log("reportdataMonth 삭제 실패");
+      }
+    });
 
-  //리포트 연간 삭제
-  let deletesqlyear = "delete from reportdataYear";
-  conn.query(deletesqlyear, function (err, rows) {
-    if (!err) {
-      console.log("reportdataYear 삭제 성공");
-    } else {
-      console.log("reportdataYear 삭제 실패");
-    }
-  });
+    //리포트 연간 삭제
+    let deletesqlyear = "delete from reportdataYear";
+    conn.query(deletesqlyear, function (err, rows) {
+      if (!err) {
+        console.log("reportdataYear 삭제 성공");
+      } else {
+        console.log("reportdataYear 삭제 실패");
+      }
+    });
 
-  // 선택날짜 데이터 입력
-  // selectedDate 테이블에 넣기
-  let sql = "insert selectedDate values(?)";
+    // 선택날짜 데이터 입력
+    // selectedDate 테이블에 넣기
+    let sql = "insert selectedDate values(?)";
 
-  conn.query(sql, [selectdate], function (err, rows) {
-    if (!err) {
-      console.log("reportdataWeek 성공");
-    } else {
-      console.log("reportdataWeek 실패");
-    }
-  });
-  
+    conn.query(sql, [selectdate], function (err, rows) {
+      if (!err) {
+        console.log("reportdataWeek 성공");
+      } else {
+        console.log("reportdataWeek 실패");
+      }
+    });
 
-  // 주간 리포트 데이터 입력
-  for (let i = 0; i < weekPower.length; i++) {
-    // reportdataWeek 테이블에 넣기
-    let sql = "insert reportdataWeek values(?,?,?)";
-    if (monthPower[i] == "") {
-      conn.query(sql, [null, null, weeklabels[i]], function (err, rows) {
-        if (!err) {
-          console.log("reportdataWeek 성공");
-        } else {
-          console.log("reportdataWeek 실패");
-        }
-      });
-    } else {
-      conn.query(
-        sql,
-        [weekPower[i], weekCarborn[i], weeklabels[i]],
-        function (err, rows) {
+    // 주간 리포트 데이터 입력
+    for (let i = 0; i < weekPower.length; i++) {
+      // reportdataWeek 테이블에 넣기
+      let sql = "insert reportdataWeek values(?,?,?)";
+      if (monthPower[i] == "") {
+        conn.query(sql, [null, null, weeklabels[i]], function (err, rows) {
           if (!err) {
             console.log("reportdataWeek 성공");
           } else {
             console.log("reportdataWeek 실패");
           }
-        }
-      );
+        });
+      } else {
+        conn.query(
+          sql,
+          [weekPower[i], weekCarborn[i], weeklabels[i]],
+          function (err, rows) {
+            if (!err) {
+              console.log("reportdataWeek 성공");
+            } else {
+              console.log("reportdataWeek 실패");
+            }
+          }
+        );
+      }
     }
-  }
 
-  // 월간 리포트 데이터 입력
-  for (let i = 0; i < monthPower.length; i++) {
-    // reportdataMonth 테이블에 넣기
-    let sql = "insert reportdataMonth values(?,?,?)";
-    if (monthPower[i] == "") {
-      conn.query(sql, [null, null, monthlabels[i]], function (err, rows) {
-        if (!err) {
-          console.log("reportdataMonth 성공");
-        } else {
-          console.log("reportdataMonth 실패");
-        }
-      });
-    } else {
-      conn.query(
-        sql,
-        [monthPower[i], monthCarborn[i], monthlabels[i]],
-        function (err, rows) {
+    // 월간 리포트 데이터 입력
+    for (let i = 0; i < monthPower.length; i++) {
+      // reportdataMonth 테이블에 넣기
+      let sql = "insert reportdataMonth values(?,?,?)";
+      if (monthPower[i] == "") {
+        conn.query(sql, [null, null, monthlabels[i]], function (err, rows) {
           if (!err) {
             console.log("reportdataMonth 성공");
           } else {
             console.log("reportdataMonth 실패");
           }
-        }
-      );
-    }
-  }
-
-  // 연간 리포트 데이터 입력
-  for (let i = 0; i < yearPower.length; i++) {
-    // reportdataYear 테이블에 넣기
-    let sql = "insert reportdataYear values(?,?,?)";
-    if (yearPower[i] == "") {
-      conn.query(sql, [null, null, yearlabels[i]], function (err, rows) {
-        if (!err) {
-          console.log("reportdataYear 성공");
-          if (i == yearPower.length - 1) {
-            response.json({
-              result: i,
-            });
+        });
+      } else {
+        conn.query(
+          sql,
+          [monthPower[i], monthCarborn[i], monthlabels[i]],
+          function (err, rows) {
+            if (!err) {
+              console.log("reportdataMonth 성공");
+            } else {
+              console.log("reportdataMonth 실패");
+            }
           }
-        } else {
-          console.log("reportdataYear 실패");
-        }
-      });
-    } else {
-      conn.query(
-        sql,
-        [yearPower[i], yearCarborn[i], yearlabels[i]],
-        function (err, rows) {
+        );
+      }
+    }
+
+    // 연간 리포트 데이터 입력
+    for (let i = 0; i < yearPower.length; i++) {
+      // reportdataYear 테이블에 넣기
+      let sql = "insert reportdataYear values(?,?,?)";
+      if (yearPower[i] == "") {
+        conn.query(sql, [null, null, yearlabels[i]], function (err, rows) {
           if (!err) {
             console.log("reportdataYear 성공");
             if (i == yearPower.length - 1) {
@@ -787,10 +784,37 @@ router.post("/ReportData", function (request, response) {
           } else {
             console.log("reportdataYear 실패");
           }
-        }
-      );
+        });
+      } else {
+        conn.query(
+          sql,
+          [yearPower[i], yearCarborn[i], yearlabels[i]],
+          function (err, rows) {
+            if (!err) {
+              console.log("reportdataYear 성공");
+              if (i == yearPower.length - 1) {
+                response.json({
+                  result: i,
+                });
+              }
+            } else {
+              console.log("reportdataYear 실패");
+            }
+          }
+        );
+      }
     }
+  } else {
+    response.json({
+      result: 0,
+    });
   }
+    } else {
+      console.log("checksql 실패");
+    }
+  });
+
+
 });
 
 module.exports = router;
