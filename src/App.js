@@ -52,7 +52,6 @@ function App() {
 
   return (
     <>
-      <Header></Header>
       <Routes>
         <Route path="/" element={<COT />} />
         <Route path="/Login" element={<Login />} />

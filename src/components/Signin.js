@@ -1,10 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useState,useEffect, useRef } from "react";
 import { TextField, Input, Icon } from "@mui/material";
 import "./css/Signin.css";
 import { useNavigate } from "react-router";
 import axios from "axios";
 
 const Signin = () => {
+  
   useEffect(() => {
     const scrollAnimElements = document.querySelectorAll(
       "[data-animate-on-scroll]"
@@ -23,7 +24,7 @@ const Signin = () => {
         threshold: 0.15,
       }
     );
-
+   
     for (let i = 0; i < scrollAnimElements.length; i++) {
       observer.observe(scrollAnimElements[i]);
     }
@@ -62,11 +63,12 @@ const Signin = () => {
         name: nameRef.current.value,
         company: companyRef.current.value,
         comadd: comaddRef.current.value,
-        co2
+        co2: co2Ref.current.value
       })
       .then((result) => {
         console.log("데이터 보내기 성공!", result.data.result);
-        nav("/");
+        
+        nav("/Login");
       }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
       .catch(() => {
         console.log("데이터 보내기 실패!");
@@ -161,7 +163,7 @@ const Signin = () => {
             variant="standard"
             type="text"
             label="탄소배출권"
-            placeholder="탄소배출권(t/tco2)"
+            placeholder="탄소배출권(tco2)"
             size="medium"
             margin="none"
             id="co2"

@@ -8,7 +8,7 @@ import LineChart from "./Chart/LineChart";
 import { useState, useEffect } from "react";
 import { useRef } from "react";
 import axios from "axios";
-import $ from "jquery";
+import Header from "./Header";
 
 const SecondSection = () => {
   const [choice, setChoice] = useState("");
@@ -83,7 +83,7 @@ const SecondSection = () => {
         .then((result) => {
           console.log(result.data.result);
           window.open(
-            "http://localhost:8075/webroot/decision/view/report?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0.cpt"          );
+            "http://localhost:8075/webroot/decision/view/report?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0.cpt");
         }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
         .catch(() => {
           console.log("데이터 보내기 실패!");
@@ -91,6 +91,8 @@ const SecondSection = () => {
     };
 
   return (
+    <>
+    <Header></Header>
     <section className="second-section" id="Second Section">
       <div className="second-container1" id="Second Container1">
         <div className="second-info1" id="Second Info1">
@@ -235,6 +237,7 @@ const SecondSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

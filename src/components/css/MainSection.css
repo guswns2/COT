@@ -1,3 +1,29 @@
+.week_btn {
+  justify-content: flex-end;
+  border-radius: 5px;
+  border: 0;
+  margin-left: 5px;
+  color: white;
+  background-color: #525050;
+  box-shadow: 0px 4px 0px #646464;
+}
+.week_btn:active {
+  box-shadow: 0 0 #fafafa;
+  background-color: #da9d9d;
+}
+.day_btn {
+  justify-content: flex-end;
+  margin-left: auto;
+  border-radius: 5px;
+  border: 0;
+  color: white;
+  background-color: #525050;
+  box-shadow: 0px 4px 0px #646464;
+}
+.day_btn:active {
+  box-shadow: 0 0 #87a86f;
+  background-color: #87a86f;
+}
 .p {
   margin-block-start: 0;
   margin-block-end: 0;
@@ -17,7 +43,7 @@
   /* margin: 0 0 0 30px; */
   flex-direction: column;
 }
-.h1{
+.h1 {
   display: inline-block;
   position: relative;
   bottom: 5px;
@@ -49,7 +75,6 @@
   padding: var(--padding-3xs);
   justify-content: center;
   mix-blend-mode: normal;
-  
 }
 .icon {
   width: 110.5px;
@@ -90,7 +115,7 @@
 
 .info1-box2 {
   display: flex;
-  align-self: center; 
+  align-self: center;
   align-items: center;
   flex-direction: column-reverse;
   justify-content: space-between;
@@ -120,12 +145,12 @@
   width: 60%;
 }
 
-.todayco2-image{
+.todayco2-image {
   position: relative;
   height: fit-content;
   width: fit-content;
 }
-.todayco2-text{
+.todayco2-text {
   position: relative;
   height: fit-content;
   width: fit-content;
@@ -146,7 +171,8 @@
 .main-container,
 .main-info1,
 .main-info2,
-.main-info2-weather {
+.main-info2-weather,
+.location {
   mix-blend-mode: normal;
 }
 .main-info2 {
@@ -198,7 +224,7 @@
   gap: 15px;
 }
 
-.main-container1-1{
+.main-container1-1 {
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -213,7 +239,7 @@
   flex: 2.02655;
 }
 .info3-box2,
-.info3-button{
+.info3-button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -340,11 +366,31 @@
   width: 100%;
   height: 100%;
 }
-
+/* 위치*/
+.location {
+  display: flex;
+  align-self: center;
+  align-items: center;
+  flex-direction: row;
+  /* justify-content: ; */
+  mix-blend-mode: normal;
+  height: fit-content;
+  width: fit-content;
+  font-weight: 700;
+}
+.location {
+  align-self: center;
+  align-items: center;
+  flex-direction: row;
+  /* justify-content: ; */
+  mix-blend-mode: normal;
+  height: fit-content;
+  width: fit-content;
+}
 /* 날씨 */
-.info2-weather1{
+.info2-weather1 {
   display: flex;
-  align-self: center; 
+  align-self: center;
   align-items: center;
   flex-direction: row;
   /* justify-content: ; */
@@ -352,9 +398,9 @@
   height: fit-content;
   width: fit-content;
 }
-.info2-weather2{
+.info2-weather2 {
   display: flex;
-  align-self: center; 
+  align-self: center;
   align-items: center;
   flex-direction: row;
   /* justify-content: ; */
@@ -363,7 +409,7 @@
   width: fit-content;
 }
 
-.weatherIcon{
+.weatherIcon {
   width: 100px;
   height: 100px;
   margin-right: 10px;
@@ -407,14 +453,14 @@
   }
 }
 
-@media screen and (max-width:630px){
+@media screen and (max-width: 630px) {
   .main-container1-1,
   .main-container2 {
     flex-direction: column;
   }
-  .info1-box2{
+  .info1-box2 {
     display: flex;
-    align-self: center; 
+    align-self: center;
     align-items: center;
     flex-direction: column-reverse;
     justify-content: center;
@@ -422,11 +468,11 @@
     height: 100%;
     width: 100%;
   }
-  .icon{
+  .icon {
     width: 90px;
     height: 75px;
   }
-  .icon1{
+  .icon1 {
     width: 90px;
     height: 90px;
   }
@@ -464,7 +510,7 @@
     height: 70px;
   }
   .info1-box2-c1,
-  .info1-box2-c2{
+  .info1-box2-c2 {
     width: 70%;
   }
   .b1 {

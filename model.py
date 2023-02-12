@@ -22,21 +22,24 @@ def crawling2() :
     res=req.get("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=%EB%82%A0%EC%94%A8")
     soup=bs(res.text,'lxml')
 
+    location = soup.select("#main_pack > section.sc_new.cs_weather_new._cs_weather > div._tab_flicking > div.top_wrap > div.title_area._area_panel > h2.title")
     to = soup.select("#main_pack > section.sc_new.cs_weather_new._cs_weather > div._tab_flicking > div.content_wrap > div.open > div:nth-child(1) > div > div.weather_info > div")
     to_weather = to[0].text.strip()
+    to_loc = location[0].text.strip()
+    
     # to_temp = to[0].text[14:27].strip()
     # to_humi = to[0].text[57:63].strip()
     # to_wind = to[0].text[64:80].strip()
     response_body = {
         'data' : to_weather,
-        # 'data1' : to_temp,
+        'data1' : to_loc,
         # 'data2' : to_humi,
         # 'data3' : to_wind
     }
     
     
     
-    print(to_weather)
+    print(to_loc,to_weather)
     return  (response_body)
     
 
@@ -178,7 +181,7 @@ def crawling() :
     df_rs = df_wt.resample(rule='H').last()
     df_ip = df_rs.interpolate()
     df_re = df_ip.reset_index()
-
+    
     print(df_re)
 
 
