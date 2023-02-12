@@ -122,8 +122,8 @@ const DoughnutChart= () =>{
           .then((result) => {
             console.log("Emission", result.data.accemission);
             setAccEmission(result.data.accemission);
-            setTotalEmission(15000000);
-            setSpareEmission(15000000 - result.data.accemission);
+            setTotalEmission(co2);
+            setSpareEmission(co2 - result.data.accemission);
             
           }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
           .catch(() => {

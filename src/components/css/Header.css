@@ -67,9 +67,18 @@
   font-size: 22px;
 }
 .logout{
+  display: auto;
   bottom: 0;
-  left:350px;
-  font-size : 22px;
+  clear: right;
+  justify-content: space-between;
+  float : right;
+  position: relative;
+  
+}
+.img{
+  margin : auto;
+  
+  
 }
 .main-parent {
   display: flex;

@@ -1,5 +1,4 @@
 import "./css/MainSection.css";
-// import Modal from "./Modal";
 import { useState, useEffect } from "react";
 import PieChart from "./Chart/PieChart";
 import BarChartNow from "./Chart/BarChartNow";
@@ -49,13 +48,6 @@ const MainSection = () => {
       "- Barry Popular -",
     ],
   ];
-  // // 모달 페이지
-  // const [modalOpen, setModalOpen] = useState(false);
-
-  // const showModal = () => {
-  //   setModalOpen(true);
-  //   document.body.style.overflow = "hidden";
-  // };
 
   function getData() {
     try{
@@ -70,12 +62,10 @@ const MainSection = () => {
       let arr2 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(11,15);
       let arr3 = arr1.concat(arr2);
       
-      // console.log('arr3',arr3)
       // 위치
       let loc = response.data.data1
-      
-      
       console.log("위치",loc)
+      
       // 현재 온도 ~~
       let temp = arr3.slice(3,5);
       temp[1] = temp[1].substring(0,2);
