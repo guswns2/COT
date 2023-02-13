@@ -7,6 +7,7 @@ import LineChart from "./Chart/LineChart";
 import DoughnutChart from "./Chart/DoughnutChart";
 import Clock from "./Clock";
 import axios from "axios";
+//import { response } from "express";
 
 const MainSection = () => {
   const [todayPower, setTodayPower] = useState(0);
@@ -164,9 +165,43 @@ const MainSection = () => {
   }
   }
 
+  let cnt = 0;
+
+
+  function preWeather() {
+    console.log(localStorage.getItem("id"))
+    try{
+    axios({
+      method: "GET",
+      url:"/pre_weather",
+      params:{'id':localStorage.getItem("id"),},
+    })
+    .then((response) => {
+      console.log(response)
+    }).catch((error) => {
+      if (error.response) {
+        console.log
+        console.log(error.response)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+        }
+    })}
+  catch(error){
+    console.log("dd")
+  }
+  }
+
+
   useEffect(() => {
     // 
     getData()
+
+      if(cnt == 0){
+        preWeather()
+        cnt++;
+      }
+     
+  
 
     // 주간 전력소비량
     axios
@@ -195,6 +230,7 @@ const MainSection = () => {
       document.getElementById("main").style.borderBottom = "1px solid white";
       document.getElementById("dashboard").style.borderBottom ="";
   }, []);
+
   // 로컬스토리지에 저장
   let I = String(localStorage.getItem("id"));
   const handleId = (e) => {
