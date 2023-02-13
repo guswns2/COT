@@ -12,8 +12,9 @@ const DoughnutChart= () =>{
   const [totalEmission, setTotalEmission] = useState(0);
   const [accEmission, setAccEmission] = useState(0);
   const [spareEmission, setSpareEmission] = useState(0);
-  let co2 = String(localStorage.getItem("co2")).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-    let data = {
+  let co2 = String(parseInt(localStorage.getItem("co2"))).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  let co2Int = localStorage.getItem('co2');
+  let data = {
       labels: ["누적 배출량", "여유 배출량"],
       datasets: [
         {
@@ -49,7 +50,9 @@ const DoughnutChart= () =>{
           display:true,
           formatter:(context, args) => {
             const index = args.dataIndex;
-            console.log(args.chart.data.labels);
+            console.log('labels',args.chart.data.labels);
+            console.log('totalEmission',totalEmission)
+            console.log('context',context)
             return (parseFloat((context/totalEmission)*100)+"").slice(0,4)+"%";
           },
         },
@@ -94,7 +97,7 @@ const DoughnutChart= () =>{
         ctx.textBaseline = "middle";
         ctx.fillText("(tco2)", xCoor+46, yCoor - 10);
         
-        //총 배출 가능
+        //배출권 총량
         ctx.font = "bolder 13px sans-serif";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
@@ -118,12 +121,13 @@ const DoughnutChart= () =>{
       useEffect(() => {
         axios
           .post("http://127.0.0.1:3001/Emission", {
+            ID:localStorage.getItem('id')
           })
           .then((result) => {
             console.log("Emission", result.data.accemission);
             setAccEmission(result.data.accemission);
-            setTotalEmission(15000000);
-            setSpareEmission(15000000 - result.data.accemission);
+            setTotalEmission(co2Int);
+            setSpareEmission(co2Int - result.data.accemission);
             
           }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
           .catch(() => {

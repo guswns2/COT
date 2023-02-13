@@ -52,10 +52,9 @@ function App() {
 
   return (
     <>
-      <Header></Header>
       <Routes>
-        <Route path="/" element={<COT />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/COT" element={<COT/>}/>
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Main" element={<MainSection />} />
         <Route path="/Dashboard" element={<SecondSection />} />

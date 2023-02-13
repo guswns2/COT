@@ -108,6 +108,7 @@ const options = {
       .post("http://127.0.0.1:3001/ChartMonth", {
         // SecondSection.js 로부터 props형식으로 받은 날짜값을 전달
         datevalue: localStorage.getItem('date'),
+        ID:localStorage.getItem('id')
       })
       .then((result) => {
         // 받는 부분
@@ -132,6 +133,10 @@ const options = {
       props.val7(val7);
       props.val8(val8);
       props.val9(val9);
+
+      localStorage.setItem("monthPower", monthPower);
+      localStorage.setItem("monthCarborn", monthCarborn);
+      localStorage.setItem("monthlabels", labels);
     }, [labels]);
     
     return(

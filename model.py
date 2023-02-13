@@ -37,8 +37,6 @@ def crawling2() :
         # 'data3' : to_wind
     }
     
-    
-    
     print(to_loc,to_weather)
     return  (response_body)
     

@@ -12,7 +12,7 @@ function Clock() {
 
   return (
     <>
-      <span>{time.toLocaleDateString()}</span><br></br>
+      <span>{time.toLocaleDateString()}{time.getDay()}</span><br></br>
       <span>{time.toLocaleTimeString()}</span>
     </>
   );

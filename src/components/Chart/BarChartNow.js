@@ -29,33 +29,7 @@ function BarChartNow (){
   const [todayLabels, setTodayLabels] = useState([]);
 
   const data = {
-    labels:todayLabels,
-    // [
-    //   "00시",
-    //   "01시",
-    //   "02시",
-    //   "03시",
-    //   "04시",
-    //   "05시",
-    //   "06시",
-    //   "07시",
-    //   "08시",
-    //   "09시",
-    //   "10시",
-    //   "11시",
-    //   "12시",
-    //   "13시",
-    //   "14시",
-    //   "15시",
-    //   "16시",
-    //   "17시",
-    //   "18시",
-    //   "19시",
-    //   "20시",
-    //   "21시",
-    //   "22시",
-    //   "23시",
-    // ],
+    labels: todayLabels,
     datasets: [
       {
         label: "금일 전력사용량",
@@ -63,6 +37,7 @@ function BarChartNow (){
         backgroundColor: ["rgba(252,252,42,0.3)"],
         borderColor: ["rgb(255, 205, 86)"],
         borderWidth: 2,
+        pointStyle: "rect",
       },
 
       // 이중 그래프에 써먹을 것. Line 그래프 - 보류
@@ -85,7 +60,8 @@ function BarChartNow (){
         type: "line",
         order: 0,
         borderWidth: 3,
-        
+        pointStyle: "line",
+        pointRadius:1,
       },
       {
         label: "금일 예상 전력사용량",
@@ -96,10 +72,12 @@ function BarChartNow (){
         type: "line",
         order: 0,
         borderWidth: 3,
+        pointStyle: "line",
+        pointRadius:1
       },
-      
     ],
   };
+
 
 const options = {
   reponsive: true,
@@ -110,6 +88,7 @@ const options = {
     legend: {
       labels: {
         color: "white",
+        usePointStyle:true,
       },
       display: true,
     },
@@ -140,6 +119,7 @@ const options = {
     // 시간대별 전력소비량/탄소배출량
     axios
       .post("http://127.0.0.1:3001/ChartNow", {
+        ID:localStorage.getItem('id')
       })
       .then((result) => {
         // 받는 부분
@@ -165,7 +145,8 @@ const options = {
         {console.log("now 전달 체크 : ", todayElect)}
             <Bar
             data={data}
-            options={options} 
+            options={options}
+          
             ></Bar>
         </>
     )

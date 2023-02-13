@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./css/Header.css";
-import Clock from "./Clock";
+
 const Header = () => {
   const nav = useNavigate();
-
   return (
     <div className="header">
       <div className="top-header1">
@@ -15,7 +14,7 @@ const Header = () => {
                 document.getElementById("main").style.borderBottom =
                   "1px solid white";
                 document.getElementById("dashboard").style.borderBottom = "";
-                nav("/");
+                nav("/Main");
               }}
             >
               Change Of Tomorrow
@@ -27,7 +26,6 @@ const Header = () => {
               <div className="main-parent">
                 <button
                   className="main"
-                  
                   id="main"
                   onClick={() => {
                     document.getElementById("main").style.borderBottom =
@@ -37,7 +35,7 @@ const Header = () => {
                     nav("/Main");
                   }}
                 >
-                  Main
+                  MAIN
                 </button>
                 <button
                   className="dashboard"
@@ -49,21 +47,19 @@ const Header = () => {
                     nav("/dashboard");
                   }}
                 >
-                  DASHBOARD
-                </button>
-                <button
-                  className="logout"
-                  id="logout"
-                  onClick={() => {
-                    document.getElementById("logout").style.borderBottom = 
-                    "1px solid white";
-                    nav("/login")
-                  }}
-                >
-                  LOGOUT
+                  HISTORY
                 </button>
               </div>
             </div>
+            <button
+              className="logout"
+              onClick={() => {
+                localStorage.clear();
+                nav("/");
+              }}
+            >
+              <img src="logout.png" className="img" alt="" />
+            </button>
           </div>
         </div>
       </div>

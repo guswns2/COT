@@ -108,6 +108,7 @@ const options = {
       .post("http://127.0.0.1:3001/ChartWeek", {
         // SecondSection.js 로부터 props형식으로 받은 날짜값을 전달
         datevalue: localStorage.getItem('date'),
+        ID : localStorage.getItem('id')
       })
       .then((result) => {
         // 받는 부분
@@ -133,6 +134,10 @@ const options = {
       props.val3(val3);
       props.val4(val4);
       props.val5(val5);
+
+      localStorage.setItem("weekPower", weekPower);
+      localStorage.setItem("weekCarborn", weekCarborn);
+      localStorage.setItem("weeklabels",labels);
     }, [labels]);
     
     return(
