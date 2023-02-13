@@ -45,41 +45,32 @@
   display: inline-block;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.logout
-{
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  font-size: 22.29px;
-  font-family: var(--font-roboto);
-  color: var(--color-white);
-  text-align: left;
-  display: inline-block;
-  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
+
 .dashboard {
   bottom: 0;
   left: 127px;
   font-size: 22px;
 }
+
 .logout{
-  display: auto;
-  bottom: 0;
-  clear: right;
-  justify-content: space-between;
-  float : right;
-  position: relative;
-  
+  display : 'inline-block';
+  position: 'relative';
+  background: none;
+  border: 0;
+  background-color: none;
+  width: fit-content;
+  height: fit-content;
+  z-index: 1;
+  padding-right: 33px;
+  cursor: pointer;
 }
+
 .img{
-  margin : auto;
-  
-  
+  width:30px;
+  height: 30px;
+
 }
+
 .main-parent {
   display: flex;
   align-items: center;

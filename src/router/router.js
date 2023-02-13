@@ -108,6 +108,8 @@ router.post("/SignIn", function (request, response) {
 router.post("/ChartNow", function (request, response) {
   console.log("ChartNow 라우터 진입");
 
+  let ID = request.body.ID;
+
   // n만큼의 시간을 더하면 날짜를 반환해줌
   function StringToHours(n) {
     let stringNewDate = new Date();
@@ -134,8 +136,8 @@ router.post("/ChartNow", function (request, response) {
   // 시간단위 전력 가져오기
   let date = StringToHours(0);
   console.log("여기있따!",date);
-  let sql = `select * from dayuse WHERE use_day BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date} 23:00:00"`;
-  let sql2 = `select * from predict WHERE pre_time BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date.slice(0,10)} 23:00:00" AND pre_id = "7" LIMIT 24;`;
+  let sql = `select * from dayuse WHERE use_day BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date} 23:00:00" AND use_id = ${ID}`;
+  let sql2 = `select * from predict WHERE pre_time BETWEEN "${date.slice(0,10)} 00:00:00" AND "${date.slice(0,10)} 23:00:00" AND pre_id = "${ID}"`;
   conn.query(sql, function (err, rows) {
     let preArr = [];
 
@@ -221,6 +223,8 @@ router.post("/ChartNow", function (request, response) {
 router.post("/ChartWeek", function (request, response) {
   console.log("ChartWeek 라우터 진입");
 
+  let ID = request.body.ID;
+
   if (request.body.datevalue != null) {
     let date1 = request.body.datevalue;
     console.log("date1", date1);
@@ -257,7 +261,7 @@ router.post("/ChartWeek", function (request, response) {
       let date = StringToDate(stringDate, i);
       labels.push(date.substring(5, 7) + "월 " + date.substring(8, 10) + "일");
 
-      let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
+      let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour) and use_id = '${ID}'`;
 
       conn.query(sql, function (err, rows) {
         if (rows.length > 0) {
@@ -378,6 +382,8 @@ router.post("/ChartNWeek", function (request, response) {
 router.post("/ChartMonth", function (request, response) {
   console.log("ChartMonth 라우터 진입");
 
+  let ID = request.body.ID;
+
   if (request.body.datevalue != null) {
     let date1 = request.body.datevalue;
     console.log("date1", date1);
@@ -418,7 +424,7 @@ router.post("/ChartMonth", function (request, response) {
         );
       } else labels.push(date.substring(8, 10) + "일");
 
-      let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour)`;
+      let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${date} 00:00:00" AND DATE_ADD("${date} 00:00:00", INTERVAL 23 hour) and use_id = "${ID}"`;
 
       conn.query(sql, function (err, rows) {
         if (rows.length > 0) {
@@ -444,6 +450,8 @@ router.post("/ChartMonth", function (request, response) {
 // 월간 전력소비량/탄소배출량 BarChartYear
 router.post("/ChartYear", function (request, response) {
   console.log("ChartYear 라우터 진입");
+
+  let ID = request.body.ID;
 
   if (request.body.datevalue != null) {
     let date = request.body.datevalue;
@@ -518,7 +526,7 @@ router.post("/ChartYear", function (request, response) {
 
       // 한달치 전력 합 가져오기
       let sql = `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN 
-    "${dateyear + "-" + (i + 1) + "-01"} 00:00:00" AND "${datemonth} 23:00:00"`;
+    "${dateyear + "-" + (i + 1) + "-01"} 00:00:00" AND "${datemonth} 23:00:00" and use_id = "${ID}"`;
 
       conn.query(sql, function (err, rows) {
         if (rows.length > 0) {
@@ -546,6 +554,7 @@ router.post("/ChartYear", function (request, response) {
 router.post("/Emission", function (request, response) {
   console.log("Emission 라우터 진입");
 
+  let ID = request.body.ID;
   // n만큼의 시간을 더하면 날짜를 반환해줌
   function StringToHours(n) {
     let stringNewDate = new Date();
@@ -562,19 +571,18 @@ router.post("/Emission", function (request, response) {
         ? stringNewDate.getDate().toString()
         : "0" + stringNewDate.getDate().toString()) +
       " " +
-      stringNewDate.getHours() +
-      ":00:00"
+      (stringNewDate.getHours() > 9
+        ? stringNewDate.getHours() + ":00:00"
+        : "0" + stringNewDate.getHours() + ":00:00")
     );
   }
 
   console.log("현재시간 : ", StringToHours(0));
 
   // 시간단위 전력 가져오기
-  let date = "2020-10-15 00:00:00";
-  let sql = `select sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN DATE_ADD("${date.slice(
-    0,
-    4
-  )}-01-01 00:00:00", INTERVAL -23 hour) AND "${date}"`;
+  let date = StringToHours(0);
+  console.log('carbornDate',date);
+  let sql = `select sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN DATE_ADD("${date.slice(0,4)}-01-01 00:00:00", INTERVAL -23 hour) AND "${date}" AND use_id = "${ID}"`;
 
   conn.query(sql, function (err, rows) {
     if (rows.length > 0) {

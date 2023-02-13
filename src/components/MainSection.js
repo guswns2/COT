@@ -98,7 +98,7 @@ const MainSection = () => {
             if (i != yes.length - 1) yes[i] = yes[i] + " ";
           }
 
-          location;
+          // location;
           setLoc1(loc);
 
           //Temp

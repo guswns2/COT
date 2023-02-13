@@ -1,10 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./css/Header.css";
 
-import Clock from "./Clock";
 const Header = () => {
   const nav = useNavigate();
-  var logo = "../image/img.jpg"
   return (
     <div className="header">
       <div className="top-header1">
@@ -16,7 +14,7 @@ const Header = () => {
                 document.getElementById("main").style.borderBottom =
                   "1px solid white";
                 document.getElementById("dashboard").style.borderBottom = "";
-                nav("/");
+                nav("/Main");
               }}
             >
               Change Of Tomorrow
@@ -28,7 +26,6 @@ const Header = () => {
               <div className="main-parent">
                 <button
                   className="main"
-                  
                   id="main"
                   onClick={() => {
                     document.getElementById("main").style.borderBottom =
@@ -52,26 +49,17 @@ const Header = () => {
                 >
                   HISTORY
                 </button>
-                <button
-                  // className="logout"
-                  id="logout"
-                  style={{
-                    display : 'block',
-                    position: 'fixed',
-                    right: '18px',
-                    marginTop: '10px',
-                    background: 'none',
-                    border : '0px'
-                  }}
-                  onClick={() => {
-                  localStorage.clear();
-                    nav("/login")
-                  }}
-                ><img src = "img4.webp" className="img" height='25' width='25' alt="LOGOUT">
-                </img>
-                </button>
               </div>
             </div>
+            <button
+              className="logout"
+              onClick={() => {
+                localStorage.clear();
+                nav("/");
+              }}
+            >
+              <img src="logout.png" className="img" alt="" />
+            </button>
           </div>
         </div>
       </div>
