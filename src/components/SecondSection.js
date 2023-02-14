@@ -26,12 +26,13 @@ const SecondSection = () => {
   const [minpy, setminpy] = useState("");
   const [maxcy, setmaxcy] = useState("");
   const [mincy, setmincy] = useState("");
-  let i = String(localStorage.getItem("date"));
+  let i = localStorage.getItem("date")!=null?String(localStorage.getItem("date")):"";
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("e.target.value", e.target.value);
     localStorage.setItem("date", e.target.value);
     setChoice(e.target.value);
+    
   };
   useEffect(() => {
     document.getElementById("main").style.borderBottom = "";
@@ -56,7 +57,7 @@ const SecondSection = () => {
         console.log(result.data.result);
         // if (result.data.resuit == 11){
           window.open(
-            "http://localhost:8075/webroot/decision/view/form?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EC%259D%25B4%25EB%25AF%25B8%25EC%25A7%2580.frm&op=form_adaptive"
+            "http://172.30.1.29:8075/webroot/decision/view/form?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EC%259D%25B4%25EB%25AF%25B8%25EC%25A7%2580.frm&op=form_adaptive"
           );
         // }
 
@@ -79,12 +80,14 @@ const SecondSection = () => {
           yearCarborn: localStorage.getItem("yearCarborn").split(","),
           yearlabels: localStorage.getItem("yearlabels").split(","),
           selectdate: i
+          
         })
         .then((result) => {
           console.log(result.data.result);
           window.open(
-            "http://localhost:8075/webroot/decision/view/report?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0.cpt");
-        }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
+            "http://172.30.1.29:8075/webroot/decision/view/report?viewlet=%25EB%258C%2580%25EC%258B%259C%25EB%25B3%25B4%25EB%2593%259C%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0.cpt");
+            
+          }) // axios로 보낼 위치에 데이터 보내기를 성공하면 then
         .catch(() => {
           console.log("데이터 보내기 실패!");
         });
@@ -205,6 +208,7 @@ const SecondSection = () => {
           <div className="info2-box2" id="info2 Box2">
             <div className="bar">
               <BarChartYear
+
                 val={choice}
                 val10={setmaxpy}
                 val11={setminpy}

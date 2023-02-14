@@ -8,12 +8,13 @@ ChartJs.register(
 );
 
 const DoughnutChart= () =>{
-
+ 
   const [totalEmission, setTotalEmission] = useState(0);
   const [accEmission, setAccEmission] = useState(0);
   const [spareEmission, setSpareEmission] = useState(0);
   let co2 = String(parseInt(localStorage.getItem("co2"))).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   let co2Int = localStorage.getItem('co2');
+  
   let data = {
       labels: ["누적 배출량", "여유 배출량"],
       datasets: [
@@ -102,7 +103,7 @@ const DoughnutChart= () =>{
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
-        ctx.fillText("배출권 총량", xCoor - 40, yCoor + 15);
+        ctx.fillText("22년 배출 총량", xCoor - 40, yCoor + 15);
 
         ctx.font = "bolder 25px sans-serif";
         ctx.fillStyle = "white";
@@ -134,16 +135,21 @@ const DoughnutChart= () =>{
             console.log("데이터 보내기 실패!");
           });
       }, []);
+
   return (
     <>
+
       <Doughnut
         data={data}
         options={options}
         plugins={[textCenter,ChartDataLabels]}
-        style={{ display: "inline-block" }}
-        width={"320px"}
-        height={"320px"}
+        style={{ display: "inline-block",
+                  marginTop:"10%" 
+                }}
+        width={"330px"}
+        height={"330px"}
       />
+      
     </>
   );
 }

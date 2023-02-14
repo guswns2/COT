@@ -16,6 +16,29 @@ let conn = mysql.createConnection({
   multipleStatements: true,
 });
 
+// 배출권 수정
+router.post("/Allow", function (req, res) {
+  console.log("배출권 라우터");
+  const id = req.body.id;
+  const allow = req.body.allow;
+  console.log("사용자 id : " + id);
+  console.log("수정할 allow : " + allow);
+
+  let sql = "update userinfo set comp_allow = ? where user_id = ?";
+  
+  conn.query(sql, [allow, id], function (err, rows) {
+    if (!err) {
+      console.log("배출권 수정성공")
+      res.send({
+        suc : "성공성공"
+      })
+    } else {
+      console.log("배출권 수정실패" + err.code);
+    }
+  });
+});
+
+
 router.get("*", function (request, response) {
   // console.log("Happy Hacking!");
   response.sendFile(path.join(__dirname, "..", "..", "build", "index.html"));
@@ -289,6 +312,8 @@ router.post("/ChartWeek", function (request, response) {
 router.post("/ChartNWeek", function (request, response) {
   console.log("ChartNWeek 라우터 진입");
 
+  let id = request.body.ID;
+
   function StringToHours(n) {
     let stringNewDate = new Date();
     stringNewDate.setHours(stringNewDate.getHours() + n);
@@ -352,7 +377,7 @@ router.post("/ChartNWeek", function (request, response) {
 
     let sql =
       `select sum(use_power) power, sum(use_carborn) carborn from dayuse WHERE use_day BETWEEN "${thisWeek[i]} 00:00:00" AND DATE_ADD("${thisWeek[i]} 00:00:00", INTERVAL 23 hour);` +
-      `select sum(pre_power) pre from predict WHERE pre_time BETWEEN "${thisWeek[i]} 00:00:00" AND "${thisWeek[i]} 23:00:00" AND pre_id = "7" LIMIT 24`;
+      `select sum(pre_power) pre from predict WHERE pre_time BETWEEN "${thisWeek[i]} 00:00:00" AND "${thisWeek[i]} 23:00:00" AND pre_id = ${id} LIMIT 24`;
     conn.query(sql, function (err, rows) {
       if (rows.length > 0) {
         console.log("데이터 받아오기 성공 : " + rows.length);

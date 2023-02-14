@@ -1,5 +1,5 @@
 import "./css/MainSection.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PieChart from "./Chart/PieChart";
 import BarChartNow from "./Chart/BarChartNow";
 import LineChart from "./Chart/LineChart";
@@ -8,6 +8,7 @@ import Clock from "./Clock";
 import axios from "axios";
 import Header from "./Header";
 import BarChartNweek from "./Chart/BarChartNweek";
+import { TextField, Input, Button, Box } from "@mui/material";
 
 const MainSection = () => {
   const [todayPower, setTodayPower] = useState(0);
@@ -205,16 +206,15 @@ const MainSection = () => {
   useEffect(() => {
     console.log("week:",thisWeek);
 
-    // 
+    // 실시간 네이버 날씨
     getData()
 
-      if(cnt == 0){
-        preWeather()
-        cnt++;
-      }
-     
-  
-
+    // 일주일 전력사용량 예측
+    if(cnt == 0){
+      preWeather()
+      cnt++;
+    }
+    
     // 주간 전력소비량
     axios
       .post("http://127.0.0.1:3001/MainSection", {
@@ -254,6 +254,42 @@ const MainSection = () => {
 
   const [btn, setbtn] = useState(true);
 
+
+  // 배출권 수정
+  const allowRef = useRef();
+
+    const chAllow = (e) => {
+       //e.preventDefault();
+       //useEffect(() => {
+      console.log("allowref:",allowRef.current.value);
+      localStorage.setItem('co2',allowRef.current.value);
+      localStorage.setItem.
+       axios
+         .post("http://127.0.0.1:3001/Allow", {
+           id:localStorage.getItem('id'),
+           allow: allowRef.current.value,
+         })
+         // axios로 보낼 위치에 데이터 보내기를 성공하면 then
+         .then((res) => {
+           console.log("배출권 수정 성공!", res.data.suc);
+           // console.log("id", result.data.allow);
+           // localStorage.setItem("allow",result.data.allow)
+           // nav("/Main");
+         }) // axios로 보낼 위치에 데이터 보내기를 실패하면 catch
+         .catch((err) => {
+           console.log("데이터 보내기 실패!");
+           console.log("allowErr",err)
+         });
+    
+       // },[]);
+        };
+  
+    
+
+  
+
+
+
   return (
     <>
       <Header></Header>
@@ -269,7 +305,10 @@ const MainSection = () => {
                   src="green.png"
                   style={{ width: "100px", height: "100px" }}
                 ></img>
-                <div className="txt">
+                <div className="txt"
+                style={{
+                  marginLeft:"3%"
+                }}>
                   <span
                     style={{
                       fontSize: "21px",
@@ -422,6 +461,10 @@ const MainSection = () => {
           <div className="main-info4" id="Main Info5">
             <div className="info3-box">
               <b className="b">탄소배출권</b>
+              <input className="allow" ref={allowRef}></input>
+              <button className="allow_btn" onClick={chAllow}>
+                수정
+              </button>
             </div>
             <div className="Doughnut">
               <DoughnutChart></DoughnutChart>

@@ -98,7 +98,9 @@ function BarChartNweek() {
   useEffect(() => {
     // 시간대별 전력소비량/탄소배출량
     axios
-      .post("http://127.0.0.1:3001/ChartNWeek", {})
+      .post("http://127.0.0.1:3001/ChartNWeek", {
+        ID:localStorage.getItem('id')
+      })
       .then((result) => {
         // 받는 부분
         console.log(result);

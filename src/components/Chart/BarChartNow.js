@@ -60,8 +60,8 @@ function BarChartNow (){
         type: "line",
         order: 0,
         borderWidth: 3,
-        pointStyle: "line",
-        pointRadius:1,
+        pointStyle: "circle",
+        pointRadius:2,
       },
       {
         label: "금일 예상 전력사용량",
@@ -72,8 +72,8 @@ function BarChartNow (){
         type: "line",
         order: 0,
         borderWidth: 3,
-        pointStyle: "line",
-        pointRadius:1
+        pointStyle: "",
+        pointRadius:2
       },
     ],
   };
