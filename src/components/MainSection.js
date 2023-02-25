@@ -1,14 +1,11 @@
 import "./css/MainSection.css";
 import { useState, useEffect, useRef } from "react";
-import PieChart from "./Chart/PieChart";
 import BarChartNow from "./Chart/BarChartNow";
-import LineChart from "./Chart/LineChart";
 import DoughnutChart from "./Chart/doughnutChart";
 import Clock from "./Clock";
 import axios from "axios";
 import Header from "./Header";
 import BarChartNweek from "./Chart/BarChartNweek";
-import { TextField, Input, Button, Box } from "@mui/material";
 
 const MainSection = () => {
   const [todayPower, setTodayPower] = useState(0);
@@ -57,7 +54,6 @@ const MainSection = () => {
       method: "GET",
       url:"/today_weather",
       data:'test'
-
     })
     .then((response) => {
       let arr1 = ((response.data.data.split(' ')).filter((e) => e != '')).slice(0,8);
@@ -176,7 +172,7 @@ const MainSection = () => {
   thisWeek[i] = yyyy + '-' + mm + '-' + dd;
   }
 
-  let cnt = 0;
+
 
 
   function preWeather() {
@@ -202,7 +198,7 @@ const MainSection = () => {
   }
   }
 
-
+  let cnt = 0;
   useEffect(() => {
     console.log("week:",thisWeek);
 
@@ -259,11 +255,9 @@ const MainSection = () => {
   const allowRef = useRef();
 
     const chAllow = (e) => {
-       //e.preventDefault();
-       //useEffect(() => {
       console.log("allowref:",allowRef.current.value);
       localStorage.setItem('co2',allowRef.current.value);
-      localStorage.setItem.
+
        axios
          .post("http://127.0.0.1:3001/Allow", {
            id:localStorage.getItem('id'),
@@ -272,19 +266,14 @@ const MainSection = () => {
          // axios로 보낼 위치에 데이터 보내기를 성공하면 then
          .then((res) => {
            console.log("배출권 수정 성공!", res.data.suc);
-           // console.log("id", result.data.allow);
-           // localStorage.setItem("allow",result.data.allow)
-           // nav("/Main");
          }) // axios로 보낼 위치에 데이터 보내기를 실패하면 catch
          .catch((err) => {
            console.log("데이터 보내기 실패!");
            console.log("allowErr",err)
          });
-    
-       // },[]);
+
         };
   
-    
 
   
 
@@ -372,9 +361,10 @@ const MainSection = () => {
                 <span style={{ fontSize: "20px" }}>{loc1}</span>
               </div>
               <div className="info2-weather1">
-                <h5 style={{ width: "100px" }}>
-                  <span style={{ fontSize: "20px" }}>
+                <h5 style={{ width: "120px",  }}>
+                  <span style={{ fontSize: "20px", width: "120px", }}>
                     {temp1} {temp2}
+                    <br></br>
                   </span>
                   <span style={{ fontSize: "30px", color: "lightgreen" }}>
                     {temp3}
@@ -383,7 +373,7 @@ const MainSection = () => {
                 <h5
                   style={{
                     width: "120px",
-                    marginLeft: "10px",
+                    //marginLeft: "10px",
                     marginRight: "10px",
                   }}
                 >
@@ -430,11 +420,6 @@ const MainSection = () => {
               <button className="week_btn" onClick={() => setbtn(false)}>
                 주간
               </button>
-              {/* <button className="info3-button" onClick={showModal}>
-                <div className="plus">
-                  <img className="plus1-icon" alt="" src="../plus1.svg" />
-                </div>
-              </button> */}
             </div>
             <div className="info3-box2">
               <div className="bar">
@@ -442,22 +427,7 @@ const MainSection = () => {
               </div>
             </div>
           </div>
-          {/* <div className="main-info3" id="Main Info4">
-          <div className="info3-box">
-            <b className="b">7일 탄소배출량</b>
-            <button className="info3-button" onClick={showModal}>
-              <div className="plus">
-                <img className="plus1-icon" alt="" src="../plus11.svg" />
-              </div>
-            </button>
-          </div> */}
-          {/* <div className="Line">
-            <LineChart></LineChart>
-          </div> */}
-          {/* <div className="pie">
-              <PieChart></PieChart>
-            </div> */}
-          {/* </div> */}
+          
           <div className="main-info4" id="Main Info5">
             <div className="info3-box">
               <b className="b">탄소배출권</b>
@@ -471,7 +441,6 @@ const MainSection = () => {
             </div>
           </div>
         </div>
-        {/* {modalOpen === true && <Modal setModalOpen={setModalOpen} />} */}
       </div>
     </>
   );

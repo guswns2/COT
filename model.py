@@ -14,7 +14,6 @@ import joblib
 
 
 app = Flask(__name__)
-#app.config['JSON_AS_ASCII'] = False
 
 @app.route('/today_weather', methods = ['GET', 'POST'])
 def crawling2() :
@@ -26,24 +25,16 @@ def crawling2() :
     to = soup.select("#main_pack > section.sc_new.cs_weather_new._cs_weather > div._tab_flicking > div.content_wrap > div.open > div:nth-child(1) > div > div.weather_info > div")
     to_weather = to[0].text.strip()
     to_loc = location[0].text.strip()
-    
-    # to_temp = to[0].text[14:27].strip()
-    # to_humi = to[0].text[57:63].strip()
-    # to_wind = to[0].text[64:80].strip()
+
     response_body = {
         'data' : to_weather,
         'data1' : to_loc,
-        # 'data2' : to_humi,
-        # 'data3' : to_wind
     }
     
-    print(to_loc,to_weather)
+    print(to_loc, to_weather)
+
     return  (response_body)
     
-
-
-
-
 
 @app.route('/pre_weather', methods = ['GET', 'POST'])
 
@@ -59,9 +50,9 @@ def crawling() :
     # 요일별
     for i in week : 
         res=req.get(f"https://freemeteo.kr/weather/kwangju/hourly-forecast/{i}/?gid=1841811&language=korean&country=south-korea")
-        
         soup=bs(res.text,'lxml')
         weather=soup.select("#content > div.right-col > div.weather-now > div.today.table > div > table > tbody > tr> td:nth-child(2)")
+
         # 시간별
         for i in range(2,len(weather)) : 
             weather=soup.select(f"#content > div.right-col > div.weather-now > div.today.table > div > table > tbody > tr> td:nth-child({i})")
@@ -171,7 +162,6 @@ def crawling() :
     print(predict2)
 
     # DB로 데이터프레임 전송
-    
     predict2.to_sql(name='predict', con=engine, if_exists='append', index=False)
     sql = "delete from predict where num in (select ext_id from (select min(num) ext_id from predict group by pre_id, pre_time having count(*)>1) tmp);"
     engine.execute(sql)
