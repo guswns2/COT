@@ -52,7 +52,7 @@ const MainSection = () => {
     try{
     axios({
       method: "GET",
-      url:"/today_weather",
+      url:"http://localhost:5000/today_weather",
       data:'test'
     })
     .then((response) => {
@@ -180,7 +180,7 @@ const MainSection = () => {
     try{
     axios({
       method: "GET",
-      url:"/pre_weather",
+      url:"http://localhost:5000/pre_weather",
       params:{'id':localStorage.getItem("id"),},
     })
     .then((response) => {
