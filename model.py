@@ -10,7 +10,7 @@ import datetime
 import pandas as pd
 from xgboost import XGBRegressor
 import joblib
-
+from tqdm import tqdm
 
 
 app = Flask(__name__)
@@ -111,12 +111,16 @@ def crawling() :
     df_re.month = df_re.month.astype({'month':'string'})
     df_re.weekday = df_re.weekday.astype({'weekday':'string'})
 
-
     df_re.hour = df_re.hour.astype({'hour':'object'})
     df_re.day = df_re.day.astype({'day':'object'})
     df_re.month = df_re.month.astype({'month':'object'})
     df_re.weekday = df_re.weekday.astype({'weekday':'object'})
     
+    # hour 컬럼 값이 한 자리일 시 앞에 0 추가
+    for i in tqdm(range(0, len(df_re))) : 
+        if len(df_re['hour'][i]) == 1 : 
+            df_re['hour'][i] = '0' + df_re['hour'][i]
+
     categorical_feature = ['hour', 'day', 'month', 'weekday']
 
     for feature_name in categorical_feature : 
@@ -127,18 +131,18 @@ def crawling() :
         # 기존 test 데이터에 원-핫 데이터 병합하기
         df_re = pd.concat([df_re,one_hot], axis=1)
     
-    x_columns = ['temp', 'humi', 'rain', 'hour_0', 'hour_1', 'hour_10', 'hour_11',
-    'hour_12', 'hour_13', 'hour_14', 'hour_15', 'hour_16', 'hour_17',
-    'hour_18', 'hour_19', 'hour_2', 'hour_20', 'hour_21', 'hour_22',
-    'hour_23', 'hour_3', 'hour_4', 'hour_5', 'hour_6', 'hour_7', 'hour_8',
-    'hour_9', 'day_1', 'day_10', 'day_11', 'day_12', 'day_13', 'day_14',
-    'day_15', 'day_16', 'day_17', 'day_18', 'day_19', 'day_2', 'day_20',
-    'day_21', 'day_22', 'day_23', 'day_24', 'day_25', 'day_26', 'day_27',
-    'day_28', 'day_29', 'day_3', 'day_30', 'day_31', 'day_4', 'day_5',
-    'day_6', 'day_7', 'day_8', 'day_9', 'month_1', 'month_10', 'month_11',
-    'month_12', 'month_2', 'month_3', 'month_4', 'month_5', 'month_6',
-    'month_7', 'month_8', 'month_9', 'weekday_0', 'weekday_1', 'weekday_2',
-    'weekday_3', 'weekday_4', 'weekday_5', 'weekday_6']
+    x_columns = ['temp', 'humi', 'rain', 'hour_00', 'hour_01', 'hour_02', 'hour_03',
+       'hour_04', 'hour_05', 'hour_06', 'hour_07', 'hour_08', 'hour_09',
+       'hour_10', 'hour_11', 'hour_12', 'hour_13', 'hour_14', 'hour_15',
+       'hour_16', 'hour_17', 'hour_18', 'hour_19', 'hour_20', 'hour_21',
+       'hour_22', 'hour_23', 'day_1', 'day_10', 'day_11', 'day_12', 'day_13',
+       'day_14', 'day_15', 'day_16', 'day_17', 'day_18', 'day_19', 'day_2',
+       'day_20', 'day_21', 'day_22', 'day_23', 'day_24', 'day_25', 'day_26',
+       'day_27', 'day_28', 'day_29', 'day_3', 'day_30', 'day_31', 'day_4',
+       'day_5', 'day_6', 'day_7', 'day_8', 'day_9', 'month_1', 'month_10',
+       'month_11', 'month_12', 'month_2', 'month_3', 'month_4', 'month_5',
+       'month_6', 'month_7', 'month_8', 'month_9', 'weekday_0', 'weekday_1',
+       'weekday_2', 'weekday_3', 'weekday_4', 'weekday_5', 'weekday_6']
 
     list1 = list(set(x_columns)-set(df_re.columns))
     for i in list1 :
@@ -148,8 +152,8 @@ def crawling() :
     x_df_re = df_re.iloc[:,1:][x_columns]
     
     # 예측
-    xgb_model = joblib.load("./xgb_reg.pkl")
-    pred = xgb_model.predict(x_df_re)
+    xgb_load = joblib.load("./xgb_reg.pkl")
+    pred = xgb_load.predict(x_df_re)
 
     predict = pd.DataFrame(pred, columns=['pre_power'])
     predict['pre_carbon'] = pred*0.4594
