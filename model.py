@@ -11,9 +11,11 @@ import pandas as pd
 from xgboost import XGBRegressor
 import joblib
 from tqdm import tqdm
+from flask_cors import CORS, cross_origin
 
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/today_weather', methods = ['GET', 'POST'])
 def crawling2() :
