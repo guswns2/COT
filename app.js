@@ -23,15 +23,6 @@ let dbInfo = {
 
 let SMS = new session_mysql_save(dbInfo);
 
-// app.use(
-//   session({
-//     secret: "smart",
-//     resave: false,
-//     saveUninitializedt: true,
-//     store: SMS,
-//   })
-// );
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(router);
 app.listen(3001);
