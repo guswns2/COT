@@ -10,7 +10,7 @@ COT (Change Of Tomorrow)
 2022.12 ~ 2023.01 (약 4주)
 ### 개발 환경
 - Web : Javascript, React
-- Server : Node.js v16.17.1, Flask
+- Server : Node.js(v16.17.1), Flask
 - DataBase : MySQL
 - MachineLearning : Python
 - Code Editor : VisualStudio Code, Jupyter, MySQL WorkBench
@@ -18,7 +18,11 @@ COT (Change Of Tomorrow)
 
 
 ### 프로젝트 설치 및 실행
-- pm2 설치 : npm install pm2 -g 
-- node_module 설치 : npm install -f (v8.15.0)
-- Python interpreter 선택 : Ctrl+Shift+p > Python: Select Interpreter > Python 3.9.12('base') ~\anaconda3\python.exe
-- model.py 라이브러리 설치 : pip install flask, pip install pymysql, pip install flask_cors
+pm2 설치
+- npm install pm2 -g 
+node_module 설치
+- npm install -f (v8.15.0)
+Python interpreter 선택
+- Ctrl+Shift+p > Python: Select Interpreter > Python 3.9.12('base') ~\anaconda3\python.exe
+model.py 라이브러리 설치
+- pip install flask, pip install pymysql, pip install flask_cors
