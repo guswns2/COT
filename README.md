@@ -18,17 +18,7 @@ COT (Change Of Tomorrow)
 
 
 ### 프로젝트 설치 및 실행
-- pm2 설치
-npm install pm2 -g 
-
-- node_module 설치
-npm install -f
-npm -v (8.15.0)
-
-- Python interpreter 선택
-Ctrl+Shift+p > Python: Select Interpreter > Python 3.9.12('base') ~\anaconda3\python.exe
-
-- model.py 라이브러리 설치
-pip install flask
-pip install pymysql
-pip install flask_cors
+- pm2 설치 : npm install pm2 -g 
+- node_module 설치 : npm install -f (v8.15.0)
+- Python interpreter 선택 : Ctrl+Shift+p > Python: Select Interpreter > Python 3.9.12('base') ~\anaconda3\python.exe
+- model.py 라이브러리 설치 : pip install flask, pip install pymysql, pip install flask_cors
