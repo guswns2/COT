@@ -2,12 +2,13 @@
 
 ### 프로젝트 소개
 주제 : 머신러닝 기반 건물에너지 및 탄소배출량 관리 Web
-### 팀명
-COT (Change Of Tomorrow)
-### 인원
-5명
-### 개발 기간
-2022.12 ~ 2023.01 (약 4주)
+
+팀명 : COT (Change Of Tomorrow)
+
+인원 : 5명
+
+개발 기간 : 2022.12 ~ 2023.01 (약 4주)
+
 ### 개발 환경
 - Web : Javascript, React
 - Server : Node.js(v16.17.1), Flask
