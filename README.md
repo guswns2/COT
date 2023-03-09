@@ -10,7 +10,8 @@
 개발 기간 : 2022.12 ~ 2023.01 (약 4주)
 
 ### 개발 환경
-- Web : Javascript, React
+Web
+ - Javascript, React
 - Server : Node.js(v16.17.1), Flask
 - DataBase : MySQL
 - MachineLearning : Python
