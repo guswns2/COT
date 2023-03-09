@@ -12,20 +12,15 @@
 
 
 ## ⚙ 개발 환경
-Web
- - Javascript, React
+- Web : Javascript, React
 
-Server
- - Node.js(v16.17.1), Flask
+- Server : Node.js(v16.17.1), Flask
 
-DataBase
- - MySQL
+- DataBase : MySQL
 
-MachineLearning 
- - Python
+- MachineLearning : Python
 
-Code Editor 
- - VisualStudio Code, Jupyter, MySQL WorkBench
+- Code Editor : VisualStudio Code, Jupyter, MySQL WorkBench
 
 
 ## 🔍주요 기능
