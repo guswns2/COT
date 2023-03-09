@@ -10,9 +10,9 @@
 
 ## ⚙ 개발 환경
 - Web : Javascript, React
-- Server : Node.js(v16.17.1), Flask
+- Server : Node.js (v16.17.1), Flask
 - DataBase : MySQL
-- MachineLearning : Python
+- MachineLearning : Python (v3.9.12)
 - Code Editor : VisualStudio Code, Jupyter, MySQL WorkBench
 
 
