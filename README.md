@@ -19,6 +19,7 @@
 ## 🔍 주요 기능
 - Login
   - ID, PW 값 DB 검증
+  - ID LocalStorage에 저장
 
 - Sign Up
   - ID 중복체크 후 DB 저장
