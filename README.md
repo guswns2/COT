@@ -10,8 +10,9 @@
 
 개발 기간 : 2022.12 ~ 2023.01 (약 4주)
 
+
 ### 개발 환경
-* Web
+Web
  - Javascript, React
 
 Server
