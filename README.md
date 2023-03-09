@@ -12,10 +12,19 @@
 ### 개발 환경
 Web
  - Javascript, React
-- Server : Node.js(v16.17.1), Flask
-- DataBase : MySQL
-- MachineLearning : Python
-- Code Editor : VisualStudio Code, Jupyter, MySQL WorkBench
+
+Server
+ - Node.js(v16.17.1), Flask
+
+DataBase
+ - MySQL
+
+MachineLearning 
+ - Python
+
+Code Editor 
+ - VisualStudio Code, Jupyter, MySQL WorkBench
+
 ### 주요 기능
 - Login : ID, PW 값 DB 검증
 - Sign Up : ID 중복체크, DB 저장
