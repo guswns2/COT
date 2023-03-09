@@ -12,7 +12,9 @@
 
 
 ## ⚙ 개발 환경
-Web : Javascript, React
+- Web
+
+  - Javascript, React
 
 Server : Node.js(v16.17.1), Flask
 
