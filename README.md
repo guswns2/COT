@@ -23,7 +23,7 @@
 - Code Editor : VisualStudio Code, Jupyter, MySQL WorkBench
 
 
-## 🔍주요 기능
+## 🔍 주요 기능
 - Login
   - ID, PW 값 DB 검증
 
@@ -39,6 +39,7 @@
 
 - History Page
   - 과거 주간/월간/연간 전력사용량&탄소배출량 라인그래프
+  - 최대/최소값 요약
 
 
 ## 🔁 프로젝트 설치 및 실행
