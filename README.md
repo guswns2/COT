@@ -48,4 +48,7 @@
 - model.py 라이브러리 설치
   - pip install flask
   - pip install pymysql
+  - pip install sqlalchemy
+  - pip install bs4
+  - pip install tqdm
   - pip install flask_cors
